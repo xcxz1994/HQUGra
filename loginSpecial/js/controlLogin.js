@@ -74,6 +74,9 @@ layui.use('layer', function () {
         var login = $('.username').val();
         var pwd = $('.passwordNumder').val();
         var code = $('.ValidateNum').val();
+
+        var autoFlag = $('.checked').val();
+
         if (login == '') {
             ErroAlert('请输入您的账号');
             return false;
@@ -93,7 +96,7 @@ layui.use('layer', function () {
                     data: {
                         'username':login,
                         'password':pwd,
-                        'code':code
+                        'autoFlag':autoFlag
                     },
                     success:function(data){
                         console.log(data)

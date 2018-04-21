@@ -59,12 +59,17 @@ require_once './include.php';
             <input name="code" placeholder='验证码' maxlength="4"  class="ValidateNum" type='text' name="ValidateNum" autocomplete="off">
             <div class='validation' style="opacity: 1; right: -5px;top: -3px;">
                 <canvas class="J_codeimg" id="myCanvas" onclick="Code();">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
+
             </div>
+
         </div>
+
         <div class='login_fields__submit' id="login_submit">
             <input type='button' value='登录'>
         </div>
+
     </div>
+    <li class="autoLogin"><input type="checkbox" id="a1" class="checked" name="autoFlag" value="1"><label for="a1">自动登陆(一周内自动登陆)</label></li>
     <div class='success'>
     </div>
     <div class='disclaimer'>
