@@ -86,32 +86,36 @@ layui.use('layer', function () {
             return false;
 
         } else {
+            if(code.toUpperCase() == CodeVal.toUpperCase()){
+                $.ajax({
+                    url: './doLogin.php',
+                    type: 'post',
+                    data: {
+                        'username':login,
+                        'password':pwd,
+                        'code':code
+                    },
+                    success:function(data){
+                        console.log(data)
+                        if(data=='0'){
+                            var msgalert = '登录成功！<br/> 3秒后跳转' ;
+                            var index = layer.alert(msgalert, { icon: 6, time: 3000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });
+                            setTimeout(function(){
+                                window.location="./index.php"
+                            },2500)
+                        }else if(data=='1'){
+                            var msgalert = '账号或密码错误<br/> 请重新输入' ;
+                            var index = layer.alert(msgalert, { icon: 6, time: 2000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });
+                        }
+                        layer.style(index, {
+                            color: '#777'
+                        });
+                    }
+                })
+            }else{
+                alert("验证码输入错误，请重新输入")
+            }
              console.log(login,pwd);
-             $.ajax({
-                url: './doLogin.php',
-                type: 'post',
-                data: {
-                    'username':login,
-                    'password':pwd
-                },
-                success:function(data){
-                    console.log(data)
-                   if(data=='0'){
-                    var msgalert = '登录成功！<br/> 3秒后跳转' ;
-                    var index = layer.alert(msgalert, { icon: 6, time: 3000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });
-                    setTimeout(function(){
-                        window.location="./index.php"
-                    },2500)
-                   }else{
-                      var msgalert = '账号或密码错误<br/> 请重新输入' ;
-                      var index = layer.alert(msgalert, { icon: 6, time: 2000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 }); 
-                   }
-                   layer.style(index, {
-                        color: '#777'
-                    });
-                }
-            })
- 
         }
         return false;
     })
@@ -128,4 +132,3 @@ var fullscreen = function () {
         //浏览器不支持全屏API或已被禁用
     }
 }
-

@@ -6,7 +6,6 @@ require_once './include.php';
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-
 //$autoFlag=$_POST['autoFlag'];
 
     $sql="select * from hqugra_admin where username='{$username}' and password='{$password}'";

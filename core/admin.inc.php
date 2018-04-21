@@ -101,7 +101,7 @@ function logout(){
         setcookie("adminName","",time()-1);
     }
     session_destroy();
-    header("location:login.php");
+    header("location:./login.php");
 }
 /**
  * 添加用户的操作

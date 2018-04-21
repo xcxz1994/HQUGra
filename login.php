@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+<?php
 
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+require_once './include.php';
+?>
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
     <meta charset="UTF-8">
@@ -51,6 +55,7 @@
             <div class='icon'>
                 <img alt="" src='loginSpecial/img/key.png'>
             </div>
+
             <input name="code" placeholder='验证码' maxlength="4"  class="ValidateNum" type='text' name="ValidateNum" autocomplete="off">
             <div class='validation' style="opacity: 1; right: -5px;top: -3px;">
                 <canvas class="J_codeimg" id="myCanvas" onclick="Code();">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>

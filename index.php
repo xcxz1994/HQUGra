@@ -1,6 +1,7 @@
 ﻿<?php
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
 require_once './include.php';
+checkLogined()
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -193,16 +194,16 @@ $('.change_Password').on('click', function(){
 	}
     });
 });
-  $('#Exit_system').on('click', function(){
-      layer.confirm('是否确定退出系统？', {
-     btn: ['是','否'] ,//按钮
-	 icon:2,
-    }, 
-	function(){
-	  location.href="login.php";
-        
-    });
-});
+//   $('#Exit_system').on('click', function(){
+//       layer.confirm('是否确定退出系统？', {
+//      btn: ['是','否'] ,//按钮
+// 	 icon:2,
+//     },
+// 	function(){
+// 	  location.href="login.php";
+//
+//     });
+// });
 });
 function link_operating(name,title){
                 var cid = $(this).name;
@@ -246,7 +247,8 @@ function link_operating(name,title){
 				 <li><a href="javascript:void(0" name="Systems.html" title="系统设置" class="iframeurl"><i class="icon-cog"></i>网站设置</a></li>
 				 <li><a href="javascript:void(0)" name="admin_info.html" title="个人信息" class="iframeurl"><i class="icon-user"></i>个人资料</a></li>
 				 <li class="divider"></li>
-				 <li><a href="javascript:ovid(0)" id="Exit_system"><i class="icon-off"></i>退出</a></li>
+				 <li><a href="doAdminAction.php?act=logout" id="Exit_system"><i class="icon-off"></i>退出</a></li>
+
 				</ul>
 			   </li>
 	           <li class="purple">
