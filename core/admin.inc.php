@@ -1,4 +1,5 @@
 <?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
 /**
  * 检查管理员是否存在
  * @param unknown_type $sql
@@ -20,12 +21,16 @@ function checkLogined(){
  * @return string
  */
 function addAdmin(){
-    $arr=$_POST;
-    $arr['password']=md5($_POST['password']);
-    if(insert("imooc_admin",$arr)){
-        $mes="添加成功!<br/><a href='addAdmin.php'>继续添加</a>|<a href='listAdmin.php'>查看管理员列表</a>";
+    $arr['username']=$_POST['user-name'];
+    $arr['password']=md5($_POST['userpassword']);
+    $arr['email']=$_POST['email'];
+    $arr['userphone']=$_POST['user-tel'];
+    $arr['adminrole']=$_POST['admin-role'];
+    //var_dump($arr);
+    if(insert("hqugra_admin",$arr)){
+        $mes="添加成功!<br/><a href='administrator.php'>继续添加</a>|<a href='administrator.php'>查看管理员列表</a>";
     }else{
-        $mes="添加失败!<br/><a href='addAdmin.php'>重新添加</a>";
+        $mes="添加失败!<br/><a href='administrator.php'>重新添加</a>";
     }
     return $mes;
 }
@@ -36,12 +41,12 @@ function addAdmin(){
  */
 function getAllAdmin(){
 
-    $sql="select id,username,email from imooc_admin ";
+    $sql="select id,username,email from hqugra_admin ";
     $rows=fetchAll($sql);
     return $rows;
 }
 function getAdminByPage($page,$pageSize=2){
-    $sql="select * from imooc_admin";
+    $sql="select * from hqugra_admin";
     global $totalRows;
     $totalRows=getResultNum($sql);
     global $totalPage;
@@ -51,7 +56,7 @@ function getAdminByPage($page,$pageSize=2){
     }
     if($page>=$totalPage)$page=$totalPage;
     $offset=($page-1)*$pageSize;
-    $sql="select id,username,email from imooc_admin limit {$offset},{$pageSize}";
+    $sql="select id,username,email from hqugra_admin limit {$offset},{$pageSize}";
     $rows=fetchAll($sql);
     return $rows;
 }
@@ -64,7 +69,7 @@ function getAdminByPage($page,$pageSize=2){
 function editAdmin($id){
     $arr=$_POST;
     $arr['password']=md5($_POST['password']);
-    if(update("imooc_admin", $arr,"id={$id}")){
+    if(update("hqugra_admin", $arr,"id={$id}")){
         $mes="编辑成功!<br/><a href='listAdmin.php'>查看管理员列表</a>";
     }else{
         $mes="编辑失败!<br/><a href='listAdmin.php'>请重新修改</a>";
@@ -78,7 +83,7 @@ function editAdmin($id){
  * @return string
  */
 function delAdmin($id){
-    if(delete("imooc_admin","id={$id}")){
+    if(delete("hqugra_admin","id={$id}")){
         $mes="删除成功!<br/><a href='listAdmin.php'>查看管理员列表</a>";
     }else{
         $mes="删除失败!<br/><a href='listAdmin.php'>请重新删除</a>";
@@ -118,7 +123,7 @@ function addUser(){
     }else{
         return "添加失败<a href='addUser.php'>重新添加</a>";
     }
-    if(insert("imooc_user", $arr)){
+    if(insert("hqugra_user", $arr)){
         $mes="添加成功!<br/><a href='addUser.php'>继续添加</a>|<a href='listUser.php'>查看列表</a>";
     }else{
         $filename="../uploads/".$uploadFile[0]['name'];
@@ -135,13 +140,13 @@ function addUser(){
  * @return string
  */
 function delUser($id){
-    $sql="select face from imooc_user where id=".$id;
+    $sql="select face from hqugra_user where id=".$id;
     $row=fetchOne($sql);
     $face=$row['face'];
     if(file_exists("../uploads/".$face)){
         unlink("../uploads/".$face);
     }
-    if(delete("imooc_user","id={$id}")){
+    if(delete("hqugra_user","id={$id}")){
         $mes="删除成功!<br/><a href='listUser.php'>查看用户列表</a>";
     }else{
         $mes="删除失败!<br/><a href='listUser.php'>请重新删除</a>";
@@ -156,7 +161,7 @@ function delUser($id){
 function editUser($id){
     $arr=$_POST;
     $arr['password']=md5($_POST['password']);
-    if(update("imooc_user", $arr,"id={$id}")){
+    if(update("hqugra_user", $arr,"id={$id}")){
         $mes="编辑成功!<br/><a href='listUser.php'>查看用户列表</a>";
     }else{
         $mes="编辑失败!<br/><a href='listUser.php'>请重新修改</a>";

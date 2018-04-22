@@ -1,4 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+
+?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -121,7 +125,7 @@
 </div>
  <!--添加管理员-->
  <div id="add_administrator_style" class="add_menber" style="display:none">
-    <form action="" method="post" id="form-admin-add">
+    <form action="doAdminAction.php?act=addAdmin" method="post" id="form-admin-add">
 		<div class="form-group">
 			<label class="form-label"><span class="c-red">*</span>管理员：</label>
 			<div class="formControls">
@@ -316,26 +320,26 @@ $('#administrator_add').on('click', function(){
 	});
 })
 	//表单验证提交
-$("#form-admin-add").Validform({
-		
-		 tiptype:2,
-	
-		callback:function(data){
-		//form[0].submit();
-		if(data.status==1){ 
-                layer.msg(data.info, {icon: data.status,time: 1000}, function(){ 
-                    location.reload();//刷新页面 
-                    });   
-            } 
-            else{ 
-                layer.msg(data.info, {icon: data.status,time: 3000}); 
-            } 		  
-			var index =parent.$("#iframe").attr("src");
-			parent.layer.close(index);
-			//
-		}
-		
-		
-	});	
-</script>
+// $("#form-admin-add").Validform({
+//
+// 		 tiptype:2,
+//
+// 		callback:function(data){
+// 		//form[0].submit();
+// 		if(data.status==1){
+//                 layer.msg(data.info, {icon: data.status,time: 1000}, function(){
+//                     location.reload();//刷新页面
+//                     });
+//             }
+//             else{
+//                 layer.msg(data.info, {icon: data.status,time: 3000});
+//             }
+// 			var index =parent.$("#iframe").attr("src");
+// 			parent.layer.close(index);
+// 			//
+// 		}
+//
+//
+// 	});
+<!--</script>-->
 

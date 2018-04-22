@@ -17,8 +17,12 @@ function connect(){
  * @return number
  */
 function insert($table,$array){
+   // var_dump($array);
+   // var_dump($table);
     $keys=join(",",array_keys($array));
     $vals="'".join("','",array_values($array))."'";
+   // var_dump($keys);
+   // var_dump($vals);
     $sql="insert {$table}($keys) values({$vals})";
     mysql_query($sql);
     return mysql_insert_id();
