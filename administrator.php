@@ -2,9 +2,15 @@
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
 
 require_once './include.php';
+echo '<script type="text/javascript">';
+echo "$('#superadmin').on('click', function(){
+      var superadmin='<?php ?>'
+})";
+echo '</script>';
 $rows=getAllAdmin();
+
 if(!$rows){
-    alertMes("sorry,没有管理员,请添加!");
+    alertMes("sorry,没有管理员,请添加!","administrator.php");
     exit;
 }
 //print_r($rows);
@@ -67,11 +73,10 @@ if(!$rows){
          <div class="side_list"><div class="widget-header header-color-green2"><h4 class="lighter smaller">管理员分类列表</h4></div>
          <div class="widget-body">
            <ul class="b_P_Sort_list">
-           <li><i class="fa fa-users green"></i> <a href="#">全部管理员（13）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">超级管理员（1）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">普通管理员（5）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">产品编辑管理员（4）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">管理员（1）</a></li>
+           <li><i class="fa fa-users green"></i> <a href="#" >全部管理员（13）</a></li>
+            <li><i class="fa fa-users orange"></i> <a id="superadmin"  onclick="getsuperadmin()">超级管理员（1）</a></li>
+            <li><i class="fa fa-users orange"></i> <a id="writer" onclic="getwriter()">产品编辑管理员（4）</a></li>
+            <li><i class="fa fa-users orange"></i> <a id="admin" onclick="getadmin()">管理员（1）</a></li>
            </ul>
         </div>
        </div>
@@ -304,7 +309,6 @@ function member_del(obj,id){
 	});
 }
 
-/*获取本地时间*/
 
 
 /*添加管理员*/
