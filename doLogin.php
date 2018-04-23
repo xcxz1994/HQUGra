@@ -4,7 +4,7 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 
 require_once './include.php';
 $username = $_POST['username'];
-$password = $_POST['password'];
+$password=md5($_POST['password']);
 
 $autoFlag=$_POST['autoFlag'];
 

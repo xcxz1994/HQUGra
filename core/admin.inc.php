@@ -21,12 +21,14 @@ function checkLogined(){
  * @return string
  */
 function addAdmin(){
+    $showtime=date("Y-m-d H:i:s");
     $arr['username']=$_POST['user-name'];
     $arr['password']=md5($_POST['userpassword']);
     $arr['email']=$_POST['email'];
     $arr['userphone']=$_POST['user-tel'];
     $arr['adminrole']=$_POST['admin-role'];
-    //var_dump($arr);
+    $arr['jointime']=$showtime;
+    var_dump($arr);
     if(insert("hqugra_admin",$arr)){
         $mes="添加成功!<br/><a href='administrator.php'>继续添加</a>|<a href='administrator.php'>查看管理员列表</a>";
     }else{
@@ -41,7 +43,7 @@ function addAdmin(){
  */
 function getAllAdmin(){
 
-    $sql="select id,username,email from hqugra_admin ";
+    $sql="select id,username,email,userphone,adminrole,jointime from hqugra_admin ";
     $rows=fetchAll($sql);
     return $rows;
 }

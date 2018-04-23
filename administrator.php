@@ -1,6 +1,13 @@
 <?php
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
 
+require_once './include.php';
+$rows=getAllAdmin();
+if(!$rows){
+    alertMes("sorry,没有管理员,请添加!");
+    exit;
+}
+//print_r($rows);
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -87,14 +94,15 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 			</tr>
 		</thead>
 	<tbody>
+    <?php  foreach($rows as $row):?>
      <tr>
       <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-      <td>1</td>
-      <td>admin</td>
-      <td>18934334544</td>
-      <td>2345454@qq.com</td>
-      <td>超级管理员</td>
-      <td>2016-6-29 12:34</td>
+      <td><?php echo $row['id'];?></td>
+      <td><?php echo $row['username'];?></td>
+      <td><?php echo $row['userphone'];?></td>
+      <td><?php echo $row['email'];?></td>
+      <td><?php echo $row['adminrole'];?></td>
+      <td><?php echo $row['jointime'];?></td>
       <td class="td-status"><span class="label label-success radius">已启用</span></td>
       <td class="td-manage">
         <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>  
@@ -102,21 +110,7 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
         <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
        </td>
      </tr>
-       <tr>
-      <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-      <td>2</td>
-      <td>admin12345</td>
-      <td>18934334544</td>
-      <td>2345454@qq.com</td>
-      <td>管理员</td>
-      <td>2016-6-29 12:34</td>
-      <td class="td-status"><span class="label label-success radius">已启用</span></td>
-      <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>   
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-       </td>
-     </tr>    
+    <?php endforeach;?>
     </tbody>
     </table>
       </div>
@@ -174,10 +168,10 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 			<label class="form-label">角色：</label>
 			<div class="formControls "> <span class="select-box" style="width:150px;">
 				<select class="select" name="admin-role" size="1">
-					<option value="0">超级管理员</option>
-					<option value="1">管理员</option>
-					<option value="2">栏目主辑</option>
-					<option value="3">栏目编辑</option>
+					<option value="超级管理员">超级管理员</option>
+					<option value="管理员">管理员</option>
+					<option value="栏目主辑">栏目主辑</option>
+					<option value="栏目编辑">栏目编辑</option>
 				</select>
 				</span> </div>
 		</div>
@@ -189,7 +183,8 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 			</div>
 			<div class="col-4"> </div>
 		</div>
-		<div> 
+		<div>
+
         <input class="btn btn-primary radius" type="submit" id="Add_Administrator" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 	</form>
    </div>
@@ -308,6 +303,10 @@ function member_del(obj,id){
 		layer.msg('已删除!',{icon:1,time:1000});
 	});
 }
+
+/*获取本地时间*/
+
+
 /*添加管理员*/
 $('#administrator_add').on('click', function(){
 	layer.open({
