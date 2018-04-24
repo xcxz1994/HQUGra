@@ -58,21 +58,31 @@ if(isset($_GET['act'])){
         $number1=count($rows);
     }elseif ($act=="SuperAdmin"){
         $rows=getSuperAdminTest()[0];
+        if(!$rows){
+            alertMes("sorry,没有超级管理员,请添加!","administrator.php");
+            exit;
+        }
     }elseif ($act=="Admin"){
         $rows=getAdminTest()[0];
-
+        if(!$rows){
+            alertMes("sorry,没有管理员,请添加!","administrator.php");
+            exit;
+        }
     }elseif ($act=="Writer"){
         $rows=getWriterTest()[0];
-
+        if(!$rows){
+            alertMes("sorry,没有栏目编辑员,请添加!","administrator.php");
+            exit;
+        }
     }
 }
 
 
 
-//if(!$rows){
-//    alertMes("sorry,没有管理员,请添加!");
-//exit;
-//}
+if(!$rows){
+    alertMes("sorry,没有管理员,请添加!");
+exit;
+}
 //print_r($rows);
 ?>
 <!DOCTYPE html>
@@ -121,7 +131,7 @@ if(isset($_GET['act'])){
         <a href="javascript:ovid()" id="administrator_add" class="btn btn-warning"><i class="fa fa-plus"></i> 添加管理员</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i> 批量删除</a>
        </span>
-       <span class="r_f">共：<b>5</b>人</span>
+       <span class="r_f">共：<b><?php echo $number1?></b>人</span>
      </div>
      <!--管理员列表-->
      <div class="clearfix administrator_style" id="administrator">
@@ -171,7 +181,7 @@ if(isset($_GET['act'])){
       <td class="td-status"><span class="label label-success radius">已启用</span></td>
       <td class="td-manage">
         <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>  
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>       
+        <a title="编辑" href="javascript:;"  class="btn btn-xs btn-info" id="administrator_edit"><i class="fa fa-edit bigger-120"></i></a>
         <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
        </td>
      </tr>
@@ -253,6 +263,77 @@ if(isset($_GET['act'])){
         <input class="btn btn-primary radius" type="submit" id="Add_Administrator" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 	</form>
    </div>
+    <!--编辑管理员-->
+    <div id="edit_administrator_style" class="add_menber" style="display:none">
+        <form action="doAdminAction.php?act=addAdmin" method="post" id="form-admin-add">
+            <div class="form-group">
+                <label class="form-label"><span class="c-red">*</span>管理员：</label>
+                <div class="formControls">
+                    <input type="text" class="input-text" value="" placeholder="" id="user-name" name="user-name" datatype="*2-16" nullmsg="用户名不能为空">
+                </div>
+                <div class="col-4"> <span class="Validform_checktip"></span></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><span class="c-red">*</span>初始密码：</label>
+                <div class="formControls">
+                    <input type="password" placeholder="密码" name="userpassword" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
+                </div>
+                <div class="col-4"> <span class="Validform_checktip"></span></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label "><span class="c-red">*</span>确认密码：</label>
+                <div class="formControls ">
+                    <input type="password" placeholder="确认新密码" autocomplete="off" class="input-text Validform_error" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="userpassword" id="newpassword2" name="newpassword2">
+                </div>
+                <div class="col-4"> <span class="Validform_checktip"></span></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label "><span class="c-red">*</span>性别：</label>
+                <div class="formControls  skin-minimal">
+                    <label><input name="form-field-radio" type="radio" class="ace" checked="checked"><span class="lbl">保密</span></label>&nbsp;&nbsp;
+                    <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">男</span></label>&nbsp;&nbsp;
+                    <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">女</span></label>
+                </div>
+                <div class="col-4"> <span class="Validform_checktip"></span></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label "><span class="c-red">*</span>手机：</label>
+                <div class="formControls ">
+                    <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="手机不能为空">
+                </div>
+                <div class="col-4"> <span class="Validform_checktip"></span></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><span class="c-red">*</span>邮箱：</label>
+                <div class="formControls ">
+                    <input type="text" class="input-text" placeholder="@" name="email" id="email" datatype="e" nullmsg="请输入邮箱！">
+                </div>
+                <div class="col-4"> <span class="Validform_checktip"></span></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">角色：</label>
+                <div class="formControls "> <span class="select-box" style="width:150px;">
+				<select class="select" name="admin-role" size="1">
+					<option value="超级管理员">超级管理员</option>
+					<option value="管理员">管理员</option>
+					<option value="栏目主辑">栏目主辑</option>
+					<option value="栏目编辑">栏目编辑</option>
+				</select>
+				</span> </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">备注：</label>
+                <div class="formControls">
+                    <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);"></textarea>
+                    <span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
+                </div>
+                <div class="col-4"> </div>
+            </div>
+            <div>
+
+                <input class="btn btn-primary radius" type="submit" id="Add_Administrator" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+        </form>
+    </div>
  </div>
 </body>
 </html>
@@ -356,12 +437,12 @@ function member_start(obj,id){
 		layer.msg('已启用!',{icon: 6,time:1000});
 	});
 }
-/*产品-编辑*/
+/*管理员-编辑*/
 function member_edit(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
 
-/*产品-删除*/
+/*管理员-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$(obj).parents("tr").remove();
@@ -369,6 +450,17 @@ function member_del(obj,id){
 	});
 }
 
+/*编辑管理员*/
+$('#administrator_edit').on('click', function(){
+    layer.open({
+        type: 1,
+        title:'编辑管理员',
+        area: ['700px',''],
+        shadeClose: false,
+        content: $('#edit_administrator_style'),
+
+    });
+})
 /*获取超级管理员*/
 /*function getSuperAdmin(){
     var  act = 'SuperAdmin';
@@ -426,4 +518,3 @@ $('#administrator_add').on('click', function(){
 //
 // 	});
 <!--</script>-->
-
