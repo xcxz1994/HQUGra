@@ -24,7 +24,7 @@ if(isset($_GET['act'])){
 //    alertMes("sorry,没有管理员,请添加!");
 //exit;
 //}
-//print_r($rows);
+print_r($rows);
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
