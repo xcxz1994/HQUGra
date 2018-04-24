@@ -47,6 +47,24 @@ function getAllAdmin(){
     $rows=fetchAll($sql);
     return $rows;
 }
+function getSuperAdmin(){
+    $sql="select id,username,email,userphone,adminrole,jointime from hqugra_admin where adminrole='超级管理员'";
+    $rows=fetchAll($sql);
+
+    return $rows;
+}
+function getAdmin(){
+    $sql="select id,username,email,userphone,adminrole,jointime from hqugra_admin where adminrole='管理员'";
+    $rows=fetchAll($sql);
+
+    return $rows;
+}
+function getWriter(){
+    $sql="select id,username,email,userphone,adminrole,jointime from hqugra_admin where adminrole='栏目主辑' or adminrole='栏目编辑'";
+    $rows=fetchAll($sql);
+
+    return $rows;
+}
 function getAdminByPage($page,$pageSize=2){
     $sql="select * from hqugra_admin";
     global $totalRows;

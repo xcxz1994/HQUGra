@@ -2,11 +2,28 @@
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
 
 require_once './include.php';
-$rows=getAllAdmin();
-if(!$rows){
-    alertMes("sorry,没有管理员,请添加!");
-    exit;
+
+if(isset($_GET['act'])){
+    $act =  $_GET['act'];
+    var_dump($act);
+
+    if($act=="AllAdmin"){
+        $rows=getAllAdmin();
+    }elseif ($act=="SuperAdmin"){
+        $rows=getSuperAdmin();
+    }elseif ($act=="Admin"){
+        $rows=getAdmin();
+    }elseif ($act=="Writer"){
+        $rows=getWriter();
+    }
 }
+
+
+
+//if(!$rows){
+//    alertMes("sorry,没有管理员,请添加!");
+//exit;
+//}
 //print_r($rows);
 ?>
 <!DOCTYPE html>
@@ -67,11 +84,10 @@ if(!$rows){
          <div class="side_list"><div class="widget-header header-color-green2"><h4 class="lighter smaller">管理员分类列表</h4></div>
          <div class="widget-body">
            <ul class="b_P_Sort_list">
-           <li><i class="fa fa-users green"></i> <a href="#">全部管理员（13）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">超级管理员（1）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">普通管理员（5）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">产品编辑管理员（4）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="#">管理员（1）</a></li>
+           <li><i class="fa fa-users green"></i> <a href="administrator.php?act=AllAdmin" >全部管理员（13）</a></li>
+            <li><i class="fa fa-users orange"></i> <a href="administrator.php?act=SuperAdmin" >超级管理员（1）</a></li>
+            <li><i class="fa fa-users orange"></i> <a href="administrator.php?act=Writer" >产品编辑管理员（4）</a></li>
+            <li><i class="fa fa-users orange"></i> <a href="administrator.php?act=Admin" >管理员（1）</a></li>
            </ul>
         </div>
        </div>
@@ -304,8 +320,28 @@ function member_del(obj,id){
 	});
 }
 
-/*获取本地时间*/
+/*获取超级管理员*/
+/*function getSuperAdmin(){
+    var  act = 'SuperAdmin';
+    alert(act);
+    $.ajax({
+        url: './administrator.php',
+        type: 'post',
+        data: {
+            'act':act
+        },
+        success:function(data){
+          console.log("传参成功")
+        }
+    })
+}
+function getWriter(){
 
+}
+function getAdmin(){
+
+}
+*/
 
 /*添加管理员*/
 $('#administrator_add').on('click', function(){
