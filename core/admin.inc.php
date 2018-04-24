@@ -47,7 +47,7 @@ function getAllAdmin(){
     $rows=fetchAll($sql);
     return $rows;
 }
-function getSuperAdmin(){
+/*function getSuperAdmin(){
     $sql="select id,username,email,userphone,adminrole,jointime from hqugra_admin where adminrole='超级管理员'";
     $rows=fetchAll($sql);
 
@@ -65,6 +65,7 @@ function getWriter(){
 
     return $rows;
 }
+*/
 function getAdminByPage($page,$pageSize=2){
     $sql="select * from hqugra_admin";
     global $totalRows;

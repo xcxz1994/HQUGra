@@ -2,19 +2,68 @@
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
 
 require_once './include.php';
+$rows=getAllAdmin();
+$number1=count($rows);
+$number2=getSuperAdminTest()[1];
+$number3=getWriterTest()[1];
+$number4=getAdminTest()[1];
+//print_r($number4);
+function getSuperAdminTest(){
+    $superadmin=array();
+    $rows=getAllAdmin();
+    for($i=0;$i<count($rows);$i++){
+        if($rows[$i]['adminrole']=='超级管理员') {
+            $superadmin.array_push($rows[$i]);
+        }else{
+            echo "没有超级管理员";
+        }
+     }
+    $number2=count($superadmin);
+     return array($superadmin,$number2);
+}
+function getWriterTest(){
+    $writer=array();
+    $rows=getAllAdmin();
+    for($i=0;$i<count($rows);$i++){
+        if($rows[$i]['adminrole']=="栏目主辑" || $rows[$i]['adminrole']=="栏目编辑") {
+            $writer.array_push($rows[$i]);
+        }else{
+            echo "没有栏目编辑员";
+        }
+    }
+    $number3=count($writer);
+    return array($writer,$number3);
+}
+function getAdminTest(){
+    $admin=array();
+    $rows=getAllAdmin();
+    for($i=0;$i<count($rows);$i++){
+        if($rows[$i]['adminrole']=='管理员') {
+            array_push($admin,$rows[$i]);
+        }else{
+            echo "没有管理员";
+        }
+    }
+    //print_r($admin);
+    $number4=count($admin);
+    return array($admin,$number4);
 
+}
+getAdminTest();
 if(isset($_GET['act'])){
     $act =  $_GET['act'];
     var_dump($act);
-
     if($act=="AllAdmin"){
         $rows=getAllAdmin();
+        $number1=count($rows);
     }elseif ($act=="SuperAdmin"){
-        $rows=getSuperAdmin();
+        $rows=getSuperAdminTest()[0];
     }elseif ($act=="Admin"){
-        $rows=getAdmin();
+        $rows=getAdminTest()[0];
+
     }elseif ($act=="Writer"){
-        $rows=getWriter();
+        $rows=getWriterTest()[0];
+
     }
 }
 
@@ -24,7 +73,7 @@ if(isset($_GET['act'])){
 //    alertMes("sorry,没有管理员,请添加!");
 //exit;
 //}
-print_r($rows);
+//print_r($rows);
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -84,10 +133,10 @@ print_r($rows);
          <div class="side_list"><div class="widget-header header-color-green2"><h4 class="lighter smaller">管理员分类列表</h4></div>
          <div class="widget-body">
            <ul class="b_P_Sort_list">
-           <li><i class="fa fa-users green"></i> <a href="administrator.php?act=AllAdmin" >全部管理员（13）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="administrator.php?act=SuperAdmin" >超级管理员（1）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="administrator.php?act=Writer" >产品编辑管理员（4）</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="administrator.php?act=Admin" >管理员（1）</a></li>
+           <li><i class="fa fa-users green"></i> <a href="administrator.php?act=AllAdmin" >全部管理员(<?php echo $number1?>)</a></li>
+            <li><i class="fa fa-users orange"></i> <a href="administrator.php?act=SuperAdmin" >超级管理员（<?php echo $number2?>）</a></li>
+            <li><i class="fa fa-users orange"></i> <a href="administrator.php?act=Writer" >产品编辑管理员（<?php echo $number3?>）</a></li>
+            <li><i class="fa fa-users orange"></i> <a href="administrator.php?act=Admin" >管理员（<?php echo $number4?>）</a></li>
            </ul>
         </div>
        </div>
