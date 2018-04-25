@@ -88,12 +88,19 @@ function getAdminByPage($page,$pageSize=2){
  * @return string
  */
 function editAdmin($id){
-    $arr=$_POST;
-    $arr['password']=md5($_POST['password']);
+    $showtime=date("Y-m-d H:i:s");
+    $arr['username']=$_POST['user-name'];
+    $arr['password']=md5($_POST['userpassword']);
+    $arr['email']=$_POST['email'];
+    $arr['userphone']=$_POST['user-tel'];
+    $arr['adminrole']=$_POST['admin-role'];
+    $arr['jointime']=$showtime;
     if(update("hqugra_admin", $arr,"id={$id}")){
-        $mes="编辑成功!<br/><a href='listAdmin.php'>查看管理员列表</a>";
+        $mes="编辑成功!<br/>";
+
     }else{
-        $mes="编辑失败!<br/><a href='listAdmin.php'>请重新修改</a>";
+        $mes="编辑失败!<br/>";
+
     }
     return $mes;
 }

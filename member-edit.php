@@ -5,7 +5,13 @@
  * Date: 2018/4/25
  * Time: 11:24
  */
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
 
+require_once './include.php';
+$id=$_REQUEST['id'];
+$sql="select id,username,password,email,userphone,adminrole from hqugra_admin where id='{$id}'";
+$row=fetchOne($sql);
+print_r($row);
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -40,18 +46,18 @@
 <div class="page-content clearfix">
     <!--编辑管理员-->
     <div id="add_administrator_style" class="add_menber" >
-        <form action="doAdminAction.php?act=addAdmin" method="post" id="form-admin-add">
+        <form action="doAdminAction.php?act=editAdmin&id=<?php echo $id;?>" method="post" id="form-admin-add">
             <div class="form-group">
                 <label class="form-label"><span class="c-red">*</span>管理员：</label>
                 <div class="formControls">
-                    <input type="text" class="input-text" value="" placeholder="" id="user-name" name="user-name" datatype="*2-16" nullmsg="用户名不能为空">
+                    <input type="text" class="input-text" value="" placeholder="<?php echo $row['username'];?>" id="user-name" name="user-name" datatype="*2-16" nullmsg="用户名不能为空">
                 </div>
                 <div class="col-4"> <span class="Validform_checktip"></span></div>
             </div>
             <div class="form-group">
                 <label class="form-label"><span class="c-red">*</span>初始密码：</label>
                 <div class="formControls">
-                    <input type="password" placeholder="密码" name="userpassword" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
+                    <input type="password" placeholder="" name="userpassword" autocomplete="off" value="<?php echo $row['password'];?>" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
                 </div>
                 <div class="col-4"> <span class="Validform_checktip"></span></div>
             </div>
@@ -62,33 +68,26 @@
                 </div>
                 <div class="col-4"> <span class="Validform_checktip"></span></div>
             </div>
-            <div class="form-group">
-                <label class="form-label "><span class="c-red">*</span>性别：</label>
-                <div class="formControls  skin-minimal">
-                    <label><input name="form-field-radio" type="radio" class="ace" checked="checked"><span class="lbl">保密</span></label>&nbsp;&nbsp;
-                    <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">男</span></label>&nbsp;&nbsp;
-                    <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">女</span></label>
-                </div>
-                <div class="col-4"> <span class="Validform_checktip"></span></div>
-            </div>
+
             <div class="form-group">
                 <label class="form-label "><span class="c-red">*</span>手机：</label>
                 <div class="formControls ">
-                    <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="手机不能为空">
+                    <input type="text" class="input-text" value="" placeholder="<?php echo $row['userphone'];?>" id="user-tel" name="user-tel" datatype="m" nullmsg="手机不能为空">
                 </div>
                 <div class="col-4"> <span class="Validform_checktip"></span></div>
             </div>
             <div class="form-group">
                 <label class="form-label"><span class="c-red">*</span>邮箱：</label>
                 <div class="formControls ">
-                    <input type="text" class="input-text" placeholder="@" name="email" id="email" datatype="e" nullmsg="请输入邮箱！">
+                    <input type="text" class="input-text" placeholder="<?php echo $row['email'];?>" name="email" id="email" datatype="e" nullmsg="请输入邮箱！">
                 </div>
                 <div class="col-4"> <span class="Validform_checktip"></span></div>
             </div>
             <div class="form-group">
                 <label class="form-label">角色：</label>
                 <div class="formControls "> <span class="select-box" style="width:150px;">
-				<select class="select" name="admin-role" size="1">
+				<select class="select" name="admin-role" size="1" >
+                    <option><?php echo $row['adminrole'];?></option>
 					<option value="超级管理员">超级管理员</option>
 					<option value="管理员">管理员</option>
 					<option value="栏目主辑">栏目主辑</option>

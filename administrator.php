@@ -7,13 +7,13 @@ $number1=count($rows);
 $number2=getSuperAdminTest()[1];
 $number3=getWriterTest()[1];
 $number4=getAdminTest()[1];
-//print_r($number4);
+print_r($number2);
 function getSuperAdminTest(){
     $superadmin=array();
     $rows=getAllAdmin();
     for($i=0;$i<count($rows);$i++){
         if($rows[$i]['adminrole']=='超级管理员') {
-            $superadmin.array_push($rows[$i]);
+            $superadmin.array_push($superadmin,$rows[$i]);
         }else{
             echo "没有超级管理员";
         }
@@ -26,7 +26,7 @@ function getWriterTest(){
     $rows=getAllAdmin();
     for($i=0;$i<count($rows);$i++){
         if($rows[$i]['adminrole']=="栏目主辑" || $rows[$i]['adminrole']=="栏目编辑") {
-            $writer.array_push($rows[$i]);
+            $writer.array_push($writer,$rows[$i]);
         }else{
             echo "没有栏目编辑员";
         }
@@ -182,7 +182,7 @@ exit;
       <td class="td-status"><span class="label label-success radius">已启用</span></td>
       <td class="td-manage">
         <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>
-          <a title="编辑" href="javascript:;" id="administrator_edit"  onclick="member_edit()" class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>
+          <a title="编辑" href="javascript:;" id="administrator_edit"  onclick="member_edit(<?php echo $row['id'];?>)" class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
        </td>
      </tr>
@@ -418,16 +418,17 @@ $('#administrator_add').on('click', function(){
 	
 	});
 })
-function member_edit(){
+function member_edit(id){
+
     alert("编辑管理员")
     layer.open({
         type: 2,
         title:'编辑管理员',
         area: ['700px','500px'],
         shadeClose: false,
-        content: './member-edit.php',
-
+        content: './member-edit.php?id='+id,
     });
+    layer.getFrameIndex()
 }
 
 	//表单验证提交
