@@ -112,9 +112,11 @@ function editAdmin($id){
  */
 function delAdmin($id){
     if(delete("hqugra_admin","id={$id}")){
-        $mes="删除成功!<br/><a href='listAdmin.php'>查看管理员列表</a>";
+        $mes="删除成功!<br/>";
+        echo "0";
     }else{
-        $mes="删除失败!<br/><a href='listAdmin.php'>请重新删除</a>";
+        $mes="删除失败!<br/>";
+        echo "1";
     }
     return $mes;
 }
