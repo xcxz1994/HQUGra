@@ -427,8 +427,9 @@ function member_edit(id){
         area: ['700px','500px'],
         shadeClose: false,
         content: './member-edit.php?id='+id,
+        setwin:'./index.php'
     });
-    layer.getFrameIndex()
+
 }
 
 	//表单验证提交
