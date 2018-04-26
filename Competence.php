@@ -37,7 +37,16 @@ $rows=getAllAdmin();
    <div class="title_name">添加权限</div>
     <div class="Competence_add">
      <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 权限名称 </label>
-       <div class="col-sm-9"><input type="text" id="form-field-1" placeholder=""  name="权限名称" class="col-xs-10 col-sm-5"></div>
+       <div class="col-sm-5 " >
+
+           <select class="select" name="powername" size="1"  style="margin-left: 10px;">
+               <option value="超级管理员">超级管理员</option>
+               <option value="普通管理员">普通管理员</option>
+               <option value="栏目主辑">栏目主辑</option>
+               <option value="栏目编辑">栏目编辑</option>
+           </select>
+
+       </div>
 	</div>
      <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 权限描述 </label>
       <div class="col-sm-9"><textarea name="权限描述" class="form-control" id="form_textarea" placeholder="" onkeyup="checkLength(this);"></textarea><span class="wordage">剩余字数：<span id="sy" style="color:Red;">200</span>字</span></div>
