@@ -10,6 +10,7 @@ $autoFlag=$_POST['autoFlag'];
 
     $sql="select * from sys_admin where username='{$username}' and password='{$password}'";
     $row=checkAdmin($sql);
+    //var_dump($row['adminrole']);
     if($row){
         //如果选了一周内自动登陆
         if($autoFlag){
@@ -18,8 +19,9 @@ $autoFlag=$_POST['autoFlag'];
         }
         $_SESSION['adminName']=$row['username'];
         $_SESSION['adminId']=$row['id'];
-        echo "0";
+        echo $row['adminrole'];
        // alertMes("登陆成功","index.php");
+
     }else{
         echo "1";
         //alertMes("登陆失败，重新登陆","login.php");

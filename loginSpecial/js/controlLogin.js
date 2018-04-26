@@ -100,12 +100,27 @@ layui.use('layer', function () {
                     },
                     success:function(data){
                         console.log(data)
-                        if(data=='0'){
+                        if(data=='栏目编辑' || data=='栏目主辑'){
                             var msgalert = '登录成功！<br/> 3秒后跳转' ;
                             var index = layer.alert(msgalert, { icon: 6, time: 3000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });
                             setTimeout(function(){
-                                window.location="./index.php"
+                                window.location="./Writerindex.php"
                             },2500)
+                        }
+                            else if(data=='超级管理员') {
+                            var msgalert = '登录成功！<br/> 3秒后跳转';
+                            var index = layer.alert(msgalert, { icon: 6, time: 3000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });
+                            setTimeout(function () {
+                                window.location = "./index.php"
+                            }, 2500)
+                        }
+                        else if(data=='管理员'){
+                                var msgalert = '登录成功！<br/> 3秒后跳转' ;
+                                var index = layer.alert(msgalert, { icon: 6, time: 3000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });
+                                setTimeout(function(){
+                                    window.location="./Adminindex.php"
+                                },2500)
+
                         }else if(data=='1'){
                             var msgalert = '账号或密码错误<br/> 请重新输入' ;
                             var index = layer.alert(msgalert, { icon: 6, time: 2000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });

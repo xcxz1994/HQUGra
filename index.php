@@ -374,9 +374,9 @@ function link_operating(name,title){
 					<div id="menu_style" class="menu_style">
 					<ul class="nav nav-list" id="nav_list">
 				     <li class="home"><a href="javascript:void(0)" name="home.html" class="iframeurl" title=""><i class="icon-home"></i><span class="menu-text"> 系统首页 </span></a></li>
-                     <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 产品管理 </span><b class="arrow icon-angle-down"></b></a>
+                     <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 商品管理 </span><b class="arrow icon-angle-down"></b></a>
 					   <ul class="submenu">
-                         <li class="home"><a  href="javascript:void(0)" name="Products_List.html"  title="产品类表" class="iframeurl"><i class="icon-double-angle-right"></i>产品类表</a></li>
+                         <li class="home"><a  href="javascript:void(0)" name="Products_List.html"  title="商品类表" class="iframeurl"><i class="icon-double-angle-right"></i>商品类表</a></li>
 						 <li class="home"><a  href="javascript:void(0)" name="Brand_Manage.html" title="品牌管理"  class="iframeurl"><i class="icon-double-angle-right"></i>品牌管理</a></li>
 						 <li class="home"><a href="javascript:void(0)" name="Category_Manage.html" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
 
@@ -409,11 +409,11 @@ function link_operating(name,title){
 							</ul>
 						</li>
                   <li>
-					<a href="#" class="dropdown-toggle"><i class="icon-user"></i><span class="menu-text"> 会员管理 </span><b class="arrow icon-angle-down"></b></a>
+					<a href="#" class="dropdown-toggle"><i class="icon-user"></i><span class="menu-text"> 客商管理 </span><b class="arrow icon-angle-down"></b></a>
                     <ul class="submenu">
-                    <li class="home"><a href="javascript:void(0)" name="user_list.html" title="会员列表"  class="iframeurl"><i class="icon-double-angle-right"></i>会员列表</a></li>
+                    <li class="home"><a href="javascript:void(0)" name="user_list.html" title="客商列表"  class="iframeurl"><i class="icon-double-angle-right"></i>客商列表</a></li>
                     <li class="home"><a href="javascript:void(0)" name="member-Grading.html" title="等级管理"  class="iframeurl"><i class="icon-double-angle-right"></i>等级管理</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="integration.html" title="会员记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>会员记录管理</a></li>
+                    <li class="home"><a href="javascript:void(0)" name="integration.html" title="客商记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>客商记录管理</a></li>
 
                    </ul>
 				  </li>
