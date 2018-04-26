@@ -29,7 +29,7 @@ function addAdmin(){
     $arr['adminrole']=$_POST['admin-role'];
     $arr['jointime']=$showtime;
     var_dump($arr);
-    if(insert("hqugra_admin",$arr)){
+    if(insert("sys_admin",$arr)){
         $mes="添加成功!<br/><a href='administrator.php'>继续添加</a>|<a href='administrator.php'>查看管理员列表</a>";
     }else{
         $mes="添加失败!<br/><a href='administrator.php'>重新添加</a>";
@@ -43,31 +43,31 @@ function addAdmin(){
  */
 function getAllAdmin(){
 
-    $sql="select id,username,email,userphone,adminrole,jointime from hqugra_admin ";
+    $sql="select id,username,email,userphone,adminrole,jointime from sys_admin ";
     $rows=fetchAll($sql);
     return $rows;
 }
 /*function getSuperAdmin(){
-    $sql="select id,username,email,userphone,adminrole,jointime from hqugra_admin where adminrole='超级管理员'";
+    $sql="select id,username,email,userphone,adminrole,jointime from sys_admin where adminrole='超级管理员'";
     $rows=fetchAll($sql);
 
     return $rows;
 }
 function getAdmin(){
-    $sql="select id,username,email,userphone,adminrole,jointime from hqugra_admin where adminrole='管理员'";
+    $sql="select id,username,email,userphone,adminrole,jointime from sys_admin where adminrole='管理员'";
     $rows=fetchAll($sql);
 
     return $rows;
 }
 function getWriter(){
-    $sql="select id,username,email,userphone,adminrole,jointime from hqugra_admin where adminrole='栏目主辑' or adminrole='栏目编辑'";
+    $sql="select id,username,email,userphone,adminrole,jointime from sys_admin where adminrole='栏目主辑' or adminrole='栏目编辑'";
     $rows=fetchAll($sql);
 
     return $rows;
 }
 */
 function getAdminByPage($page,$pageSize=2){
-    $sql="select * from hqugra_admin";
+    $sql="select * from sys_admin";
     global $totalRows;
     $totalRows=getResultNum($sql);
     global $totalPage;
@@ -77,7 +77,7 @@ function getAdminByPage($page,$pageSize=2){
     }
     if($page>=$totalPage)$page=$totalPage;
     $offset=($page-1)*$pageSize;
-    $sql="select id,username,email from hqugra_admin limit {$offset},{$pageSize}";
+    $sql="select id,username,email from sys_admin limit {$offset},{$pageSize}";
     $rows=fetchAll($sql);
     return $rows;
 }
@@ -95,7 +95,7 @@ function editAdmin($id){
     $arr['userphone']=$_POST['user-tel'];
     $arr['adminrole']=$_POST['admin-role'];
     $arr['jointime']=$showtime;
-    if(update("hqugra_admin", $arr,"id={$id}")){
+    if(update("sys_admin", $arr,"id={$id}")){
         $mes="编辑成功!<br/>";
 
     }else{
@@ -111,7 +111,7 @@ function editAdmin($id){
  * @return string
  */
 function delAdmin($id){
-    if(delete("hqugra_admin","id={$id}")){
+    if(delete("sys_admin","id={$id}")){
         $mes="删除成功!<br/><a href='listAdmin.php'>查看管理员列表</a>";
     }else{
         $mes="删除失败!<br/><a href='listAdmin.php'>请重新删除</a>";
@@ -151,7 +151,7 @@ function addUser(){
     }else{
         return "添加失败<a href='addUser.php'>重新添加</a>";
     }
-    if(insert("hqugra_user", $arr)){
+    if(insert("sys_user", $arr)){
         $mes="添加成功!<br/><a href='addUser.php'>继续添加</a>|<a href='listUser.php'>查看列表</a>";
     }else{
         $filename="../uploads/".$uploadFile[0]['name'];
@@ -168,13 +168,13 @@ function addUser(){
  * @return string
  */
 function delUser($id){
-    $sql="select face from hqugra_user where id=".$id;
+    $sql="select face from sys_user where id=".$id;
     $row=fetchOne($sql);
     $face=$row['face'];
     if(file_exists("../uploads/".$face)){
         unlink("../uploads/".$face);
     }
-    if(delete("hqugra_user","id={$id}")){
+    if(delete("sys_user","id={$id}")){
         $mes="删除成功!<br/><a href='listUser.php'>查看用户列表</a>";
     }else{
         $mes="删除失败!<br/><a href='listUser.php'>请重新删除</a>";
@@ -189,7 +189,7 @@ function delUser($id){
 function editUser($id){
     $arr=$_POST;
     $arr['password']=md5($_POST['password']);
-    if(update("hqugra_user", $arr,"id={$id}")){
+    if(update("sys_user", $arr,"id={$id}")){
         $mes="编辑成功!<br/><a href='listUser.php'>查看用户列表</a>";
     }else{
         $mes="编辑失败!<br/><a href='listUser.php'>请重新修改</a>";

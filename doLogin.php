@@ -8,7 +8,7 @@ $password=md5($_POST['password']);
 
 $autoFlag=$_POST['autoFlag'];
 
-    $sql="select * from hqugra_admin where username='{$username}' and password='{$password}'";
+    $sql="select * from sys_admin where username='{$username}' and password='{$password}'";
     $row=checkAdmin($sql);
     if($row){
         //如果选了一周内自动登陆
