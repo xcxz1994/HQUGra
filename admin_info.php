@@ -1,9 +1,11 @@
 <?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+
 require_once './include.php';
 if(isset($_SESSION['adminId'])){
-    $sql="select id,username,email,userphone,adminrole,jointime from sys_admin where id={$_SESSION['adminId']}";
+    $sql="select id,username,email,userphone,adminrole,jointime,qq,age,sex from sys_admin where id={$_SESSION['adminId']}";
     $row=fetchAll($sql);
-    //print_r($row[0]);
+    print_r($row[0]);
 }elseif(isset($_COOKIE['adminId'])){
     $sql="select id,username,email,userphone,adminrole,jointime from sys_admin where id={$_COOKIE['adminId']}";
     $row=fetchAll($sql);
@@ -46,31 +48,31 @@ $loginrecords=getLoginRecord();
       <div class="xinxi">
         <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">用户名： </label>
           <div class="col-sm-9">
-              <input type="text" name="用户名" id="website-title" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['username'];?>">
+              <input type="text" name="用户名" id="username" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['username'];?>">
           &nbsp;&nbsp;&nbsp;<a href="javascript:ovid()" onclick="change_Password()" class="btn btn-warning btn-xs">修改密码</a></div>
           
           </div>
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">性别： </label>
           <div class="col-sm-9">
-          <span class="sex">男</span>
+          <span class="sex"><?php echo $row[0]['sex']?></span>
             <div class="add_sex">
-            <label><input name="form-field-radio" type="radio" class="ace" checked="checked"><span class="lbl">保密</span></label>&nbsp;&nbsp;
-            <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">男</span></label>&nbsp;&nbsp;
-            <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">女</span></label>
+            <label><input name="form-field-radio" type="radio" class="ace" checked="checked" value="保密"><span class="lbl">保密</span></label>&nbsp;&nbsp;
+            <label><input name="form-field-radio" type="radio" class="ace" value="男"><span class="lbl">男</span></label>&nbsp;&nbsp;
+            <label><input name="form-field-radio" type="radio" class="ace" value="女"><span class="lbl">女</span></label>
             </div>
            </div>
           </div>
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">年龄： </label>
-          <div class="col-sm-9"><input type="text" name="年龄" id="website-title" value="" class="col-xs-7 text_info" disabled="disabled"></div>
+          <div class="col-sm-9"><input type="text" name="年龄" id="age" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['age'];?>"></div>
           </div>
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">移动电话： </label>
-          <div class="col-sm-9"><input type="text" name="移动电话" id="website-title" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['userphone'];?>"></div>
+          <div class="col-sm-9"><input type="text" name="移动电话" id="user-tel" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['userphone'];?>"></div>
           </div>
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">电子邮箱： </label>
-          <div class="col-sm-9"><input type="text" name="电子邮箱" id="website-title" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['email'];?>"></div>
+          <div class="col-sm-9"><input type="text" name="电子邮箱" id="email" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['email'];?>"></div>
           </div>
-          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">QQ： </label>
-          <div class="col-sm-9"><input type="text" name="QQ" id="website-title" value="" class="col-xs-7 text_info" disabled="disabled"> </div>
+          <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1" >QQ： </label>
+          <div class="col-sm-9"><input type="text" name="QQ" id="qq" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['qq'];?>"> </div>
           </div>
            <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">权限： </label>
           <div class="col-sm-9" > <span><?php echo $row[0]['adminrole'];?></span></div>
@@ -80,7 +82,7 @@ $loginrecords=getLoginRecord();
           </div>
            <div class="Button_operation clearfix"> 
 				<button onclick="modify();" class="btn btn-danger radius" type="submit">修改信息</button>				
-				<button onclick="save_info();" class="btn btn-success radius" type="button">保存修改</button>              
+				<button onclick="save_info(<?php echo $row[0]['id']?>,'<?php echo $row[0]['adminrole']?>');" class="btn btn-success radius" type="button" >保存修改</button>
 			</div>
             </div>
     </div>
@@ -141,10 +143,20 @@ function modify(){
 	  $('#Personal').find('.xinxi').addClass("hover");
 	  $('#Personal').find('.btn-success').css({'display':'block'});
 	};
-function save_info(){
+function save_info(id,adminrole){
 	    var num=0;
-		 var str="";
+        var str="";
+
+        var username=$('#username').val();
+        var sex=$("input[name='form-field-radio']:checked").val();
+        var age=$('#age').val();
+        var userphone=$('#user-tel').val();
+        var email=$('#email').val();
+        var qq=$('#qq').val();
+        var adminrole=adminrole;
+
      $(".xinxi input[type$='text']").each(function(n){
+
           if($(this).val()=="")
           {
                
@@ -158,16 +170,31 @@ function save_info(){
 		 });
 		  if(num>0){  return false;}	 	
           else{
-			  
-			   layer.alert('修改成功！',{
-               title: '提示框',				
-			   icon:1,			   		
-			  });
-			  $('#Personal').find('.xinxi').removeClass("hover");
-			  $('#Personal').find('.text_info').removeClass("add").attr("disabled", true);
-			  $('#Personal').find('.btn-success').css({'display':'none'});
-			   layer.close(index);
-			
+              $.ajax({
+                  url: './doAdminAction.php?act=editAdminInfo&id='+id,
+                  type: 'post',
+                  data: {
+                      'user-name':username,
+                      'sex':sex,
+                      'age':age,
+                      'user-tel':userphone,
+                      'email':email,
+                      'qq':qq,
+                      'admin-role':adminrole
+                  },
+                  success:function(data){
+                      console.log(data)
+                      layer.alert('修改成功！',{
+                          title: '提示框',
+                          icon:1,
+                      });
+                      $('#Personal').find('.xinxi').removeClass("hover");
+                      $('#Personal').find('.text_info').removeClass("add").attr("disabled", true);
+                      $('#Personal').find('.btn-success').css({'display':'none'});
+                      window.location.reload();
+                  }
+              })
+
 		  }		  		
 	};	
  //初始化宽度、高度    

@@ -91,10 +91,14 @@ function editAdmin($id){
     $showtime=date("Y-m-d H:i:s");
     $arr['username']=$_POST['user-name'];
     $arr['password']=md5($_POST['userpassword']);
+    $arr['sex']=$_POST['sex'];
+    $arr['age']=$_POST['age'];
     $arr['email']=$_POST['email'];
     $arr['userphone']=$_POST['user-tel'];
+    $arr['qq']=$_POST['qq'];
     $arr['adminrole']=$_POST['admin-role'];
     $arr['jointime']=$showtime;
+    var_dump($arr);
     if(update("sys_admin", $arr,"id={$id}")){
         $mes="编辑成功!<br/>";
 
@@ -105,6 +109,28 @@ function editAdmin($id){
     return $mes;
 }
 
+/**
+管理员修改个人信息
+ **/
+function editAdminInfo($id){
+
+    $arr['username']=$_POST['user-name'];
+    $arr['sex']=$_POST['sex'];
+    $arr['age']=$_POST['age'];
+    $arr['email']=$_POST['email'];
+    $arr['userphone']=$_POST['user-tel'];
+    $arr['qq']=$_POST['qq'];
+    $arr['adminrole']=$_POST['admin-role'];
+    var_dump($arr);
+    if(update("sys_admin", $arr,"id={$id}")){
+        $mes="修改个人信息成功!<br/>";
+
+    }else{
+        $mes="修改个人信息失败!<br/>";
+
+    }
+    return $mes;
+}
 /**
  * 删除管理员的操作
  * @param int $id

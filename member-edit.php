@@ -9,9 +9,9 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 
 require_once './include.php';
 $id=$_REQUEST['id'];
-$sql="select id,username,password,email,userphone,adminrole from hqugra_admin where id='{$id}'";
+$sql="select id,username,password,email,userphone,adminrole from sys_admin where id='{$id}'";
 $row=fetchOne($sql);
-print_r($row);
+//print_r($row);
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

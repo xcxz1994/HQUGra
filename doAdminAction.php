@@ -40,6 +40,8 @@ if($act=="logout"){
     $mes=getAdmin();
 }elseif ($act=="Writer"){
     $mes=getWriter();
+}elseif($act=="editAdminInfo"){
+    $mes=editAdminInfo($id);
 }
 
 ?>
