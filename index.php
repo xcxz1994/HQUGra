@@ -1,7 +1,9 @@
 ﻿<?php
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
 require_once './include.php';
-checkLogined()
+checkLogined();
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -448,7 +450,7 @@ function link_operating(name,title){
 							
 								<li class="home"><a href="javascript:void(0)" name="admin_Competence.html" title="权限管理"  class="iframeurl"><i class="icon-double-angle-right"></i>权限管理</a></li>
                                 <li class="home"><a href="javascript:void(0)" name="administrator.php" title="管理员列表" class="iframeurl"><i class="icon-double-angle-right"></i>管理员列表</a></li>
-								  <li class="home"><a href="javascript:void(0)" name="admin_info.html" title="个人信息" class="iframeurl"><i class="icon-double-angle-right"></i>个人信息</a></li>
+								  <li class="home"><a href="javascript:void(0)" name="admin_info.php" title="个人信息" class="iframeurl"><i class="icon-double-angle-right"></i>个人信息</a></li>
 							</ul>
 						</li>
 						<li><a href="#" class="dropdown-toggle"><i class=" icon-barcode"></i><span class="menu-text"> 仓库管理 </span><b class="arrow icon-angle-down"></b></a>

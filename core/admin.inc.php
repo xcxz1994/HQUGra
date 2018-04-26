@@ -198,3 +198,40 @@ function editUser($id){
     }
     return $mes;
 }
+
+
+/**
+获取管理员登录的地区
+ **/
+function getCity($ip = '')//获取地区
+{
+    if($ip == ''){
+        $url = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json";//新浪借口获取访问者地区
+        $ip=json_decode(file_get_contents($url),true);
+        $data = $ip;
+    }else{
+        $url="http://ip.taobao.com/service/getIpInfo.php?ip=".$ip;//淘宝借口需要填写ip
+        $ip=json_decode(file_get_contents($url));
+        if((string)$ip->code=='1'){
+            return false;
+        }
+        $data = (array)$ip->data;
+    }
+
+    return $data;
+}
+/**
+获取管理员登录的IP
+ **/
+function getloginIP(){
+    if ($_SERVER['REMOTE_ADDR']) {//判断SERVER里面有没有ip，因为用户访问的时候会自动给你网这里面存入一个ip
+        $cip = $_SERVER['REMOTE_ADDR'];
+    } elseif (getenv("REMOTE_ADDR")) {//如果没有去系统变量里面取一次 getenv()取系统变量的方法名字
+        $cip = getenv("REMOTE_ADDR");
+    } elseif (getenv("HTTP_CLIENT_IP")) {//如果还没有在去系统变量里取下客户端的ip
+        $cip = getenv("HTTP_CLIENT_IP");
+    } else {
+        $cip = "unknown";
+    }
+    return $cip;
+}

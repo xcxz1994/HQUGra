@@ -1,3 +1,15 @@
+<?php
+require_once './include.php';
+if(isset($_SESSION['adminId'])){
+    $sql="select id,username,email,userphone,adminrole,jointime from sys_admin where id={$_SESSION['adminId']}";
+    $row=fetchAll($sql);
+    print_r($row[0]);
+}elseif(isset($_COOKIE['adminId'])){
+    $sql="select id,username,email,userphone,adminrole,jointime from sys_admin where id={$_COOKIE['adminId']}";
+    $row=fetchAll($sql);
+    // print_r($row);
+}
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -31,7 +43,8 @@
      <div class="type_title">管理员信息 </div>
       <div class="xinxi">
         <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">用户名： </label>
-          <div class="col-sm-9"><input type="text" name="用户名" id="website-title" value="张小泉" class="col-xs-7 text_info" disabled="disabled">
+          <div class="col-sm-9">
+              <input type="text" name="用户名" id="website-title" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['username'];?>">
           &nbsp;&nbsp;&nbsp;<a href="javascript:ovid()" onclick="change_Password()" class="btn btn-warning btn-xs">修改密码</a></div>
           
           </div>
@@ -46,22 +59,22 @@
            </div>
           </div>
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">年龄： </label>
-          <div class="col-sm-9"><input type="text" name="年龄" id="website-title" value="24" class="col-xs-7 text_info" disabled="disabled"></div>
+          <div class="col-sm-9"><input type="text" name="年龄" id="website-title" value="" class="col-xs-7 text_info" disabled="disabled"></div>
           </div>
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">移动电话： </label>
-          <div class="col-sm-9"><input type="text" name="移动电话" id="website-title" value="13567878908" class="col-xs-7 text_info" disabled="disabled"></div>
+          <div class="col-sm-9"><input type="text" name="移动电话" id="website-title" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['userphone'];?>"></div>
           </div>
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">电子邮箱： </label>
-          <div class="col-sm-9"><input type="text" name="电子邮箱" id="website-title" value="567890@qq.com" class="col-xs-7 text_info" disabled="disabled"></div>
+          <div class="col-sm-9"><input type="text" name="电子邮箱" id="website-title" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['email'];?>"></div>
           </div>
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">QQ： </label>
-          <div class="col-sm-9"><input type="text" name="QQ" id="website-title" value="456789787" class="col-xs-7 text_info" disabled="disabled"> </div>
+          <div class="col-sm-9"><input type="text" name="QQ" id="website-title" value="" class="col-xs-7 text_info" disabled="disabled"> </div>
           </div>
            <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">权限： </label>
-          <div class="col-sm-9" > <span>普通管理员</span></div>
+          <div class="col-sm-9" > <span><?php echo $row[0]['adminrole'];?></span></div>
           </div>
            <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">注册时间： </label>
-          <div class="col-sm-9" > <span>2016-7-5</span></div>
+          <div class="col-sm-9" > <span><?php echo $row[0]['jointime'];?></span></div>
           </div>
            <div class="Button_operation clearfix"> 
 				<button onclick="modify();" class="btn btn-danger radius" type="submit">修改信息</button>				
