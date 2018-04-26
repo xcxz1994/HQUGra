@@ -131,6 +131,24 @@ function editAdminInfo($id){
     }
     return $mes;
 }
+
+
+/**
+修改管理员个人密码
+ **/
+function editAdminPwd($id){
+
+    $arr['password']=md5($_POST['newpassword']);
+    var_dump($arr);
+    if(update("sys_admin", $arr,"id={$id}")){
+        $mes="修改个人信息成功!<br/>";
+
+    }else{
+        $mes="修改个人信息失败!<br/>";
+
+    }
+    return $mes;
+}
 /**
  * 删除管理员的操作
  * @param int $id

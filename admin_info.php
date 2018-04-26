@@ -3,7 +3,7 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 
 require_once './include.php';
 if(isset($_SESSION['adminId'])){
-    $sql="select id,username,email,userphone,adminrole,jointime,qq,age,sex from sys_admin where id={$_SESSION['adminId']}";
+    $sql="select id,username,email,userphone,adminrole,jointime,qq,age,sex,password from sys_admin where id={$_SESSION['adminId']}";
     $row=fetchAll($sql);
     print_r($row[0]);
 }elseif(isset($_COOKIE['adminId'])){
@@ -36,7 +36,7 @@ $loginrecords=getLoginRecord();
 		<script src="assets/js/typeahead-bs2.min.js"></script>           	
 		<script src="assets/js/jquery.dataTables.min.js"></script>
 		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
-                      
+         <script type="text/javascript"  src="assets/js/md5.js"></script>
 <title>个人信息管理</title>
 </head>
 
@@ -49,7 +49,7 @@ $loginrecords=getLoginRecord();
         <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">用户名： </label>
           <div class="col-sm-9">
               <input type="text" name="用户名" id="username" value="" class="col-xs-7 text_info" disabled="disabled" placeholder="<?php echo $row[0]['username'];?>">
-          &nbsp;&nbsp;&nbsp;<a href="javascript:ovid()" onclick="change_Password()" class="btn btn-warning btn-xs">修改密码</a></div>
+          &nbsp;&nbsp;&nbsp;<a href="javascript:ovid()" onclick="change_Password(<?php echo $row[0]['id']?>)" class="btn btn-warning btn-xs">修改密码</a></div>
           
           </div>
           <div class="form-group"><label class="col-sm-3 control-label no-padding-right" for="form-field-1">性别： </label>
@@ -125,7 +125,7 @@ $loginrecords=getLoginRecord();
  <!--修改密码样式-->
          <div class="change_Pass_style" id="change_Pass">
             <ul class="xg_style">
-             <li><label class="label_name">原&nbsp;&nbsp;密&nbsp;码</label><input name="原密码" type="password" class="" id="password"></li>
+             <li><label class="label_name">原&nbsp;&nbsp;密&nbsp;码</label><input name="原密码" type="password" class="" id="oldpassword"></li>
              <li><label class="label_name">新&nbsp;&nbsp;密&nbsp;码</label><input name="新密码" type="password" class="" id="Nes_pas"></li>
              <li><label class="label_name">确认密码</label><input name="再次确认密码" type="password" class="" id="c_mew_pas"></li>
               
@@ -191,10 +191,10 @@ function save_info(id,adminrole){
                       $('#Personal').find('.xinxi').removeClass("hover");
                       $('#Personal').find('.text_info').removeClass("add").attr("disabled", true);
                       $('#Personal').find('.btn-success').css({'display':'none'});
-                      window.location.reload();
+
                   }
               })
-
+          window.location.reload();
 		  }		  		
 	};	
  //初始化宽度、高度    
@@ -206,7 +206,10 @@ function save_info(id,adminrole){
 	$(".recording_style").width($(window).width()-400); 
   });
   //修改密码
-  function change_Password(){
+  function change_Password(id){
+
+
+      //var oldpwd= $('#oldpassword').val();
 	   layer.open({
     type: 1,
 	title:'修改密码',
@@ -248,14 +251,31 @@ function save_info(id,adminrole){
 			    
 			 });
 			 return false;
-        }   
-		 else{			  
-			  layer.alert('修改成功！',{
-               title: '提示框',				
-			icon:1,		
-			  }); 
-			  layer.close(index);      
-		  }	 
+        }
+		 else if(hex_md5($('#oldpassword').val()) == '<?php echo $row[0]['password'];?>'){
+                var newpwd =$('#Nes_pas').val();
+                alert(newpwd);
+                $.ajax({
+                    url: './doAdminAction.php?act=editAdminPwd&id='+id,
+                    type: 'post',
+                    data: {
+                        'newpassword':newpwd
+                    },
+                    success:function(data){
+                        console.log(data)
+                        layer.alert('修改密码成功！',{
+                            title: '提示框',
+                            icon:1,
+                        });
+                    }
+                })
+		  }else{
+                layer.alert('原始密码输入错误！',{
+                    title: '提示框',
+                    icon:1,
+                });
+            }
+		  window.location.reload();
 	}
     });
 	  }
