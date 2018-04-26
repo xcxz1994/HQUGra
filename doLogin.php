@@ -42,13 +42,13 @@ if($row){
        // alertMes("登陆成功","index.php");
 
     }else{
+        $loginStatus="登录失败";
         $arr['username']=$username;
         $arr['adminrole']=$row['adminrole'];
         $arr['logintime']=$logintime;
         $arr['loginStatus']=$loginStatus;
         $arr['loginSite']=$city['city'];
         $arr['loginIP']=$IP;
-        $loginStatus="登录失败";
         insert("sys_admin_loginrecord",$arr);
         echo "1";
         //alertMes("登陆失败，重新登陆","login.php");

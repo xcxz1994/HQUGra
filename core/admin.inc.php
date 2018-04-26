@@ -235,3 +235,12 @@ function getloginIP(){
     }
     return $cip;
 }
+/**
+
+ 获取当前管理员的登录记录
+ **/
+function getLoginRecord(){
+    $sql="select * from sys_admin_loginrecord where username='{$_SESSION['adminName']}'";
+    $rows=fetchAll($sql);
+    return $rows;
+}
