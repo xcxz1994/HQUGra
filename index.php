@@ -413,7 +413,7 @@ function link_operating(name,title){
                   <li>
 					<a href="#" class="dropdown-toggle"><i class="icon-user"></i><span class="menu-text"> 客商管理 </span><b class="arrow icon-angle-down"></b></a>
                     <ul class="submenu">
-                    <li class="home"><a href="javascript:void(0)" name="user_list.html" title="客商列表"  class="iframeurl"><i class="icon-double-angle-right"></i>客商列表</a></li>
+                    <li class="home"><a href="javascript:void(0)" name="user_list.php" title="客商列表"  class="iframeurl"><i class="icon-double-angle-right"></i>客商列表</a></li>
                     <li class="home"><a href="javascript:void(0)" name="member-Grading.html" title="等级管理"  class="iframeurl"><i class="icon-double-angle-right"></i>等级管理</a></li>
                     <li class="home"><a href="javascript:void(0)" name="integration.html" title="客商记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>客商记录管理</a></li>
 

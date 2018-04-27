@@ -1,3 +1,7 @@
+<?php
+
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -57,7 +61,7 @@
     <div class="search_style">
      
       <ul class="search_content clearfix">
-       <li><label class="l_f">会员名称</label><input name="" type="text"  class="text_add" placeholder="输入会员名称、电话、邮箱"  style=" width:400px"/></li>
+       <li><label class="l_f">商家名称</label><input name="" type="text"  class="text_add" placeholder="输入商家名称、电话、邮箱"  style=" width:400px"/></li>
        <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
        <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
@@ -79,20 +83,20 @@
 				<th width="80">ID</th>
 				<th width="100">用户名</th>
 				<th width="80">性别</th>
-				<th width="120">手机</th>
-				<th width="150">邮箱</th>
-				<th width="">地址</th>
-				<th width="180">加入时间</th>
+				<th width="100">手机</th>
+				<th width="100">邮箱</th>
+				<th width="120">地址</th>
+				<th width="120">加入时间</th>
                 <th width="100">等级</th>
 				<th width="70">状态</th>                
-				<th width="250">操作</th>
+				<th width="120">操作</th>
 			</tr>
 		</thead>
 	<tbody>
 		<tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
           <td>1</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','500','400')">张三</u></td>
+          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.php','10001','500','400')">张三</u></td>
           <td>男</td>
           <td>13000000000</td>
           <td>admin@mail.com</td>
@@ -109,7 +113,7 @@
         <tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
           <td>2</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','1031','500','400')">张小泉</u></td>
+          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.php','1031','500','400')">张小泉</u></td>
           <td>男</td>
           <td>13000000000</td>
           <td>admin@mail.com</td>
@@ -127,7 +131,7 @@
          <tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
           <td>3</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','10301','500','400')">张小泉</u></td>
+          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.php','10301','500','400')">张小泉</u></td>
           <td>男</td>
           <td>13000000000</td>
           <td>admin@mail.com</td>
@@ -145,7 +149,7 @@
          <tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
           <td>4</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','10001','500','400')">张小泉</u></td>
+          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.php','10001','500','400')">张小泉</u></td>
           <td>男</td>
           <td>13000000000</td>
           <td>admin@mail.com</td>
@@ -163,7 +167,7 @@
          <tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
           <td>5</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','10001','500','400')">张小泉</u></td>
+          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.php','10001','500','400')">张小泉</u></td>
           <td>男</td>
           <td>13000000000</td>
           <td>admin@mail.com</td>

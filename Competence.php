@@ -75,7 +75,7 @@ $rows=getAllAdmin();
 		<dt><label class="middle"><input name="product-managent-0" class="ace" type="checkbox" id="product-disable-check" value="产品管理"><span class="lbl">产品管理</span></label></dt>
 		<dd>
 		 <dl class="cl permission-list2">
-		 <dt><label class="middle"><input type="checkbox" value="产品列表" class="ace"  name="product-managent-0-0" id="products_list"><span class="lbl">产品列表</span></label></dt>
+		 <dt><label class="middle"><input type="checkbox" value="产品列表" class="ace"  name="product-managent-0-0" id="product_list"><span class="lbl">产品列表</span></label></dt>
          <dd>
 		   <label class="middle"><input type="checkbox" value="0" class="ace" name="product-managent-0-0-0" id="products_list-0-0-0"  ><span class="lbl">添加</span></label>
 		   <label class="middle"><input type="checkbox" value="1" class="ace" name="product-managent-0-0-0" id="products_list-0-0-1"><span class="lbl">修改</span></label>
