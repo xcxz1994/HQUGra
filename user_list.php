@@ -16,6 +16,7 @@ $number=count($rows);
         <link href="assets/css/codemirror.css" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/ace.min.css" />
         <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/cityselect.css" />
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
@@ -28,6 +29,7 @@ $number=count($rows);
 
 		<!--[if IE]>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
 <![endif]-->
 
 		<!--[if !IE]> -->
@@ -56,6 +58,7 @@ $number=count($rows);
         <script type="text/javascript" src="js/H-ui.admin.js"></script> 
         <script src="assets/layer/layer.js" type="text/javascript" ></script>
         <script src="assets/laydate/laydate.js" type="text/javascript"></script>
+    <script src="assets/js/cityselect.js" type="text/javascript"></script>
 <title>用户列表</title>
 </head>
 
@@ -85,7 +88,7 @@ $number=count($rows);
 		<thead>
 		 <tr>
 				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th width="80">ID</th>
+				<th width="80">账号</th>
 				<th width="100">用户名</th>
 				<th width="100">法人代表</th>
 				<th width="90">手机</th>
@@ -111,7 +114,7 @@ $number=count($rows);
           <td class="td-status"><span class="label label-success radius">已启用</span></td>
           <td class="td-manage">
           <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+          <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a>
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
 		</tr>
@@ -126,24 +129,235 @@ $number=count($rows);
 <div class="add_menber" id="add_menber_style" style="display:none">
   
     <ul class=" page-content">
-     <li><label class="label_name">用&nbsp;&nbsp;户 &nbsp;名：</label><span class="add_name"><input value="" name="用户名" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">真实姓名：</label><span class="add_name"><input name="真实姓名" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</label><span class="add_name">
-     <label><input name="form-field-radio" type="radio" checked="checked" class="ace"><span class="lbl">男</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">女</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">保密</span></label>
-     </span>
+     <li><label class="label_name">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
+         <span class="add_name">
+
+             <input type="text" class="input-text" value="" placeholder="" id="user-name" name="user-name" datatype="*2-16" nullmsg="账号不能为空">
+         </span>
+         <div class="prompt r_f"></div>
+     </li>
+     <li><label class="label_name">用户名：</label>
+         <span class="add_name">
+             <input type="text" class="input-text" value="" placeholder="" id="user-name" name="user-name" datatype="*2-16" nullmsg="用户名不能为空">
+         </span>
+         <div class="prompt r_f"></div>
+     </li>
+        <li><label class="label_name">初始密码：</label><span class="add_name">
+                <input type="password" placeholder="密码" name="userpassword" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
+            </span>
+            <div class="prompt r_f"></div>
+        </li>
      <div class="prompt r_f"></div>
      </li>
-     <li><label class="label_name">固定电话：</label><span class="add_name"><input name="固定电话" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">移动电话：</label><span class="add_name"><input name="移动电话" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">电子邮箱：</label><span class="add_name"><input name="电子邮箱" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li class="adderss"><label class="label_name">家庭住址：</label><span class="add_name"><input name="家庭住址" type="text"  class="text_add" style=" width:350px"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
+     <li><label class="label_name">确认密码：</label><span class="add_name">
+             <input type="password" placeholder="确认新密码" autocomplete="off" class="input-text Validform_error" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="userpassword" id="newpassword2" name="newpassword2">
+
+         </span>
+         <div class="prompt r_f"></div>
+     </li>
+     <li><label class="label_name">移动电话：</label>
+         <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="手机不能为空">
+         </span>
+         <div class="prompt r_f"></div>
+     </li>
+
+     <li class="adderss"><label class="label_name">公司住址：</label>
+         <span class="add_name">
+
+             <input name="公司住址" type="text"  class="cityinput" id="citySelect" placeholder="请输入目的地" style=" width:350px"/>
+         </span>
+         <div class="prompt r_f"></div>
+     </li>
+        <li><label class="label_name">法人代表：</label>
+            <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="法人代表不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">营业执照号：</label>
+            <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="营业执照号不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">开户银行：</label>
+            <span class="add_name">
+                <select class="select" name="admin-role" size="1" style="margin-left: 10px;">
+					<option value="工商银行">工商银行</option>
+					<option value="开发银行">开发银行</option>
+					<option value="建设银行">建设银行</option>
+					<option value="交通银行">交通银行</option>
+				</select>
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+
+        <li><label class="label_name">开户银行号：</label>
+            <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="开户银行号不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">开户银行手机号：</label>
+            <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="开户银行手机号不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">税号：</label>
+            <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="税号不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+
+
+
+        <li><label class="label_name">上传营业执照：</label>
+
+                  <input type="file"  value="" placeholder="" id="id-input-file-2" name="user-tel" datatype="m" nullmsg="营业执照不能为空" style="margin-left: 10px;">
+
+            <div class="prompt r_f"></div>
+        </li>
+
+
+        <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
      <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
      <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">关闭</span></label></span><div class="prompt r_f"></div></li>
+
+        <li>
+            <label class="label_name">备注：</label>
+            <div class="formControls">
+                <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);" style="float: left;"></textarea>
+                <span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
+            </div>
+        </li>
     </ul>
  </div>
+
+<!-- 修改用户图层-->
+<div class="add_menber" id="edit_menber_style" style="display:none">
+
+    <ul class=" page-content">
+        <li><label class="label_name">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
+            <span class="add_name">
+
+             <input type="text" class="input-text" value="" placeholder="" id="user-name" name="user-name" datatype="*2-16" nullmsg="账号不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">用户名：</label>
+            <span class="add_name">
+             <input type="text" class="input-text" value="" placeholder="" id="user-name" name="user-name" datatype="*2-16" nullmsg="用户名不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">初始密码：</label><span class="add_name">
+                <input type="password" placeholder="密码" name="userpassword" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
+            </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">确认密码：</label><span class="add_name">
+             <input type="password" placeholder="确认新密码" autocomplete="off" class="input-text Validform_error" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="userpassword" id="newpassword2" name="newpassword2">
+
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">移动电话：</label>
+            <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="手机不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+
+        <li class="adderss"><label class="label_name">公司住址：</label>
+            <span class="add_name">
+
+             <input name="公司住址" type="text"  class="cityinput" id="citySelect" placeholder="请输入目的地" style=" width:350px"/>
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">法人代表：</label>
+            <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="法人代表不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">营业执照号：</label>
+            <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="营业执照号不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">开户银行：</label>
+            <span class="add_name">
+                <select class="select" name="admin-role" size="1" style="margin-left: 10px;">
+					<option value="工商银行">工商银行</option>
+					<option value="开发银行">开发银行</option>
+					<option value="建设银行">建设银行</option>
+					<option value="交通银行">交通银行</option>
+				</select>
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+
+        <li><label class="label_name">开户银行号：</label>
+            <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="开户银行号不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">开户银行手机号：</label>
+            <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="开户银行手机号不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+        <li><label class="label_name">税号：</label>
+            <span class="add_name">
+
+            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="税号不能为空">
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
+
+
+
+        <li><label class="label_name">上传营业执照：</label>
+
+            <input type="file"  value="" placeholder="" id="id-input-file-2" name="user-tel" datatype="m" nullmsg="营业执照不能为空" style="margin-left: 10px;">
+
+            <div class="prompt r_f"></div>
+        </li>
+
+
+        <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
+     <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
+     <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">关闭</span></label></span><div class="prompt r_f"></div></li>
+
+        <li>
+            <label class="label_name">备注：</label>
+            <div class="formControls">
+                <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);" style="float: left;"></textarea>
+                <span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
+            </div>
+        </li>
+    </ul>
+</div>
 </body>
 </html>
 <script>
@@ -184,17 +398,19 @@ jQuery(function($) {
 			})
 /*用户-添加*/
  $('#member_add').on('click', function(){
+     var test=new Vcity.CitySelector({input:'citySelect'});
     layer.open({
         type: 1,
         title: '添加用户',
 		maxmin: true, 
 		shadeClose: true, //点击遮罩关闭层
-        area : ['800px' , ''],
+        area : ['850px' , ''],
         content:$('#add_menber_style'),
 		btn:['提交','取消'],
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";
+
      $(".add_menber input[type$='text']").each(function(n){
           if($(this).val()=="")
           {
@@ -256,8 +472,8 @@ function member_edit(id){
         title: '修改用户信息',
 		maxmin: true, 
 		shadeClose:false, //点击遮罩关闭层
-        area : ['800px' , ''],
-        content:$('#add_menber_style'),
+        area : ['850px' , ''],
+        content:$('#edit_menber_style'),
 		btn:['提交','取消'],
 		yes:function(index,layero){	
 		 var num=0;
@@ -297,4 +513,20 @@ laydate({
     event: 'focus' 
 });
 
+</script>
+
+
+<script>
+    $('#id-input-file-2').ace_file_input({
+        no_file:'选择上传图标 ...',
+        btn_choose:'选择',
+        btn_change:'更改',
+        droppable:false,
+        onchange:null,
+        thumbnail:false, //| true | large
+        whitelist:'gif|png|jpg|jpeg'
+        //blacklist:'exe|php'
+        //onchange:''
+        //
+    });
 </script>
