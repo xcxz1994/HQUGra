@@ -182,6 +182,18 @@ function logout(){
     session_destroy();
     header("location:./login.php");
 }
+
+/**
+ * 得到所有的入住商家
+ * @return array
+ */
+function getAllUser(){
+
+    $sql="select * from  bas_contact_client";
+    $rows=fetchAll($sql);
+    return $rows;
+}
+
 /**
  * 添加用户的操作
  * @param int $id

@@ -1,6 +1,11 @@
 <?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
 
+require_once './include.php';
 
+$rows=getAllUser();
+$number=count($rows);
+//print_r($rows);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -72,7 +77,7 @@
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加用户</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
-       <span class="r_f">共：<b>2345</b>条</span>
+       <span class="r_f">共：<b><?php echo $number;?></b>条</span>
      </div>
      <!---->
      <div class="table_menu_list">
@@ -82,27 +87,27 @@
 				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 				<th width="80">ID</th>
 				<th width="100">用户名</th>
-				<th width="80">性别</th>
-				<th width="100">手机</th>
-				<th width="100">邮箱</th>
-				<th width="120">地址</th>
-				<th width="120">加入时间</th>
+				<th width="100">法人代表</th>
+				<th width="90">手机</th>
+				<th width="100">地址</th>
+				<th width="100">加入时间</th>
                 <th width="100">等级</th>
 				<th width="70">状态</th>                
-				<th width="120">操作</th>
+				<th width="80">操作</th>
 			</tr>
 		</thead>
 	<tbody>
+    <?php  foreach($rows as $row):?>
 		<tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>1</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.php','10001','500','400')">张三</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td class="text-l">北京市 海淀区</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>普通用户</td>
+          <td><?php echo $row['cl_id'];?></td>
+          <td><u style="cursor:pointer" class="text-primary" onclick="member_show(<?php echo $row['cl_id'];?>)"><?php echo $row['cl_name'];?></u></td>
+            <td><?php echo $row['cl_represent'];?></td>
+
+          <td><?php echo $row['cl_phone'];?></td>
+          <td class="text-l"><?php echo $row['cl_adress'];?></td>
+          <td><?php echo $row['cl_registDate'];?></td>
+          <td><?php echo $row['cl_grade'];?></td>
           <td class="td-status"><span class="label label-success radius">已启用</span></td>
           <td class="td-manage">
           <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
@@ -110,78 +115,7 @@
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
 		</tr>
-        <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>2</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.php','1031','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td class="text-l">北京市 海淀区</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>普通用户</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('310')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>3</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.php','10301','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td class="text-l">北京市 海淀区</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>银牌用户</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit(,'410')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-         
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>4</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.php','10001','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td class="text-l">北京市 海淀区</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>银牌用户</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('560')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>5</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.php','10001','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td class="text-l">北京市 海淀区</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>银牌用户</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
+    <?php endforeach;?>
       </tbody>
 	</table>
    </div>
@@ -285,8 +219,16 @@ jQuery(function($) {
     });
 });
 /*用户-查看*/
-function member_show(title,url,id,w,h){
-	layer_show(title,url+'#?='+id,w,h);
+function member_show(id){
+    //alert(id)
+    layer.open({
+        type: 2,
+        title:'编辑用户',
+        area: ['500px','800px'],
+        shadeClose: false,
+        content: './member-show.php?id='+id,
+        setwin:'./index.php'
+    });
 }
 /*用户-停用*/
 function member_stop(obj,id){
