@@ -132,7 +132,7 @@ $number=count($rows);
      <li><label class="label_name">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
          <span class="add_name">
 
-             <input type="text" class="input-text" value="" placeholder="" id="user-name" name="user-name" datatype="*2-16" nullmsg="账号不能为空">
+             <input type="text" class="input-text" value="" placeholder="" id="user-id" name="user-id" datatype="*2-16" nullmsg="账号不能为空">
          </span>
          <div class="prompt r_f"></div>
      </li>
@@ -166,27 +166,27 @@ $number=count($rows);
      <li class="adderss"><label class="label_name">公司住址：</label>
          <span class="add_name">
 
-             <input name="公司住址" type="text"  class="cityinput" id="citySelect" placeholder="请输入目的地" style=" width:350px"/>
+             <input name="user-address" type="text"  class="cityinput" id="citySelect" placeholder="请输入目的地" style=" width:350px"/>
          </span>
          <div class="prompt r_f"></div>
      </li>
         <li><label class="label_name">法人代表：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="法人代表不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="user-represent" name="user-represent" datatype="m" nullmsg="法人代表不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">营业执照号：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="营业执照号不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="user-busLicenseNum" name="userbusLicenseNum" datatype="m" nullmsg="营业执照号不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">开户银行：</label>
             <span class="add_name">
-                <select class="select" name="admin-role" size="1" style="margin-left: 10px;">
+                <select class="select" name="user-bank" size="1" style="margin-left: 10px;">
 					<option value="工商银行">工商银行</option>
 					<option value="开发银行">开发银行</option>
 					<option value="建设银行">建设银行</option>
@@ -199,21 +199,21 @@ $number=count($rows);
         <li><label class="label_name">开户银行号：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="开户银行号不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="user-bankNum" name="user-bankNum" datatype="m" nullmsg="开户银行号不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">开户银行手机号：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="开户银行手机号不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="user-bankPhone" name="user-bankPhone" datatype="m" nullmsg="开户银行手机号不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">税号：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="税号不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="user-taxNum" name="user-taxNum" datatype="m" nullmsg="税号不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
@@ -222,20 +222,23 @@ $number=count($rows);
 
         <li><label class="label_name">上传营业执照：</label>
 
-                  <input type="file"  value="" placeholder="" id="id-input-file-2" name="user-tel" datatype="m" nullmsg="营业执照不能为空" style="margin-left: 10px;">
+                  <input type="file"  value="" placeholder="" id="user-busLicensePicture" name="user-busLicensePicture" datatype="m" nullmsg="营业执照不能为空" style="margin-left: 10px;">
 
             <div class="prompt r_f"></div>
         </li>
 
 
-        <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
-     <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">关闭</span></label></span><div class="prompt r_f"></div></li>
+        <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label>
+            <span class="add_name">
+     <label><input name="form-field-radio1" type="radio" checked="checked" class="ace" value="1"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
+     <label><input name="form-field-radio1"type="radio" class="ace" value="2"><span class="lbl" >审核</span></label>
+                <label><input name="form-field-radio1"type="radio" class="ace" value="3"><span class="lbl" >封号</span></label>
+            </span><div class="prompt r_f"></div></li>
 
         <li>
             <label class="label_name">备注：</label>
             <div class="formControls">
-                <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);" style="float: left;"></textarea>
+                <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);" style="float: left;" id="user-beizhu" name="user-beizhu"></textarea>
                 <span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
             </div>
         </li>
@@ -249,18 +252,18 @@ $number=count($rows);
         <li><label class="label_name">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
             <span class="add_name">
 
-             <input type="text" class="input-text" value="" placeholder="" id="user-name" name="user-name" datatype="*2-16" nullmsg="账号不能为空">
+             <input type="text" class="input-text" value="" placeholder="" id="edituser-id" name="edituser-id" datatype="*2-16" nullmsg="账号不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">用户名：</label>
             <span class="add_name">
-             <input type="text" class="input-text" value="" placeholder="" id="user-name" name="user-name" datatype="*2-16" nullmsg="用户名不能为空">
+             <input type="text" class="input-text" value="" placeholder="" id="edituser-name" name="edituser-name" datatype="*2-16" nullmsg="用户名不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">初始密码：</label><span class="add_name">
-                <input type="password" placeholder="密码" name="userpassword" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
+                <input type="password" placeholder="密码" name="useredit-password" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
             </span>
             <div class="prompt r_f"></div>
         </li>
@@ -275,7 +278,7 @@ $number=count($rows);
         <li><label class="label_name">移动电话：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="手机不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="useredit-tel" name="useredit-tel" datatype="m" nullmsg="手机不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
@@ -283,27 +286,27 @@ $number=count($rows);
         <li class="adderss"><label class="label_name">公司住址：</label>
             <span class="add_name">
 
-             <input name="公司住址" type="text"  class="cityinput" id="citySelect" placeholder="请输入目的地" style=" width:350px"/>
+             <input name="useredit-address" type="text"  class="cityinput" id="citySelect" placeholder="请输入目的地" style=" width:350px"/>
          </span>
             <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">法人代表：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="法人代表不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="useredit-represent" name="useredit-represent" datatype="m" nullmsg="法人代表不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">营业执照号：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="营业执照号不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="useredit-busLicenseNum" name="useredit-busLicenseNum" datatype="m" nullmsg="营业执照号不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">开户银行：</label>
             <span class="add_name">
-                <select class="select" name="admin-role" size="1" style="margin-left: 10px;">
+                <select class="select" name="useredit-bank" size="1" style="margin-left: 10px;">
 					<option value="工商银行">工商银行</option>
 					<option value="开发银行">开发银行</option>
 					<option value="建设银行">建设银行</option>
@@ -316,21 +319,21 @@ $number=count($rows);
         <li><label class="label_name">开户银行号：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="开户银行号不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="useredit-bankNum" name="useredit-bankNum" datatype="m" nullmsg="开户银行号不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">开户银行手机号：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="开户银行手机号不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="useredit-bankPhone" name="useredit-bankPhone" datatype="m" nullmsg="开户银行手机号不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">税号：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="税号不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="useredit-taxNum" name="useredit-taxNum" datatype="m" nullmsg="税号不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
@@ -339,20 +342,25 @@ $number=count($rows);
 
         <li><label class="label_name">上传营业执照：</label>
 
-            <input type="file"  value="" placeholder="" id="id-input-file-2" name="user-tel" datatype="m" nullmsg="营业执照不能为空" style="margin-left: 10px;">
+            <input type="file"  value="" placeholder="" id="useredit-busLicensePicture" name="useredit-busLicensePicture" datatype="m" nullmsg="营业执照不能为空" style="margin-left: 10px;">
 
             <div class="prompt r_f"></div>
         </li>
 
 
         <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
-     <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">关闭</span></label></span><div class="prompt r_f"></div></li>
+
+        <label><input name="form-field-radio1" type="radio" checked="checked" class="ace" value="1"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
+     <label><input name="form-field-radio1"type="radio" class="ace" value="2"><span class="lbl" >审核</span></label>
+                <label><input name="form-field-radio1"type="radio" class="ace" value="3"><span class="lbl" >封号</span></label>
+
+            </span>
+            <div class="prompt r_f"></div></li>
 
         <li>
             <label class="label_name">备注：</label>
             <div class="formControls">
-                <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);" style="float: left;"></textarea>
+                <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);" style="float: left;" id="useredit-beizhu" name="useredit-beizhu"></textarea>
                 <span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
             </div>
         </li>
