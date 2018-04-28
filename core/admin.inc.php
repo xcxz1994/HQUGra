@@ -1,9 +1,6 @@
 <?php
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
-$act=$_REQUEST['act'];
-if($act=="addUser"){
-    addUser();
-}
+
 
 /**
  * 检查管理员是否存在
@@ -228,7 +225,7 @@ function addUser(){
 
 
     if(insert("bas_contact_client",$arruser)){
-        var_dump("aaaaaaaaaaaaaaa");
+        //var_dump("aaaaaaaaaaaaaaa");
         $mes="添加成功!<br/><a href='user_list.php'>继续添加</a>|<a href='user_list.php'>查看用户列表</a>";
     }else{
         $mes="添加失败!<br/><a href='user_list.php'>重新添加</a>";

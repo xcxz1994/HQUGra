@@ -108,7 +108,7 @@ $number=count($rows);
             <td><?php echo $row['cl_represent'];?></td>
 
           <td><?php echo $row['cl_phone'];?></td>
-          <td class="text-l"><?php echo $row['cl_adress'];?></td>
+          <td class="text-l"><?php echo $row['cl_address'];?></td>
           <td><?php echo $row['cl_registDate'];?></td>
           <td><?php echo $row['cl_grade'];?></td>
           <td class="td-status"><span class="label label-success radius">已启用</span></td>
@@ -423,8 +423,10 @@ jQuery(function($) {
         content:$('#add_menber_style'),
 		btn:['提交','取消'],
 		yes:function(index,layero){
+
 		 var num=0;
 		 var str="";
+
      $("#add_menber_style input[type$='text']").each(function(n){
           if($(this).val()=="")
           {
@@ -456,7 +458,7 @@ jQuery(function($) {
               var userbusLicenseImg=getPhoto(this);
 
               $.ajax({
-                  url: './core/admin.inc.php?act=addUser',
+                  url: './doAdminAction.php?act=addUser',
                   type: 'post',
                   data: {
                       'user-id':userid,
@@ -476,10 +478,13 @@ jQuery(function($) {
                   },
                   success:function(data){
                       console.log(data)
-
+                      layer.alert('添加成功！',{
+                          title: '提示框',
+                          icon:1,
+                      });
                   }
               })
-             //window.location.reload();
+             window.location.reload();
 		  }		  		     				
 		}
     });
