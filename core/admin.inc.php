@@ -200,23 +200,40 @@ function getAllUser(){
  * @return string
  */
 function addUser(){
+   // var_dump($_POST);
+    $showtime=date("Y-m-d H:i:s");
+    $arr['cl_registDate']=$showtime();
     $arr['cl_id']=$_POST['userid'];
-    $arr['cl_pswd']=md5($_POST['password']);
-    $arr['regTime']=time();
+    $arr['cl_pswd']=md5($_POST['userpwd']);
+    $arr['cl_name']=$_POST['username'];
+    $arr['cl_phone']=$_POST['usertel'];
+    $arr['cl_address']=$_POST['useraddress'];
+    $arr['cl_represent']=$_POST['userrepresent'];
+    $arr['cl_busLicenseNum']=$_POST['userbusLicenseNum'];
+    $arr['cl_bank']=$_POST['userbank'];
+    $arr['cl_bankNum']=$_POST['userbankNum'];
+    $arr['cl_bankPhone']=$_POST['userbankPhone'];
+    $arr['cl_taxNum']=$_POST['usertaxNum'];
+    $arr['cl_loginState']=$_POST['userStatus'];
+    $arr['cl_beizhu']=$_POST['userbeizhu'];
+    $arr['cl_busLicensePicture']=$_POST['userbusLicenseImg'];
+    var_dump($arr[]);
+    /**
     $uploadFile=uploadFile("../uploads");
     if($uploadFile&&is_array($uploadFile)){
         $arr['face']=$uploadFile[0]['name'];
     }else{
         return "添加失败<a href='addUser.php'>重新添加</a>";
-    }
-    if(insert("sys_user", $arr)){
-        $mes="添加成功!<br/><a href='addUser.php'>继续添加</a>|<a href='listUser.php'>查看列表</a>";
+    }**/
+
+    if(insert("bas_contact_client", $arr)){
+        $mes="添加成功!<br/>";
     }else{
         $filename="../uploads/".$uploadFile[0]['name'];
         if(file_exists($filename)){
             unlink($filename);
         }
-        $mes="添加失败!<br/><a href='arrUser.php'>重新添加</a>|<a href='listUser.php'>查看列表</a>";
+        $mes="添加失败!<br/>";
     }
     return $mes;
 }

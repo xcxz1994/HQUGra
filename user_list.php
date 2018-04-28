@@ -481,7 +481,7 @@ jQuery(function($) {
                       });
                   }
               })
-              window.location.reload();
+             // window.location.reload();
 		  }		  		     				
 		}
     });
