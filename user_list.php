@@ -127,7 +127,7 @@ $number=count($rows);
 </div>
 <!--添加用户图层-->
 <div class="add_menber" id="add_menber_style" style="display:none">
-  
+
     <ul class=" page-content">
      <li><label class="label_name">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
          <span class="add_name">
@@ -246,7 +246,9 @@ $number=count($rows);
                 <span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
             </div>
         </li>
+        <li>
 
+        </li>
     </ul>
  </div>
 
@@ -420,10 +422,9 @@ jQuery(function($) {
         area : ['850px' , ''],
         content:$('#add_menber_style'),
 		btn:['提交','取消'],
-		yes:function(index,layero){	
+		yes:function(index,layero){
 		 var num=0;
 		 var str="";
-
      $("#add_menber_style input[type$='text']").each(function(n){
           if($(this).val()=="")
           {
@@ -453,39 +454,37 @@ jQuery(function($) {
               var userStatus=$("input[name='form-field-radio1']:checked").val();
               var userbeizhu=$('#user-beizhu').val();
               var userbusLicenseImg=getPhoto(this);
-              //alert(userbusLicenseImg);
+
               $.ajax({
-                  url: './doAdminAction.php?act=addUser',
+                  url: './core/admin.inc.php?act=addUser',
                   type: 'post',
                   data: {
-                      'userid':userid,
-                      'username':username,
-                      'userpwd':userpwd,
-                      'usertel':usertel,
-                      'useraddress':address,
-                      'userrepresent':userrepresent,
-                      'userbusLicenseNum':userbusLicenseNum,
-                      'userbank':userbank,
-                      'userbankNum':userbankNum,
-                      'userbankPhone':userbankPhone,
-                      'usertaxNum':usertaxNum,
-                      'userStatus':userStatus,
-                      'userbeizhu':userbeizhu,
-                      'userbusLicenseImg':userbusLicenseImg
+                      'user-id':userid,
+                      'user-name':username,
+                      'user-pwd':userpwd,
+                      'user-tel':usertel,
+                      'user-address':address,
+                      'user-represent':userrepresent,
+                      'user-busLicenseNum':userbusLicenseNum,
+                      'user-bank':userbank,
+                      'user-bankNum':userbankNum,
+                      'user-bankPhone':userbankPhone,
+                      'user-taxNum':usertaxNum,
+                      'user-Status':userStatus,
+                      'user-beizhu':userbeizhu,
+                      'user-busLicenseImg':userbusLicenseImg
                   },
                   success:function(data){
                       console.log(data)
-                      layer.alert('添加成功！',{
-                          title: '提示框',
-                          icon:1,
-                      });
+
                   }
               })
-             // window.location.reload();
+             //window.location.reload();
 		  }		  		     				
 		}
     });
 });
+
 /*用户-查看*/
 function member_show(id){
     //alert(id)

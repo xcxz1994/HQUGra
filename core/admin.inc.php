@@ -1,5 +1,10 @@
 <?php
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
+$act=$_REQUEST['act'];
+if($act=="addUser"){
+    addUser();
+}
+
 /**
  * 检查管理员是否存在
  * @param unknown_type $sql
@@ -199,41 +204,34 @@ function getAllUser(){
  * @param int $id
  * @return string
  */
-function addUser(){
-   // var_dump($_POST);
-    $showtime=date("Y-m-d H:i:s");
-    $arr['cl_registDate']=$showtime();
-    $arr['cl_id']=$_POST['userid'];
-    $arr['cl_pswd']=md5($_POST['userpwd']);
-    $arr['cl_name']=$_POST['username'];
-    $arr['cl_phone']=$_POST['usertel'];
-    $arr['cl_address']=$_POST['useraddress'];
-    $arr['cl_represent']=$_POST['userrepresent'];
-    $arr['cl_busLicenseNum']=$_POST['userbusLicenseNum'];
-    $arr['cl_bank']=$_POST['userbank'];
-    $arr['cl_bankNum']=$_POST['userbankNum'];
-    $arr['cl_bankPhone']=$_POST['userbankPhone'];
-    $arr['cl_taxNum']=$_POST['usertaxNum'];
-    $arr['cl_loginState']=$_POST['userStatus'];
-    $arr['cl_beizhu']=$_POST['userbeizhu'];
-    $arr['cl_busLicensePicture']=$_POST['userbusLicenseImg'];
-    var_dump($arr[]);
-    /**
-    $uploadFile=uploadFile("../uploads");
-    if($uploadFile&&is_array($uploadFile)){
-        $arr['face']=$uploadFile[0]['name'];
-    }else{
-        return "添加失败<a href='addUser.php'>重新添加</a>";
-    }**/
 
-    if(insert("bas_contact_client", $arr)){
-        $mes="添加成功!<br/>";
+function addUser(){
+
+    $showtime=date("Y-m-d H:i:s");
+    $arruser['cl_registDate']=$showtime;
+    $arruser['cl_id']=$_POST['user-id'];
+
+    $arruser['cl_pswd']=md5($_POST['user-pwd']);
+    $arruser['cl_name']=$_POST['user-name'];
+    $arruser['cl_phone']=$_POST['user-tel'];
+    $arruser['cl_address']=$_POST['user-address'];
+    $arruser['cl_represent']=$_POST['user-represent'];
+    $arruser['cl_busLicenseNum']=$_POST['user-busLicenseNum'];
+    $arruser['cl_bank']=$_POST['user-bank'];
+    $arruser['cl_bankNum']=$_POST['user-bankNum'];
+    $arruser['cl_bankPhone']=$_POST['user-bankPhone'];
+    $arruser['cl_taxNum']=$_POST['user-taxNum'];
+    $arruser['cl_loginState']=$_POST['user-Status'];
+    $arruser['cl_beizhu']=$_POST['user-beizhu'];
+    $arruser['cl_busLicensePicture']=$_POST['user-busLicenseImg'];
+
+
+
+    if(insert("bas_contact_client",$arruser)){
+        var_dump("aaaaaaaaaaaaaaa");
+        $mes="添加成功!<br/><a href='user_list.php'>继续添加</a>|<a href='user_list.php'>查看用户列表</a>";
     }else{
-        $filename="../uploads/".$uploadFile[0]['name'];
-        if(file_exists($filename)){
-            unlink($filename);
-        }
-        $mes="添加失败!<br/>";
+        $mes="添加失败!<br/><a href='user_list.php'>重新添加</a>";
     }
     return $mes;
 }

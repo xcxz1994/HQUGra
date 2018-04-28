@@ -25,6 +25,7 @@ if($act=="logout"){
 }elseif($act=="delPro"){
 	$mes=delPro($id);
 }elseif($act=="addUser"){
+    var_dump("aaaaaaaaaaaaa");
 	$mes=addUser();
 }elseif($act=="delUser"){
 		$mes=delUser($id);
