@@ -143,7 +143,7 @@ $number=count($rows);
          <div class="prompt r_f"></div>
      </li>
         <li><label class="label_name">初始密码：</label><span class="add_name">
-                <input type="password" placeholder="密码" name="userpassword" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
+                <input type="password" placeholder="密码" name="userpassword" id="userpassword" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
             </span>
             <div class="prompt r_f"></div>
         </li>
@@ -186,7 +186,7 @@ $number=count($rows);
         </li>
         <li><label class="label_name">开户银行：</label>
             <span class="add_name">
-                <select class="select" name="user-bank" size="1" style="margin-left: 10px;">
+                <select class="select" name="user-bank" id="user-bank" size="1" style="margin-left: 10px;">
 					<option value="工商银行">工商银行</option>
 					<option value="开发银行">开发银行</option>
 					<option value="建设银行">建设银行</option>
@@ -222,11 +222,15 @@ $number=count($rows);
 
         <li><label class="label_name">上传营业执照：</label>
 
-                  <input type="file"  value="" placeholder="" id="user-busLicensePicture" name="user-busLicensePicture" datatype="m" nullmsg="营业执照不能为空" style="margin-left: 10px;">
+                  <input type="file"  value="" placeholder="" name="uploadPicture" id="file"   datatype="m" nullmsg="营业执照不能为空" style="margin-left: 10px;" title="上传照片" onchange="getPhoto(this)">
 
             <div class="prompt r_f"></div>
         </li>
-
+        <li>
+            <div class="ge_pic_icon_Infor">
+                <img src="" id="busLicenseImg"/>
+            </div>
+        </li>
 
         <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label>
             <span class="add_name">
@@ -234,14 +238,15 @@ $number=count($rows);
      <label><input name="form-field-radio1"type="radio" class="ace" value="2"><span class="lbl" >审核</span></label>
                 <label><input name="form-field-radio1"type="radio" class="ace" value="3"><span class="lbl" >封号</span></label>
             </span><div class="prompt r_f"></div></li>
-
-        <li>
+        <li></li>
+        <li style="float: left;">
             <label class="label_name">备注：</label>
             <div class="formControls">
                 <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);" style="float: left;" id="user-beizhu" name="user-beizhu"></textarea>
                 <span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
             </div>
         </li>
+
     </ul>
  </div>
 
@@ -270,7 +275,7 @@ $number=count($rows);
         <div class="prompt r_f"></div>
         </li>
         <li><label class="label_name">确认密码：</label><span class="add_name">
-             <input type="password" placeholder="确认新密码" autocomplete="off" class="input-text Validform_error" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="userpassword" id="newpassword2" name="newpassword2">
+             <input type="password" placeholder="确认新密码" autocomplete="off" class="input-text Validform_error" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="userpassword" id="newpassword2Edit" name="newpassword2Edit">
 
          </span>
             <div class="prompt r_f"></div>
@@ -286,7 +291,7 @@ $number=count($rows);
         <li class="adderss"><label class="label_name">公司住址：</label>
             <span class="add_name">
 
-             <input name="useredit-address" type="text"  class="cityinput" id="citySelect" placeholder="请输入目的地" style=" width:350px"/>
+             <input name="useredit-address" type="text"  class="cityinput" id="citySelectEdit" placeholder="请输入目的地" style=" width:350px"/>
          </span>
             <div class="prompt r_f"></div>
         </li>
@@ -419,7 +424,7 @@ jQuery(function($) {
 		 var num=0;
 		 var str="";
 
-     $(".add_menber input[type$='text']").each(function(n){
+     $("#add_menber_style input[type$='text']").each(function(n){
           if($(this).val()=="")
           {
                
@@ -433,6 +438,23 @@ jQuery(function($) {
 		 });
 		  if(num>0){  return false;}	 	
           else{
+
+              var userid=$('#user-id').val();
+              var username=$('#user-name').val();
+              var userpwd=$('#userpassword').val();
+              var usertel=$('#user-tel').val();
+              var address=$('#citySelect').val();
+              var userrepresent=$('#user-represent').val();
+              var userbusLicenseNum=$('#user-busLicenseNum').val();
+              var userbank=$('#user-bank').val();
+              var userbankNum=$('#user-bankNum').val();
+              var userbankPhone=$('#user-bankPhone').val();
+              var usertaxNum=$('#user-taxNum').val();
+              var userStatus=$("input[name='form-field-radio1']:checked").val();
+              var userbeizhu=$('#user-beizhu').val();
+              var userbusLicenseImg=getPhoto(this);
+              //alert(userbusLicenseImg);
+
 			  layer.alert('添加成功！',{
                title: '提示框',				
 			icon:1,		
@@ -475,6 +497,7 @@ function member_start(obj,id){
 }
 /*用户-编辑*/
 function member_edit(id){
+    var test=new Vcity.CitySelector({input:'citySelectEdit'});
 	  layer.open({
         type: 1,
         title: '修改用户信息',
@@ -482,11 +505,11 @@ function member_edit(id){
 		shadeClose:false, //点击遮罩关闭层
         area : ['850px' , ''],
         content:$('#edit_menber_style'),
-		btn:['提交','取消'],
+		btn:['修改','取消'],
 		yes:function(index,layero){	
 		 var num=0;
 		 var str="";
-     $(".add_menber input[type$='text']").each(function(n){
+     $("#edit_menber_style input[type$='text']").each(function(n){
           if($(this).val()=="")
           {
                
@@ -521,20 +544,67 @@ laydate({
     event: 'focus' 
 });
 
-</script>
+/*获取上传的图片路径*/
+var imgurl = "";
+function getPhoto(node) {
+    var imgURL = "";
+    try{
+        var file = null;
+        if(node.files && node.files[0] ){
+            file = node.files[0];
+        }else if(node.files && node.files.item(0)) {
+            file = node.files.item(0);
+        }
+        //Firefox 因安全性问题已无法直接通过input[file].value 获取完整的文件路径
+        try{
+            imgURL =  file.getAsDataURL();
+            console.log(imgURL);
+        }catch(e){
+            imgRUL = window.URL.createObjectURL(file);
+        }
+    }catch(e){
+        if (node.files && node.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                imgURL = e.target.result;
+            };
+            reader.readAsDataURL(node.files[0]);
+        }
+    }
+
+    creatImg(imgRUL);
+    imgURL=creatImg(imgRUL);
+    //alert(imgURL);
+    return imgURL;
+}
+
+function creatImg(imgRUL){
+
+    var textHtml = "<img src='"+imgRUL+"'width='300px' height='120px'/>";
+
+    $(".ge_pic_icon_Infor").html(textHtml);
+    return imgRUL;
+}
 
 
-<script>
-    $('#id-input-file-2').ace_file_input({
-        no_file:'选择上传图标 ...',
-        btn_choose:'选择',
-        btn_change:'更改',
-        droppable:false,
-        onchange:null,
-        thumbnail:false, //| true | large
-        whitelist:'gif|png|jpg|jpeg'
-        //blacklist:'exe|php'
-        //onchange:''
-        //
-    });
+
+/*j检查字数限制*/
+function checkLength(which) {
+    var maxChars = 100; //
+    if(which.value.length > maxChars){
+        layer.open({
+            icon:2,
+            title:'提示框',
+            content:'您输入的字数超过限制!',
+        });
+        // 超过限制的字数了就将 文本框中的内容按规定的字数 截取
+        which.value = which.value.substring(0,maxChars);
+        return false;
+    }else{
+        var curr = maxChars - which.value.length; //250 减去 当前输入的
+        document.getElementById("sy").innerHTML = curr.toString();
+        return true;
+    }
+};
 </script>
+
