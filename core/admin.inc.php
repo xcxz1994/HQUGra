@@ -200,8 +200,8 @@ function getAllUser(){
  * @return string
  */
 function addUser(){
-    $arr=$_POST;
-    $arr['password']=md5($_POST['password']);
+    $arr['cl_id']=$_POST['userid'];
+    $arr['cl_pswd']=md5($_POST['password']);
     $arr['regTime']=time();
     $uploadFile=uploadFile("../uploads");
     if($uploadFile&&is_array($uploadFile)){

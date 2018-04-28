@@ -454,12 +454,34 @@ jQuery(function($) {
               var userbeizhu=$('#user-beizhu').val();
               var userbusLicenseImg=getPhoto(this);
               //alert(userbusLicenseImg);
-
-			  layer.alert('添加成功！',{
-               title: '提示框',				
-			icon:1,		
-			  });
-			   layer.close(index);	
+              $.ajax({
+                  url: './doAdminAction.php?act=addUser',
+                  type: 'post',
+                  data: {
+                      'userid':userid,
+                      'username':username,
+                      'userpwd':userpwd,
+                      'usertel':usertel,
+                      'useraddress':address,
+                      'userrepresent':userrepresent,
+                      'userbusLicenseNum':userbusLicenseNum,
+                      'userbank':userbank,
+                      'userbankNum':userbankNum,
+                      'userbankPhone':userbankPhone,
+                      'usertaxNum':usertaxNum,
+                      'userStatus':userStatus,
+                      'userbeizhu':userbeizhu,
+                      'userbusLicenseImg':userbusLicenseImg
+                  },
+                  success:function(data){
+                      console.log(data)
+                      layer.alert('添加成功！',{
+                          title: '提示框',
+                          icon:1,
+                      });
+                  }
+              })
+              window.location.reload();
 		  }		  		     				
 		}
     });
