@@ -162,7 +162,23 @@ $number=count($rows);
          </span>
          <div class="prompt r_f"></div>
      </li>
+        <li><label class="label_name">会员等级：</label>
+            <span class="add_name">
+                 <select class="select" name="user-grade" id="user-grade" size="1" style="margin-left: 10px;">
+					<option value="普通会员">普通会员</option>
+					<option value="铁牌会员">铁牌会员</option>
+					<option value="铜牌会员">铜牌会员</option>
+					<option value="银牌会员">银牌会员</option>
+                     <option value="金牌会员">金牌会员</option>
+                     <option value="钻石会员">钻石会员</option>
+                     <option value="红钻会员">红钻会员</option>
+                      <option value="蓝钻会员">蓝钻会员</option>
+                      <option value="黑钻会员">黑钻会员</option>
+				</select>
 
+         </span>
+            <div class="prompt r_f"></div>
+        </li>
      <li class="adderss"><label class="label_name">公司住址：</label>
          <span class="add_name">
 
@@ -456,7 +472,7 @@ jQuery(function($) {
               var userStatus=$("input[name='form-field-radio1']:checked").val();
               var userbeizhu=$('#user-beizhu').val();
               var userbusLicenseImg=getPhoto(this);
-
+              var usergrade=$('#user-grade').val();
               $.ajax({
                   url: './doAdminAction.php?act=addUser',
                   type: 'post',
@@ -474,7 +490,8 @@ jQuery(function($) {
                       'user-taxNum':usertaxNum,
                       'user-Status':userStatus,
                       'user-beizhu':userbeizhu,
-                      'user-busLicenseImg':userbusLicenseImg
+                      'user-busLicenseImg':userbusLicenseImg,
+                      'user-grade':usergrade
                   },
                   success:function(data){
                       console.log(data)

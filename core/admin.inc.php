@@ -207,7 +207,7 @@ function addUser(){
     $showtime=date("Y-m-d H:i:s");
     $arruser['cl_registDate']=$showtime;
     $arruser['cl_id']=$_POST['user-id'];
-
+    $arruser['cl_grade']=$_POST['user-grade'];
     $arruser['cl_pswd']=md5($_POST['user-pwd']);
     $arruser['cl_name']=$_POST['user-name'];
     $arruser['cl_phone']=$_POST['user-tel'];
