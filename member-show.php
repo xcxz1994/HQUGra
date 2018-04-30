@@ -51,7 +51,6 @@ $row=fetchOne($sql);
    <li><label class="label_name">地址：</label><span class="name"><?php echo $row['cl_address'];?></span></li>
    <li><label class="label_name">法人代表：</label><span class="name"><?php echo $row['cl_represent'];?></span></li>
    <li><label class="label_name">营业执照号：</label><span class="name"><?php echo $row['cl_busLicenseNum'];?></span></li>
-   <li><label class="label_name">营业执照：</label><span class="name"><img src="data:image/png;base64,<?php echo base64_encode($row['cl_busLicensePicture']);?>" /></span></li>
    <li><label class="label_name">开户银行：</label><span class="name"><?php echo $row['cl_bank'];?></span></li>
    <li><label class="label_name">开户银行号：</label><span class="name"><?php echo $row['cl_bankNum'];?></span></li>
    <li><label class="label_name">开户银行手机号：</label><span class="name"><?php echo $row['cl_bankPhone'];?></span></li>
@@ -59,6 +58,7 @@ $row=fetchOne($sql);
    <li><label class="label_name">注册时间：</label><span class="name"><?php echo $row['cl_registDate'];?></span></li>
    <li><label class="label_name">积分：</label><span class="name"><?php echo $row['cl_integral'];?></span></li>
    <li><label class="label_name">等级：</label><span class="name"><?php echo $row['cl_grade'];?></span></li>
+      <li><label class="label_name">营业执照：</label><span class="name"><img src="./<?php echo$row['cl_busLicensePicture'];?>" style="width: 250px;height: 180px;"/></span></li>
    
   </ul>
 </div>

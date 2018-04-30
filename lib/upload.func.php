@@ -94,3 +94,4 @@ function uploadFile($path="uploads",$allowExt=array("gif","jpeg","png","jpg","wb
     }
     return $uploadedFiles;
 }
+?>
