@@ -5,6 +5,7 @@ require_once './include.php';
 
 $rows=getAllUser();
 $number=count($rows);
+
 //print_r($rows);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -114,7 +115,7 @@ $number=count($rows);
           <td class="td-status"><span class="label label-success radius">已启用</span></td>
           <td class="td-manage">
           <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a>
+          <a title="编辑" onclick="member_edit('<?php echo $row['id'];?>')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a>
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
 		</tr>
@@ -269,133 +270,13 @@ $number=count($rows);
         <li></li>
         <li></li>
         <li>
-            <input class="btn btn-primary radius" type="submit" id="Add_Administrator" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            <input class="btn btn-primary radius" type="submit" id="Add_User" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
         </li>
     </ul>
     </form>
  </div>
 
-<!-- 修改用户图层-->
-<div class="add_menber" id="edit_menber_style" style="display:none">
 
-    <ul class=" page-content">
-        <li><label class="label_name">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
-            <span class="add_name">
-
-             <input type="text" class="input-text" value="" placeholder="" id="edituser-id" name="edituser-id" datatype="*2-16" nullmsg="账号不能为空">
-         </span>
-            <div class="prompt r_f"></div>
-        </li>
-        <li><label class="label_name">用户名：</label>
-            <span class="add_name">
-             <input type="text" class="input-text" value="" placeholder="" id="edituser-name" name="edituser-name" datatype="*2-16" nullmsg="用户名不能为空">
-         </span>
-            <div class="prompt r_f"></div>
-        </li>
-        <li><label class="label_name">初始密码：</label><span class="add_name">
-                <input type="password" placeholder="密码" name="useredit-password" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
-            </span>
-            <div class="prompt r_f"></div>
-        </li>
-        <div class="prompt r_f"></div>
-        </li>
-        <li><label class="label_name">确认密码：</label><span class="add_name">
-             <input type="password" placeholder="确认新密码" autocomplete="off" class="input-text Validform_error" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="userpassword" id="newpassword2Edit" name="newpassword2Edit">
-
-         </span>
-            <div class="prompt r_f"></div>
-        </li>
-        <li><label class="label_name">移动电话：</label>
-            <span class="add_name">
-
-            <input type="text" class="input-text" value="" placeholder="" id="useredit-tel" name="useredit-tel" datatype="m" nullmsg="手机不能为空">
-         </span>
-            <div class="prompt r_f"></div>
-        </li>
-
-        <li class="adderss"><label class="label_name">公司住址：</label>
-            <span class="add_name">
-
-             <input name="useredit-address" type="text"  class="cityinput" id="citySelectEdit" placeholder="请输入目的地" style=" width:350px"/>
-         </span>
-            <div class="prompt r_f"></div>
-        </li>
-        <li><label class="label_name">法人代表：</label>
-            <span class="add_name">
-
-            <input type="text" class="input-text" value="" placeholder="" id="useredit-represent" name="useredit-represent" datatype="m" nullmsg="法人代表不能为空">
-         </span>
-            <div class="prompt r_f"></div>
-        </li>
-        <li><label class="label_name">营业执照号：</label>
-            <span class="add_name">
-
-            <input type="text" class="input-text" value="" placeholder="" id="useredit-busLicenseNum" name="useredit-busLicenseNum" datatype="m" nullmsg="营业执照号不能为空">
-         </span>
-            <div class="prompt r_f"></div>
-        </li>
-        <li><label class="label_name">开户银行：</label>
-            <span class="add_name">
-                <select class="select" name="useredit-bank" size="1" style="margin-left: 10px;">
-					<option value="工商银行">工商银行</option>
-					<option value="开发银行">开发银行</option>
-					<option value="建设银行">建设银行</option>
-					<option value="交通银行">交通银行</option>
-				</select>
-         </span>
-            <div class="prompt r_f"></div>
-        </li>
-
-        <li><label class="label_name">开户银行号：</label>
-            <span class="add_name">
-
-            <input type="text" class="input-text" value="" placeholder="" id="useredit-bankNum" name="useredit-bankNum" datatype="m" nullmsg="开户银行号不能为空">
-         </span>
-            <div class="prompt r_f"></div>
-        </li>
-        <li><label class="label_name">开户银行手机号：</label>
-            <span class="add_name">
-
-            <input type="text" class="input-text" value="" placeholder="" id="useredit-bankPhone" name="useredit-bankPhone" datatype="m" nullmsg="开户银行手机号不能为空">
-         </span>
-            <div class="prompt r_f"></div>
-        </li>
-        <li><label class="label_name">税号：</label>
-            <span class="add_name">
-
-            <input type="text" class="input-text" value="" placeholder="" id="useredit-taxNum" name="useredit-taxNum" datatype="m" nullmsg="税号不能为空">
-         </span>
-            <div class="prompt r_f"></div>
-        </li>
-
-
-
-        <li><label class="label_name">上传营业执照：</label>
-
-            <input type="file"  value="" placeholder="" id="useredit-busLicensePicture" name="useredit-busLicensePicture" datatype="m" nullmsg="营业执照不能为空" style="margin-left: 10px;">
-
-            <div class="prompt r_f"></div>
-        </li>
-
-
-        <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
-
-        <label><input name="form-field-radio1" type="radio" checked="checked" class="ace" value="1"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio1"type="radio" class="ace" value="2"><span class="lbl" >审核</span></label>
-                <label><input name="form-field-radio1"type="radio" class="ace" value="3"><span class="lbl" >封号</span></label>
-
-            </span>
-            <div class="prompt r_f"></div></li>
-
-        <li>
-            <label class="label_name">备注：</label>
-            <div class="formControls">
-                <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);" style="float: left;" id="useredit-beizhu" name="useredit-beizhu"></textarea>
-                <span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
-            </div>
-        </li>
-    </ul>
-</div>
 </body>
 </html>
 <script>
@@ -509,39 +390,17 @@ function member_start(obj,id){
 }
 /*用户-编辑*/
 function member_edit(id){
-    var test=new Vcity.CitySelector({input:'citySelectEdit'});
-	  layer.open({
-        type: 1,
-        title: '修改用户信息',
-		maxmin: true, 
-		shadeClose:false, //点击遮罩关闭层
-        area : ['850px' , ''],
-        content:$('#edit_menber_style'),
-		btn:['修改','取消'],
-		yes:function(index,layero){	
-		 var num=0;
-		 var str="";
-     $("#edit_menber_style input[type$='text']").each(function(n){
-          if($(this).val()=="")
-          {
-               
-			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
-                title: '提示框',				
-				icon:0,								
-          }); 
-		    num++;
-            return false;            
-          } 
-		 });
-		  if(num>0){  return false;}	 	
-          else{
-			  layer.alert('添加成功！',{
-               title: '提示框',				
-			icon:1,		
-			  });
-			   layer.close(index);	
-		  }		  		     				
-		}
+    alert(id);
+
+
+    alert("编辑管理员")
+    layer.open({
+        type: 2,
+        title:'编辑管理员',
+        area: ['800px','750px'],
+        shadeClose: false,
+        content: './user-edit.php?id='+id,
+        setwin:'./index.php'
     });
 }
 /*用户-删除*/
