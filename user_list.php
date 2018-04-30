@@ -104,7 +104,7 @@ $number=count($rows);
 		<tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
           <td><?php echo $row['cl_id'];?></td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show(<?php echo $row['cl_id'];?>)"><?php echo $row['cl_name'];?></u></td>
+          <td><u style="cursor:pointer" class="text-primary" onclick="member_show(<?php echo $row['id'];?>)"><?php echo $row['cl_name'];?></u></td>
             <td><?php echo $row['cl_represent'];?></td>
 
           <td><?php echo $row['cl_phone'];?></td>
@@ -127,6 +127,7 @@ $number=count($rows);
 </div>
 <!--添加用户图层-->
 <div class="add_menber" id="add_menber_style" style="display:none">
+    <form action="doAdminAction.php?act=addUser" enctype="multipart/form-data" method="post">
 
     <ul class=" page-content">
      <li><label class="label_name">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
@@ -196,7 +197,7 @@ $number=count($rows);
         <li><label class="label_name">营业执照号：</label>
             <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-busLicenseNum" name="userbusLicenseNum" datatype="m" nullmsg="营业执照号不能为空">
+            <input type="text" class="input-text" value="" placeholder="" id="user-busLicenseNum" name="user-busLicenseNum" datatype="m" nullmsg="营业执照号不能为空">
          </span>
             <div class="prompt r_f"></div>
         </li>
@@ -249,23 +250,29 @@ $number=count($rows);
         </li>
 
         <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label>
-            <span class="add_name">
+            <span class="add_name" >
      <label><input name="form-field-radio1" type="radio" checked="checked" class="ace" value="1"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
      <label><input name="form-field-radio1"type="radio" class="ace" value="2"><span class="lbl" >审核</span></label>
                 <label><input name="form-field-radio1"type="radio" class="ace" value="3"><span class="lbl" >封号</span></label>
-            </span><div class="prompt r_f"></div></li>
+            </span>
+            <div class="prompt r_f"></div>
+        </li>
         <li></li>
         <li style="float: left;">
             <label class="label_name">备注：</label>
             <div class="formControls">
-                <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);" style="float: left;" id="user-beizhu" name="user-beizhu"></textarea>
+                <textarea name="user-baizhu" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);" style="float: left;" id="user-beizhu" name="user-beizhu"></textarea>
                 <span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
             </div>
         </li>
+        <li></li>
+        <li></li>
+        <li></li>
         <li>
-
+            <input class="btn btn-primary radius" type="submit" id="Add_Administrator" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
         </li>
     </ul>
+    </form>
  </div>
 
 <!-- 修改用户图层-->
@@ -430,6 +437,7 @@ jQuery(function($) {
 /*用户-添加*/
  $('#member_add').on('click', function(){
      var test=new Vcity.CitySelector({input:'citySelect'});
+
     layer.open({
         type: 1,
         title: '添加用户',
@@ -437,7 +445,7 @@ jQuery(function($) {
 		shadeClose: true, //点击遮罩关闭层
         area : ['850px' , ''],
         content:$('#add_menber_style'),
-		btn:['提交','取消'],
+
 		yes:function(index,layero){
 
 		 var num=0;
@@ -458,49 +466,10 @@ jQuery(function($) {
 		  if(num>0){  return false;}	 	
           else{
 
-              var userid=$('#user-id').val();
-              var username=$('#user-name').val();
-              var userpwd=$('#userpassword').val();
-              var usertel=$('#user-tel').val();
-              var address=$('#citySelect').val();
-              var userrepresent=$('#user-represent').val();
-              var userbusLicenseNum=$('#user-busLicenseNum').val();
-              var userbank=$('#user-bank').val();
-              var userbankNum=$('#user-bankNum').val();
-              var userbankPhone=$('#user-bankPhone').val();
-              var usertaxNum=$('#user-taxNum').val();
-              var userStatus=$("input[name='form-field-radio1']:checked").val();
-              var userbeizhu=$('#user-beizhu').val();
-              var userbusLicenseImg=getPhoto(this);
-              var usergrade=$('#user-grade').val();
-              $.ajax({
-                  url: './doAdminAction.php?act=addUser',
-                  type: 'post',
-                  data: {
-                      'user-id':userid,
-                      'user-name':username,
-                      'user-pwd':userpwd,
-                      'user-tel':usertel,
-                      'user-address':address,
-                      'user-represent':userrepresent,
-                      'user-busLicenseNum':userbusLicenseNum,
-                      'user-bank':userbank,
-                      'user-bankNum':userbankNum,
-                      'user-bankPhone':userbankPhone,
-                      'user-taxNum':usertaxNum,
-                      'user-Status':userStatus,
-                      'user-beizhu':userbeizhu,
-                      'user-busLicenseImg':userbusLicenseImg,
-                      'user-grade':usergrade
-                  },
-                  success:function(data){
-                      console.log(data)
-                      layer.alert('添加成功！',{
-                          title: '提示框',
-                          icon:1,
-                      });
-                  }
-              })
+              layer.alert('添加成功！',{
+                  title: '提示框',
+                  icon:1,
+              });
              window.location.reload();
 		  }		  		     				
 		}

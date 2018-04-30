@@ -3,7 +3,7 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 
 require_once './include.php';
 $id=$_REQUEST['id'];
-$sql="select * from bas_contact_client where cl_id='{$id}'";
+$sql="select * from bas_contact_client where id='{$id}'";
 $row=fetchOne($sql);
 //print_r($row);
 ?>
@@ -48,10 +48,10 @@ $row=fetchOne($sql);
   <ul>
 
    <li><label class="label_name">联系方式：</label><span class="name"><?php echo $row['cl_phone'];?></span></li>
-   <li><label class="label_name">地址：</label><span class="name"><?php echo $row['cl_adress'];?></span></li>
+   <li><label class="label_name">地址：</label><span class="name"><?php echo $row['cl_address'];?></span></li>
    <li><label class="label_name">法人代表：</label><span class="name"><?php echo $row['cl_represent'];?></span></li>
    <li><label class="label_name">营业执照号：</label><span class="name"><?php echo $row['cl_busLicenseNum'];?></span></li>
-   <li><label class="label_name">营业执照：</label><span class="name"><?php echo $row['cl_busLicensePicture'];?></span></li>
+   <li><label class="label_name">营业执照：</label><span class="name"><img src="data:image/png;base64,<?php echo base64_encode($row['cl_busLicensePicture']);?>" /></span></li>
    <li><label class="label_name">开户银行：</label><span class="name"><?php echo $row['cl_bank'];?></span></li>
    <li><label class="label_name">开户银行号：</label><span class="name"><?php echo $row['cl_bankNum'];?></span></li>
    <li><label class="label_name">开户银行手机号：</label><span class="name"><?php echo $row['cl_bankPhone'];?></span></li>

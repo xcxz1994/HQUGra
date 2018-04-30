@@ -218,8 +218,8 @@ function addUser(){
     $arruser['cl_bankNum']=$_POST['user-bankNum'];
     $arruser['cl_bankPhone']=$_POST['user-bankPhone'];
     $arruser['cl_taxNum']=$_POST['user-taxNum'];
-    $arruser['cl_loginState']=$_POST['user-Status'];
-    $arruser['cl_beizhu']=$_POST['user-beizhu'];
+    $arruser['cl_loginState']=$_POST['form-field-radio1'];
+    $arruser['cl_beizhu']=$_POST['user-baizhu'];
     $arruser['cl_busLicensePicture']=$_POST['user-busLicenseImg'];
 
 
