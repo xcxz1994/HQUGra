@@ -354,7 +354,7 @@ function member_start(obj,id){
                         x: '25%',
                         width: '50%',
                         funnelAlign: 'left',
-                        max: 6200
+                        max: 10
                     }
                 }
             },
@@ -370,14 +370,14 @@ function member_start(obj,id){
             radius : '55%',
             center: ['50%', '60%'],
             data:[
-                {value:1200, name:'普通用户'},
-                {value:1100, name:'铁牌用户'},
-				{value:1300, name:'铜牌用户'},
-				{value:1000, name:'银牌用户'},
-				{value:980, name:'金牌用户'},
-				{value:850, name:'钻石用户'},
-				{value:550, name:'蓝钻用户'},
-				{value:220, name:'红钻用户'},
+                {value:<?php echo $commonNum;?>, name:'普通用户'},
+                {value:<?php echo $IroncardNum;?>, name:'铁牌用户'},
+				{value:<?php echo $CopperNum;?>, name:'铜牌用户'},
+				{value:<?php echo $SilverNum;?>, name:'银牌用户'},
+				{value:<?php echo $GoldNum;?>, name:'金牌用户'},
+				{value:<?php echo $JewelNum;?>, name:'钻石用户'},
+				{value:<?php echo $BlueJewelNum;?>, name:'蓝钻用户'},
+				{value:<?php echo $RedJewelNum;?>, name:'红钻用户'},
 
             ]
         }
