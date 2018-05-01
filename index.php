@@ -3,6 +3,23 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 require_once './include.php';
 checkLogined();
 
+$rows=getAllUser();
+$AuditUserNum=getAuditUser()[1];
+//print_r($AuditUserNum);
+function getAuditUser(){
+    $AuditUser=array();
+    $rows=getAllUser();
+    for($i=0;$i<count($rows);$i++){
+        if($rows[$i]['cl_loginState']==2) {
+            $AuditUser.array_push($AuditUser,$rows[$i]);
+        }else{
+            // echo "没有普通会员";
+        }
+    }
+    $AuditUserNum=count($AuditUser);
+    return array($AuditUser,$AuditUserNum);
+}
+
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -422,7 +439,7 @@ function link_operating(name,title){
 				  <li><a href="#" class="dropdown-toggle"><i class="icon-laptop"></i><span class="menu-text"> 店铺管理 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
 								<li class="home"><a href="javascript:void(0)" name="Shop_list.php" title="店铺列表" class="iframeurl"><i class="icon-double-angle-right"></i>店铺列表</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Shops_Audit.php" title="店铺审核" class="iframeurl"><i class="icon-double-angle-right"></i>店铺审核<span class="badge badge-danger">5</span></a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Shops_Audit.php" title="店铺审核" class="iframeurl"><i class="icon-double-angle-right"></i>店铺审核<span class="badge badge-danger"><?php echo $AuditUserNum;?></span></a></li>
 							</ul>
 						</li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-comments-alt"></i><span class="menu-text"> 消息管理 </span><b class="arrow icon-angle-down"></b></a>

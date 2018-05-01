@@ -1,3 +1,27 @@
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+
+require_once './include.php';
+
+$rows=getAllUser();
+$AuditUserNum=getAuditUser()[1];
+$AuditUsers=getAuditUser()[0];
+//print_r($AuditUser);
+function getAuditUser(){
+    $AuditUser=array();
+    $rows=getAllUser();
+    for($i=0;$i<count($rows);$i++){
+        if($rows[$i]['cl_loginState']==2) {
+            $AuditUser.array_push($AuditUser,$rows[$i]);
+        }else{
+            // echo "没有普通会员";
+        }
+    }
+    $AuditUserNum=count($AuditUser);
+    return array($AuditUser,$AuditUserNum);
+}
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -27,7 +51,7 @@
 <body>
 <div class="margin clearfix">
  <div class="Shops_Audit">
-   <div class="prompt">当前共有<b>5</b>家店铺申请入住</div>
+   <div class="prompt">当前共有<b><?php echo $AuditUserNum;?></b>家店铺申请入住</div>
    <!--申请列表-->
    <div class="audit_list">
      <table class="table table-striped table-bordered table-hover" id="sample-table">
@@ -35,7 +59,6 @@
 		 <tr>
             <th width="180px">店铺名称</th>
             <th width="120px">所属分类</th>
-            <th width="120px">店铺类型</th>
             <th width="">简介</th>
             <th width="150px">添加时间</th>
             <th width="100px">审核状态</th>                
@@ -43,19 +66,20 @@
 			</tr>
 		</thead>
         <tbody>
+        <?php  foreach($AuditUsers as $AuditUser):?>
         <tr>
-         <td>课程猫旗舰店</td>
-         <td>食品保健</td>
-         <td>企业店铺</td>
-         <td class="displayPart" displayLength="80">课程猫旗舰店课程猫旗舰店课程猫旗舰店课程猫旗舰店课程猫旗舰店课程猫旗舰店课程猫旗舰店课程猫旗舰店课程猫旗舰店</td>
-         <td>2016-7-23</td>
+         <td><?php echo $AuditUser['cl_name'];?></td>
+         <td><?php echo $AuditUser['cl_type'];?></td>
+         <td><?php echo $AuditUser['cl_beizhu'];?></td>
+         <td><?php echo $AuditUser['cl_registDate'];?></td>
          <td>待审核</td>
           <td class="td-manage">
-           <a title="店铺详细" href="shopping_detailed.html" class="btn btn-xs btn-info Refund_detailed">详细</a>        
+           <a title="店铺详细" href="shopping_detailed.php" class="btn btn-xs btn-info Refund_detailed">详细</a>
            <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-danger" >删除</a>
            
           </td>
         </tr>
+        <?php endforeach;?>
         </tbody>
         </table>
    
