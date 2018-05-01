@@ -226,7 +226,7 @@ function addUser(){
     $arruser['cl_loginState']=$_POST['form-field-radio1'];
     $arruser['cl_beizhu']=$_POST['user-baizhu'];
     $arruser['cl_busLicensePicture']=$filePath;
-
+    $arruser['cl_type']=$_POST['user-type'];
 
 
     if(insert("bas_contact_client",$arruser)){
@@ -278,6 +278,7 @@ function editUser($id){
     $arruseredit['cl_loginState']=$_POST['form-field-radio1'];
     $arruseredit['cl_beizhu']=$_POST['user-baizhu'];
     $arruseredit['cl_busLicensePicture']=$filePath;
+    $arruseredit['cl_type']=$_POST['user-type'];
 
     if(update("bas_contact_client", $arruseredit,"id={$id}")){
         $mes="编辑成功!<br/>";

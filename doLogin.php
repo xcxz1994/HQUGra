@@ -1,5 +1,5 @@
 <?php
-
+header("content-type:text/html;charset=urtf-8");
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
 
 require_once './include.php';

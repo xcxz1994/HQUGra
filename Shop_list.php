@@ -1,3 +1,70 @@
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+
+require_once './include.php';
+
+$rows=getAllUser();
+$number=count($rows);
+
+$foodUserNum=getfoodUser()[1];
+$LifeCareUserNum=getLifeCareUser()[1];
+$ElectronicUserNum=getElectronicUser()[1];
+$TextileAndClothingNum=getTextileAndClothingUser()[1];
+
+function getfoodUser(){
+    $foodUser=array();
+    $rows=getAllUser();
+    for($i=0;$i<count($rows);$i++){
+        if($rows[$i]['cl_type']=='食品加工') {
+            $foodUser.array_push($foodUser,$rows[$i]);
+        }else{
+            // echo "没有普通会员";
+        }
+    }
+    $foodUserNum=count($foodUser);
+    return array($foodUser,$foodUserNum);
+}
+function getLifeCareUser(){
+    $LifeCareUser=array();
+    $rows=getAllUser();
+    for($i=0;$i<count($rows);$i++){
+        if($rows[$i]['cl_type']=='生活保健') {
+            $LifeCareUser.array_push($LifeCareUser,$rows[$i]);
+        }else{
+            // echo "没有普通会员";
+        }
+    }
+    $LifeCareUserNum=count($LifeCareUser);
+    return array($LifeCareUser,$LifeCareUserNum);
+}
+function getElectronicUser(){
+    $ElectronicUser=array();
+    $rows=getAllUser();
+    for($i=0;$i<count($rows);$i++){
+        if($rows[$i]['cl_type']=='电子数码') {
+            $ElectronicUser.array_push($ElectronicUser,$rows[$i]);
+        }else{
+            // echo "没有普通会员";
+        }
+    }
+    $ElectronicUserNum=count($ElectronicUser);
+    return array($ElectronicUser,$ElectronicUserNum);
+}
+function getTextileAndClothingUser(){
+    $TextileAndClothingUser=array();
+    $rows=getAllUser();
+    for($i=0;$i<count($rows);$i++){
+        if($rows[$i]['cl_type']=='纺织服饰') {
+            $TextileAndClothingUser.array_push($TextileAndClothingUser,$rows[$i]);
+        }else{
+            // echo "没有普通会员";
+        }
+    }
+    $TextileAndClothingUserNum=count($TextileAndClothingUser);
+    return array($TextileAndClothingUser,$TextileAndClothingUserNum);
+}
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -39,12 +106,12 @@
       </div>
       <div class="widget-body">
          <ul class="b_P_Sort_list">
-             <li><i class="orange  fa fa-list "></i><a href="#">全部(235)</a></li>
-             <li><i class="fa fa-shopping-bag pink "></i> <a href="#">食品类(5)</a></li>
-             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">保健品类(3)</a> </li>
-             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">数码产品(3)</a></li>
-             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">生活百货(3)</a></li>
-             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">床上用户(33)</a></li>
+             <li><i class="orange  fa fa-list "></i><a href="#">全部(<?php echo $number;?>)</a></li>
+             <li><i class="fa fa-shopping-bag pink "></i> <a href="#">食品加工(<?php echo $foodUserNum;?>)</a></li>
+             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">生活保健(<?php echo $LifeCareUserNum;?>)</a> </li>
+             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">电子数码(<?php echo $ElectronicUserNum;?>)</a></li>
+             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">纺织服饰(<?php echo $TextileAndClothingNum;?>)</a></li>
+
          </ul>
   </div>
   </div>
@@ -74,7 +141,6 @@
                 <th width="80px">排序</th>
 				<th width="180">店铺名称</th>
 				<th width="120px">所属分类</th>
-                <th width="120px">店铺类型</th>
 				<th width="">简介</th>
 				<th width="150px">添加时间</th>
                 <th width="100px">审核状态</th>                
@@ -82,46 +148,31 @@
 			</tr>
 		</thead>
         <tbody>
+        <?php  foreach($rows as $row):?>
          <tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>1</td>
-          <td>泡吧食品旗舰店</td>
-          <td> 食品</td>
-           <td> 企业店铺</td>
-          <td class="displayPart" displayLength="60">泡吧食品旗舰店是福建泡吧食品有限公司商城唯一旗舰店，直营销售</td>
-          <td>2016-7-25 12:34</td>
-          <td>通过</td>
+          <td><?php echo $row['id'];?></td>
+          <td><?php echo $row['cl_name'];?></td>
+          <td> <?php echo $row['cl_type'];?></td>
+
+          <td><?php echo $row['cl_beizhu'];?></td>
+          <td><?php echo $row['cl_registDate'];?></td>
+
+              <?php
+                if($row['cl_loginState']==1){
+                    echo " <td>通过 </td>";
+                }elseif ($row['cl_loginState']==2){
+                    echo " <td><a href='Shops_Audit.php'>待审核</a> </td>";
+                }else{
+                    echo " <td>封号 </td>";
+                }
+              ?>
+
           <td class="td-manage">        
            <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
           </td>
          </tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>2</td>
-          <td>保健食品</td>
-          <td> 保健食品</td>
-          <td> 个人店铺</td>
-          <td class="displayPart" displayLength="60">付款方式分为以下几种：（注：先款订单请您在订单提交后24小时内完成支付， 否则订单会自动取消）</td>
-          <td>2016-7-25 12:34</td>
-          <td>通过</td>
-           
-          <td class="td-manage">     
-           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-         </tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>3</td>
-          <td>三天数码旗舰店</td>
-          <td> 数码</td>
-           <td> 企业店铺</td>
-          <td class="displayPart" displayLength="60">付款方式分为以下几种：（注：先款订单请您在订单提交后24小时内完成支付， 否则订单会自动取消）</td>
-          <td>2016-7-25 12:34</td>
-          <td>通过</td>
-          <td class="td-manage">       
-           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-         </tr>
+        <?php endforeach;?>
         </tbody>
        </table>    
      </div>

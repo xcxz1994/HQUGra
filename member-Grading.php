@@ -288,6 +288,7 @@ function member_stop(obj,id){
 		layer.msg('已停用!',{icon: 5,time:1000});
 	});
 }
+
 /*用户-启用*/
 function member_start(obj,id){
 	layer.confirm('确认要启用吗？',function(index){
@@ -296,6 +297,21 @@ function member_start(obj,id){
 		$(obj).remove();
 		layer.msg('已启用!',{icon: 6,time:1000});
 	});
+}
+/*用户-删除*/
+function member_del(obj,id){
+    layer.confirm('确认要删除吗？',function(index){
+        $(obj).parents("tr").remove();
+        $.ajax({
+            url: './doAdminAction.php?act=delUser&id='+id,
+            type: 'post',
+            success:function(data){
+                console.log(data)
+            }
+        })
+        layer.msg('已删除!',{icon:1,time:1000});
+        window.location.reload();
+    });
 }
 </script>
 <script type="text/javascript">

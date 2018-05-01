@@ -256,7 +256,7 @@ function link_operating(name,title){
 				</a>
 				<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 				 <li><a href="javascript:void(0" name="Systems.html" title="系统设置" class="iframeurl"><i class="icon-cog"></i>网站设置</a></li>
-				 <li><a href="javascript:void(0)" name="admin_info.html" title="个人信息" class="iframeurl"><i class="icon-user"></i>个人资料</a></li>
+				 <li><a href="javascript:void(0)" name="admin_info.php" title="个人信息" class="iframeurl"><i class="icon-user"></i>个人资料</a></li>
 				 <li class="divider"></li>
 				 <li><a href="doAdminAction.php?act=logout" id="Exit_system"><i class="icon-off"></i>退出</a></li>
 
@@ -415,14 +415,14 @@ function link_operating(name,title){
                     <ul class="submenu">
                     <li class="home"><a href="javascript:void(0)" name="user_list.php" title="客商列表"  class="iframeurl"><i class="icon-double-angle-right"></i>客商列表</a></li>
                     <li class="home"><a href="javascript:void(0)" name="member-Grading.php" title="等级管理"  class="iframeurl"><i class="icon-double-angle-right"></i>等级管理</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="integration.html" title="客商记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>客商记录管理</a></li>
+                    <li class="home"><a href="javascript:void(0)" name="integration.php" title="客商记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>客商记录管理</a></li>
 
                    </ul>
 				  </li>
 				  <li><a href="#" class="dropdown-toggle"><i class="icon-laptop"></i><span class="menu-text"> 店铺管理 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="Shop_list.html" title="店铺列表" class="iframeurl"><i class="icon-double-angle-right"></i>店铺列表</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Shops_Audit.html" title="店铺审核" class="iframeurl"><i class="icon-double-angle-right"></i>店铺审核<span class="badge badge-danger">5</span></a></li>
+								<li class="home"><a href="javascript:void(0)" name="Shop_list.php" title="店铺列表" class="iframeurl"><i class="icon-double-angle-right"></i>店铺列表</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Shops_Audit.php" title="店铺审核" class="iframeurl"><i class="icon-double-angle-right"></i>店铺审核<span class="badge badge-danger">5</span></a></li>
 							</ul>
 						</li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-comments-alt"></i><span class="menu-text"> 消息管理 </span><b class="arrow icon-angle-down"></b></a>

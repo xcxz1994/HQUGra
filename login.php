@@ -96,7 +96,7 @@ require_once './include.php';
 <script src="loginSpecial/js/Particleground.js" type="text/javascript"></script>
 <script src="loginSpecial/js/Treatment.js" type="text/javascript"></script>
 <script src="loginSpecial/js/jquery.mockjax.js" type="text/javascript"></script>
-<script src="loginSpecial/js/controlLogin.js" type="text/javascript"></script>
+<script src="loginSpecial/js/controlLogin.js" type="text/javascript" charset="UTF-8"></script>
 
 </body>
 </html>
