@@ -243,16 +243,13 @@ function addUser(){
  * @return string
  */
 function delUser($id){
-    $sql="select face from sys_user where id=".$id;
-    $row=fetchOne($sql);
-    $face=$row['face'];
-    if(file_exists("../uploads/".$face)){
-        unlink("../uploads/".$face);
-    }
-    if(delete("sys_user","id={$id}")){
-        $mes="删除成功!<br/><a href='listUser.php'>查看用户列表</a>";
+
+    if(delete("bas_contact_client","id={$id}")){
+        $mes="删除成功!<br/>";
+        echo "0";
     }else{
-        $mes="删除失败!<br/><a href='listUser.php'>请重新删除</a>";
+        $mes="删除失败!<br/>";
+        echo "1";
     }
     return $mes;
 }

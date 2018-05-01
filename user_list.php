@@ -116,7 +116,7 @@ $number=count($rows);
           <td class="td-manage">
           <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
           <a title="编辑" onclick="member_edit('<?php echo $row['id'];?>')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a>
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          <a title="删除" href="javascript:;"  onclick="member_del(this,<?php echo $row['id'];?>)" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
 		</tr>
     <?php endforeach;?>
@@ -405,10 +405,18 @@ function member_edit(id){
 }
 /*用户-删除*/
 function member_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$(obj).parents("tr").remove();
-		layer.msg('已删除!',{icon:1,time:1000});
-	});
+    layer.confirm('确认要删除吗？',function(index){
+        $(obj).parents("tr").remove();
+        $.ajax({
+            url: './doAdminAction.php?act=delUser&id='+id,
+            type: 'post',
+            success:function(data){
+                console.log(data)
+            }
+        })
+        layer.msg('已删除!',{icon:1,time:1000});
+        window.location.reload();
+    });
 }
 laydate({
     elem: '#start',
