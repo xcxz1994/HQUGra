@@ -74,7 +74,7 @@ function getAuditUser(){
          <td><?php echo $AuditUser['cl_registDate'];?></td>
          <td>待审核</td>
           <td class="td-manage">
-           <a title="店铺详细" href="shopping_detailed.php" class="btn btn-xs btn-info Refund_detailed">详细</a>
+           <a title="店铺详细" href="shopping_detailed.php?id=<?php echo $AuditUser['id'];?>" class="btn btn-xs btn-info Refund_detailed">详细</a>
            <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-danger" >删除</a>
            
           </td>
