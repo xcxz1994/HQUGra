@@ -397,10 +397,10 @@ function member_edit(id){
     layer.open({
         type: 2,
         title:'编辑管理员',
-        area: ['800px','750px'],
+        area: ['800px','800px'],
         shadeClose: false,
         content: './user-edit.php?id='+id,
-        setwin:'./index.php'
+        setwin:'./user_list.php'
     });
 }
 /*用户-删除*/

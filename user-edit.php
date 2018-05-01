@@ -6,7 +6,7 @@
  * Time: 11:24
  */
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
-
+header("content-type:text/html;charset=urtf-8");
 require_once './include.php';
 $id=$_REQUEST['id'];
 $sql="select * from bas_contact_client where id='{$id}'";
@@ -72,30 +72,30 @@ $row=fetchOne($sql);
 <body>
 <!-- 修改用户图层-->
 <div class="add_menber" id="add_menber_style" >
-    <form action="doAdminAction.php?act=addUser" enctype="multipart/form-data" method="post">
+    <form action="doAdminAction.php?act=editUser&id=<?php echo $id;?>" enctype="multipart/form-data" method="post">
 
         <ul class=" page-content">
             <li><label class="label_name">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
                 <span class="add_name">
 
-             <input type="text" class="input-text" value="" placeholder="" id="user-id" name="user-id" datatype="*2-16" nullmsg="账号不能为空">
+             <input type="text" class="input-text" value="" placeholder="<?php echo $row['cl_id'];?>" id="user-id" name="user-id" datatype="*2-16" nullmsg="账号不能为空">
          </span>
                 <div class="prompt r_f"></div>
             </li>
             <li><label class="label_name">用户名：</label>
                 <span class="add_name">
-             <input type="text" class="input-text" value="" placeholder="" id="user-name" name="user-name" datatype="*2-16" nullmsg="用户名不能为空">
+             <input type="text" class="input-text" value="" placeholder="<?php echo $row['cl_name'];?>" id="user-name" name="user-name" datatype="*2-16" nullmsg="用户名不能为空">
          </span>
                 <div class="prompt r_f"></div>
             </li>
-            <li><label class="label_name">初始密码：</label><span class="add_name">
-                <input type="password" placeholder="密码" name="userpassword" id="userpassword" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
+            <li><label class="label_name">原密码：</label><span class="add_name">
+                <input type="password" placeholder="<?php echo $row['cl_pswd'];?>" name="user-pwd" id="user-pwd" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
             </span>
                 <div class="prompt r_f"></div>
             </li>
             <div class="prompt r_f"></div>
             </li>
-            <li><label class="label_name">确认密码：</label><span class="add_name">
+            <li><label class="label_name">新密码：</label><span class="add_name">
              <input type="password" placeholder="确认新密码" autocomplete="off" class="input-text Validform_error" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="userpassword" id="newpassword2" name="newpassword2">
 
          </span>
@@ -104,14 +104,15 @@ $row=fetchOne($sql);
             <li><label class="label_name">移动电话：</label>
                 <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="手机不能为空">
+            <input type="text" class="input-text" value="" placeholder="<?php echo $row['cl_phone'];?>" id="user-tel" name="user-tel" datatype="m" nullmsg="手机不能为空">
          </span>
                 <div class="prompt r_f"></div>
             </li>
             <li><label class="label_name">会员等级：</label>
                 <span class="add_name">
                  <select class="select" name="user-grade" id="user-grade" size="1" style="margin-left: 10px;">
-					<option value="普通会员">普通会员</option>
+                      <option><?php echo $row['cl_grade'];?></option>
+					<option value="普通会员" >普通会员</option>
 					<option value="铁牌会员">铁牌会员</option>
 					<option value="铜牌会员">铜牌会员</option>
 					<option value="银牌会员">银牌会员</option>
@@ -128,27 +129,28 @@ $row=fetchOne($sql);
             <li class="adderss"><label class="label_name">公司住址：</label>
                 <span class="add_name">
 
-             <input name="user-address" type="text"  class="cityinput" id="citySelect" placeholder="请输入目的地" style=" width:350px"/>
+             <input name="user-address" placeholder="<?php echo $row['cl_address'];?>" type="text"  class="cityinput" id="citySelectEdit"  style=" width:350px"/>
          </span>
                 <div class="prompt r_f"></div>
             </li>
             <li><label class="label_name">法人代表：</label>
                 <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-represent" name="user-represent" datatype="m" nullmsg="法人代表不能为空">
+            <input type="text" class="input-text" value="" placeholder="<?php echo $row['cl_represent'];?>" id="user-represent" name="user-represent" datatype="m" nullmsg="法人代表不能为空">
          </span>
                 <div class="prompt r_f"></div>
             </li>
             <li><label class="label_name">营业执照号：</label>
                 <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-busLicenseNum" name="user-busLicenseNum" datatype="m" nullmsg="营业执照号不能为空">
+            <input type="text" class="input-text" value="" placeholder="<?php echo $row['cl_busLicenseNum'];?>" id="user-busLicenseNum" name="user-busLicenseNum" datatype="m" nullmsg="营业执照号不能为空">
          </span>
                 <div class="prompt r_f"></div>
             </li>
             <li><label class="label_name">开户银行：</label>
                 <span class="add_name">
                 <select class="select" name="user-bank" id="user-bank" size="1" style="margin-left: 10px;">
+                     <option><?php echo $row['cl_bank'];?></option>
 					<option value="工商银行">工商银行</option>
 					<option value="开发银行">开发银行</option>
 					<option value="建设银行">建设银行</option>
@@ -161,21 +163,21 @@ $row=fetchOne($sql);
             <li><label class="label_name">开户银行号：</label>
                 <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-bankNum" name="user-bankNum" datatype="m" nullmsg="开户银行号不能为空">
+            <input type="text" class="input-text" value="" placeholder="<?php echo $row['cl_bankNum'];?>" id="user-bankNum" name="user-bankNum" datatype="m" nullmsg="开户银行号不能为空">
          </span>
                 <div class="prompt r_f"></div>
             </li>
             <li><label class="label_name">开户银行手机号：</label>
                 <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-bankPhone" name="user-bankPhone" datatype="m" nullmsg="开户银行手机号不能为空">
+            <input type="text" class="input-text" value="" placeholder="<?php echo $row['cl_bankPhone'];?>" id="user-bankPhone" name="user-bankPhone" datatype="m" nullmsg="开户银行手机号不能为空">
          </span>
                 <div class="prompt r_f"></div>
             </li>
             <li><label class="label_name">税号：</label>
                 <span class="add_name">
 
-            <input type="text" class="input-text" value="" placeholder="" id="user-taxNum" name="user-taxNum" datatype="m" nullmsg="税号不能为空">
+            <input type="text" class="input-text" value="" placeholder="<?php echo $row['cl_taxNum'];?>" id="user-taxNum" name="user-taxNum" datatype="m" nullmsg="税号不能为空">
          </span>
                 <div class="prompt r_f"></div>
             </li>
@@ -190,23 +192,26 @@ $row=fetchOne($sql);
             </li>
             <li>
                 <div class="ge_pic_icon_Infor">
-                    <img src="" id="busLicenseImg"/>
+                    <img src="<?php echo $row['cl_busLicensePicture'];?>" id="busLicenseImg" style="width: 300px;height: 150px;"/>
                 </div>
             </li>
-
+            <li></li>
+            <li></li>
+            <div class="prompt r_f"></div>
             <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label>
                 <span class="add_name" >
-     <label><input name="form-field-radio1" type="radio" checked="checked" class="ace" value="1"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio1"type="radio" class="ace" value="2"><span class="lbl" >审核</span></label>
-                <label><input name="form-field-radio1"type="radio" class="ace" value="3"><span class="lbl" >封号</span></label>
+     <label><input name="form-field-radio1" type="radio"  class="ace" value="1" id="start"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
+     <label><input name="form-field-radio1"type="radio" class="ace" value="2" id="examine"><span class="lbl" >审核</span></label>
+                <label><input name="form-field-radio1"type="radio" class="ace" value="3" id="stop"><span class="lbl" >封号</span></label>
             </span>
-                <div class="prompt r_f"></div>
+
             </li>
             <li></li>
-            <li style="float: left;">
+
+            <li style="">
                 <label class="label_name">备注：</label>
                 <div class="formControls">
-                    <textarea name="user-baizhu" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);" style="float: left;" id="user-beizhu" name="user-beizhu"></textarea>
+                    <textarea name="user-baizhu" cols="" rows="" class="textarea" placeholder="<?php echo $row['cl_beizhu'];?>" dragonfly="true" onkeyup="checkLength(this);" style="float: left;" id="user-beizhu" name="user-beizhu"></textarea>
                     <span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
                 </div>
             </li>
@@ -214,7 +219,7 @@ $row=fetchOne($sql);
             <li></li>
             <li></li>
             <li>
-                <input class="btn btn-primary radius" type="submit" id="Add_User" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <input class="btn btn-primary radius" type="submit" id="Add_User" value="&nbsp;&nbsp;修改&nbsp;&nbsp;">
             </li>
         </ul>
     </form>
@@ -287,4 +292,12 @@ $row=fetchOne($sql);
             return true;
         }
     };
+    /*设置radio被选中的状态*/
+    if(<?php echo $row['cl_loginState'];?>==1){
+        document.getElementById("start").checked=true;
+    }else if(<?php echo $row['cl_loginState'];?>==2){
+        document.getElementById("examine").checked=true;
+    }else{
+        document.getElementById("stop").checked=true;
+    }
 </script>

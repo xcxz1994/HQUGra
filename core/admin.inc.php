@@ -262,12 +262,30 @@ function delUser($id){
  * @return string
  */
 function editUser($id){
-    $arr=$_POST;
-    $arr['password']=md5($_POST['password']);
-    if(update("sys_user", $arr,"id={$id}")){
-        $mes="编辑成功!<br/><a href='listUser.php'>查看用户列表</a>";
+    $filePath=uploadFile();
+    //var_dump($id);
+    $showtime=date("Y-m-d H:i:s");
+    $arruseredit['cl_registDate']=$showtime;
+    $arruseredit['cl_id']=$_POST['user-id'];
+    $arruseredit['cl_grade']=$_POST['user-grade'];
+    $arruseredit['cl_pswd']=md5($_POST['user-pwd']);
+    $arruseredit['cl_name']=$_POST['user-name'];
+    $arruseredit['cl_phone']=$_POST['user-tel'];
+    $arruseredit['cl_address']=$_POST['user-address'];
+    $arruseredit['cl_represent']=$_POST['user-represent'];
+    $arruseredit['cl_busLicenseNum']=$_POST['user-busLicenseNum'];
+    $arruseredit['cl_bank']=$_POST['user-bank'];
+    $arruseredit['cl_bankNum']=$_POST['user-bankNum'];
+    $arruseredit['cl_bankPhone']=$_POST['user-bankPhone'];
+    $arruseredit['cl_taxNum']=$_POST['user-taxNum'];
+    $arruseredit['cl_loginState']=$_POST['form-field-radio1'];
+    $arruseredit['cl_beizhu']=$_POST['user-baizhu'];
+    $arruseredit['cl_busLicensePicture']=$filePath;
+
+    if(update("bas_contact_client", $arruseredit,"id={$id}")){
+        $mes="编辑成功!<br/>";
     }else{
-        $mes="编辑失败!<br/><a href='listUser.php'>请重新修改</a>";
+        $mes="编辑失败!<br/>";
     }
     return $mes;
 }
