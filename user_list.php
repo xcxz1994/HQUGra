@@ -186,13 +186,13 @@ $number=count($rows);
 
              <input name="user-address" type="text"  class="cityinput" id="citySelect" placeholder="请输入目的地" style=" width:180px"/>
          </span>
-         <label class="label_name" style="margin-left: 80px;">所属行业：</label>
+         <label class="label_name" style="margin-left: 80px;">主营行业：</label>
          <span class="add_name" style="margin-left: 18px;">
                 <select class="select" name="user-type" id="user-type" size="1">
-					<option value="食品加工">食品加工</option>
-					<option value="生活保健">生活保健</option>
-					<option value="电子数码">电子数码</option>
-					<option value="纺织服饰">纺织服饰</option>
+					<option value="家纺">家纺</option>
+					<option value="面料">面料</option>
+					<option value="原料">原料</option>
+					<option value="纱线">纱线</option>
 				</select>
          </span>
          <div class="prompt r_f"></div>

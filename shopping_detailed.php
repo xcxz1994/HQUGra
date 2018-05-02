@@ -1,6 +1,11 @@
 <?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+
+require_once './include.php';
 $id=$_REQUEST['id'];
-print_r($id);
+//print_r($id);
+$sql="select * from bas_contact_client where id='{$id}'";
+$row=fetchOne($sql);
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -32,20 +37,22 @@ print_r($id);
  <em class="type"></em>
   <div class="shop_logo"><img src="images/detailnoimg.png" /></div>
    <ul class="shop_content clearfix">
-    <li class="shop_name"><label class="label_name">店铺名称：</label><span class="info">天上人间服饰专卖店</span> 
+    <li class="shop_name"><label class="label_name">店铺名称：</label><span class="info"><?php echo $row['cl_name'];?></span>
     <div class="Authenticate"><i class="icon-yxrz"></i><i class="icon-yhk"></i><i class="icon-sjrz"></i><i class="icon-grxx"></i></div></li>
-    <li><label class="label_name">店铺类型：</label><span class="info">个人店铺</span></li>
-    <li><label class="label_name">店铺分类：</label><span class="info">服饰</span></li>
-    <li><label class="label_name">申请时间：</label><span class="info">2016-4-3</span></li>
+
+    <li><label class="label_name">店铺分类：</label><span class="info"><?php echo $row['cl_type'];?></span></li>
+    <li><label class="label_name">申请时间：</label><li><span class="info"><?php echo $row['cl_registDate'];?></span></li></li>
     <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="info">待审核</span></li>
-    <li><label class="label_name">申请人姓名：</label><span class="info">张小泉</span></li>
-    <li><label class="label_name">移动电话：</label><span class="info">13567678987</span></li>
-    <li><label class="label_name">电子邮箱：</label><span class="info"></span></li>
-    <li><label class="label_name">固定电话：</label><span class="info">025-56787876</span></li>
-    <li><label class="label_name">身份证号：</label><span class="info">320568656465342423</span></li>
+    <li><label class="label_name">申请人姓名：</label><span class="info"><?php echo $row['cl_id'];?></span></li>
+    <li><label class="label_name">移动电话：</label><span class="info"><?php echo $row['cl_phone'];?></span></li>
+    <li><label class="label_name">联系地址：</label><span class="info"><?php echo $row['cl_address'];?></span></li>
+    <li><label class="label_name">法人代表：</label><span class="info"><?php echo $row['cl_represent'];?></span></li>
+    <li><label class="label_name">营业执照号：</label><span class="info"><?php echo $row['cl_busLicenseNum'];?></span></li>
+       <li><label class="label_name">营业执照：</label><span class="name"></span></li>
+              <li><img src="./<?php echo$row['cl_busLicensePicture'];?>" style="width: 250px;height: 180px;"/></span></li>
    </ul>
  </div>
- <div class="Store_Introduction">
+ <div class="Store_Introduction" style="margin-top: 180px;">
   <div class="title_name">店铺介绍</div>
    <div class="info">
    淘宝店铺介绍怎么写，只写上一句话或一段话，再加上淘宝平台默认名片式的基本信息，和联系方式。简单明了。例如：

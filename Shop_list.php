@@ -6,62 +6,62 @@ require_once './include.php';
 $rows=getAllUser();
 $number=count($rows);
 
-$foodUserNum=getfoodUser()[1];
-$LifeCareUserNum=getLifeCareUser()[1];
-$ElectronicUserNum=getElectronicUser()[1];
-$TextileAndClothingNum=getTextileAndClothingUser()[1];
+$HomeTextilesNum=getHomeTextiles()[1];
+$LiningNum=getLining()[1];
+$MaterialNum=getMaterial()[1];
+$YarnNum=getYarn()[1];
 
-function getfoodUser(){
-    $foodUser=array();
+function getHomeTextiles(){
+    $HomeTextiles=array();
     $rows=getAllUser();
     for($i=0;$i<count($rows);$i++){
-        if($rows[$i]['cl_type']=='食品加工') {
-            $foodUser.array_push($foodUser,$rows[$i]);
+        if($rows[$i]['cl_type']=='家纺') {
+            $HomeTextiles.array_push($HomeTextiles,$rows[$i]);
         }else{
             // echo "没有普通会员";
         }
     }
-    $foodUserNum=count($foodUser);
-    return array($foodUser,$foodUserNum);
+    $HomeTextilesNum=count($HomeTextiles);
+    return array($HomeTextiles,$HomeTextilesNum);
 }
-function getLifeCareUser(){
-    $LifeCareUser=array();
+function getLining(){
+    $Lining=array();
     $rows=getAllUser();
     for($i=0;$i<count($rows);$i++){
-        if($rows[$i]['cl_type']=='生活保健') {
-            $LifeCareUser.array_push($LifeCareUser,$rows[$i]);
+        if($rows[$i]['cl_type']=='面料') {
+            $Lining.array_push($Lining,$rows[$i]);
         }else{
             // echo "没有普通会员";
         }
     }
-    $LifeCareUserNum=count($LifeCareUser);
-    return array($LifeCareUser,$LifeCareUserNum);
+    $LiningNum=count($Lining);
+    return array($Lining,$LiningNum);
 }
-function getElectronicUser(){
-    $ElectronicUser=array();
+function getMaterial(){
+    $Material=array();
     $rows=getAllUser();
     for($i=0;$i<count($rows);$i++){
-        if($rows[$i]['cl_type']=='电子数码') {
-            $ElectronicUser.array_push($ElectronicUser,$rows[$i]);
+        if($rows[$i]['cl_type']=='原料 ') {
+            $Material.array_push($Material,$rows[$i]);
         }else{
             // echo "没有普通会员";
         }
     }
-    $ElectronicUserNum=count($ElectronicUser);
-    return array($ElectronicUser,$ElectronicUserNum);
+    $MaterialNum=count($Material);
+    return array($Material,$MaterialNum);
 }
-function getTextileAndClothingUser(){
-    $TextileAndClothingUser=array();
+function getYarn(){
+    $Yarn=array();
     $rows=getAllUser();
     for($i=0;$i<count($rows);$i++){
-        if($rows[$i]['cl_type']=='纺织服饰') {
-            $TextileAndClothingUser.array_push($TextileAndClothingUser,$rows[$i]);
+        if($rows[$i]['cl_type']=='纱线') {
+            $Yarn.array_push($Yarn,$rows[$i]);
         }else{
             // echo "没有普通会员";
         }
     }
-    $TextileAndClothingUserNum=count($TextileAndClothingUser);
-    return array($TextileAndClothingUser,$TextileAndClothingUserNum);
+    $YarnNum=count($Yarn);
+    return array($Yarn,$YarnNum);
 }
 ?>
 
@@ -107,10 +107,10 @@ function getTextileAndClothingUser(){
       <div class="widget-body">
          <ul class="b_P_Sort_list">
              <li><i class="orange  fa fa-list "></i><a href="#">全部(<?php echo $number;?>)</a></li>
-             <li><i class="fa fa-shopping-bag pink "></i> <a href="#">食品加工(<?php echo $foodUserNum;?>)</a></li>
-             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">生活保健(<?php echo $LifeCareUserNum;?>)</a> </li>
-             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">电子数码(<?php echo $ElectronicUserNum;?>)</a></li>
-             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">纺织服饰(<?php echo $TextileAndClothingNum;?>)</a></li>
+             <li><i class="fa fa-shopping-bag pink "></i> <a href="#">家纺(<?php echo $HomeTextilesNum;?>)</a></li>
+             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">面料(<?php echo $LiningNum;?>)</a> </li>
+             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">原料(<?php echo $MaterialNum;?>)</a></li>
+             <li> <i class="fa fa-shopping-bag pink "></i> <a href="#">纱线(<?php echo $YarnNum;?>)</a></li>
 
          </ul>
   </div>
