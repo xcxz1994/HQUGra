@@ -45,6 +45,10 @@ if($act=="logout"){
     $mes=editAdminInfo($id);
 }elseif($act=="editAdminPwd"){
     $mes=editAdminPwd($id);
+}elseif ($act=='AuditUser'){
+    $mes=AuditUser($id);
+}elseif ($act=='RefusalUser'){
+    $mes=RefusalUser($id);
 }
 
 

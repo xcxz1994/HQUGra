@@ -287,8 +287,33 @@ function editUser($id){
     }
     return $mes;
 }
+/**审核用户店铺
+**/
+function AuditUser($id){
+    $arrAuditUser['cl_loginState']=$_POST['loginState'];
+    if(update("bas_contact_client", $arrAuditUser,"id={$id}")){
+        $mes="审核成功!<br/>";
+    }else{
+        $mes="审核失败!<br/>";
+    }
+    return $mes;
+}
 
-
+/**
+拒绝用户店铺并发送消息
+ **/
+function RefusalUser($id){
+    $arrRefusal['message_content']=$_POST['messagecontent'];
+    $arrRefusal['message_from']=$_POST['messagefrom'];
+    $arrRefusal['message_to']=$_POST['messageto'];
+    if(insert("sys_message",$arrRefusal)){
+        //var_dump("aaaaaaaaaaaaaaa");
+        $mes="消息添加成功!";
+    }else{
+        $mes="消息添加失败!";
+    }
+    return $mes;
+}
 /**
 获取管理员登录的地区
  **/

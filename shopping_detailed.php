@@ -7,6 +7,15 @@ $id=$_REQUEST['id'];
 $sql="select * from bas_contact_client where id='{$id}'";
 $row=fetchOne($sql);
 
+if(isset($_SESSION['adminId'])){
+    $sql="select * from sys_admin where id={$_SESSION['adminId']}";
+    $Adminrow=fetchAll($sql);
+    //print_r($Adminrow[0]);
+}elseif(isset($_COOKIE['adminId'])){
+    $sql="select * from sys_admin where id={$_COOKIE['adminId']}";
+    $Adminrow=fetchAll($sql);
+    // print_r($Adminrow);
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -55,15 +64,7 @@ $row=fetchOne($sql);
  <div class="Store_Introduction" style="margin-top: 180px;">
   <div class="title_name">店铺介绍</div>
    <div class="info">
-   淘宝店铺介绍怎么写，只写上一句话或一段话，再加上淘宝平台默认名片式的基本信息，和联系方式。简单明了。例如：
-1、欢迎光临本店，本店新开张，诚信经营，只赚信誉不赚钱，谢谢。
-2、本店商品均属正品，假一罚十信誉保证。欢迎广大顾客前来放心选购，我们将竭诚为您服务!
-3、本店专门营销什么什么商品，假一罚十信誉保证。本店的服务宗旨是用心服务，以诚待人!
-二、消息型的淘宝店铺介绍书写方式：
-淘宝店铺介绍怎么写，就是将店铺最新的优惠活动发布在淘宝店铺介绍里，这种类型不但能吸引喜欢优惠活动的新买家，如果是时间段优惠更能促使买家下定决心，尽快购买。
-   <br />
-   四、详细型的淘宝店铺介绍书写方式：
-淘宝店铺介绍怎么写，你不可能知道每个买家到你的淘宝店铺介绍页面里想了解什么，可以考虑把所有的都写进去。另外，还有购物流程、联系方式、物流方式、售后服务、温馨提示等等都统统写上去。但是一定要花时间好好排版。内容多，字体不能太大，正常就可以了，然后一段内容的标题要加粗或者加上颜色，比如给售后服务加粗，然后售后服务的内容则用正常字体，这样每段内容配上一个加粗标题，买家一点进淘宝店铺介绍，第一眼明显看到的都是几个加粗标题，能很快找到自己想了解的就有耐心看下去。就像本篇文章一样，没有一些加粗的字体，读者不从头读起，就找不到各段内容的主要针对点。
+     <?php echo $row['cl_beizhu'];?>
    </div>
  </div>
  <div class="Store_Introduction">
@@ -73,8 +74,8 @@ $row=fetchOne($sql);
   </div>
  </div>
  <div class="At_button">
-				<button onclick="through_save('this','123');" class="btn btn-primary radius" type="submit">通  过</button>
-				<button onclick="cancel_save();" class="btn btn-danger  btn-warning" type="button">拒  绝</button>
+				<button onclick="through_save('this','<?php echo $row['id'];?>');" class="btn btn-primary radius" type="submit">通  过</button>
+				<button onclick="cancel_save('this','<?php echo $row['id'];?>');" class="btn btn-danger  btn-warning" type="button">拒  绝</button>
 				<button onclick="return_close();" class="btn btn-default radius" type="button">返回上一步</button>
  </div>
 </div>
@@ -85,9 +86,24 @@ $row=fetchOne($sql);
 var index = parent.layer.getFrameIndex(window.name);
 parent.layer.iframeAuto(index);
  function through_save(obj,id){
+     //alert(id);
 	 layer.confirm('确认要开通该店铺吗？',function(index){
+         $.ajax({
+             url: './doAdminAction.php?act=AuditUser&id='+id,
+             type: 'post',
+             data: {
+                 'loginState':1
+             },
+             success:function(data){
+                 console.log(data)
+                 layer.alert('通过审核！',{
+                     title: '提示框',
+                     icon:1,
+                 });
+             }
+         })
 		layer.msg('已开通!',{icon:1,time:1000});
-		location.href="Shops_Audit.html";
+		location.href="Shops_Audit.php";
 		parent.$('#parentIframe').css("display","none");
 		parent.$('.Current_page').css({"color":"#333333"});
 	});
@@ -97,13 +113,13 @@ parent.layer.iframeAuto(index);
 	 
 	 //返回操作
 function return_close(){
-	location.href="Shops_Audit.html";
+	location.href="Shops_Audit.php";
 	parent.$('#parentIframe').css("display","none");
 	parent.$('.Current_page').css({"color":"#333333"});
 	
 	}
 	 //拒绝
-function cancel_save(){	
+function cancel_save(obj,id){
 	var index = layer.open({
         type: 1,
         title: '内容',
@@ -119,6 +135,29 @@ function cancel_save(){
 			  icon:0,		
 			  }) 
 			 }else{
+		         var RefusalReason=$('.form-control').val();
+                 var messagefrom=<?php echo $Adminrow[0]['id'];?>;
+                 var messageto=id;
+                 alert(messagefrom);
+            $.ajax({
+                url: './doAdminAction.php?act=RefusalUser&id='+id,
+                type: 'post',
+                data: {
+                    'messagecontent':RefusalReason,
+                    'messagefrom':messagefrom,
+                    'messageto':messageto
+                },
+                success:function(data){
+                    console.log(data)
+                    layer.alert('审核不通过！',{
+                        title: '提示框',
+                        icon:1,
+                    });
+
+                    //window.location.href='./Shops_Audit.php';
+                }
+
+            })
 				 layer.msg('提交成功!',{icon:1,time:1000});
 				 layer.close(index);  
 				 
