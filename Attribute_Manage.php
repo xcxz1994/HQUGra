@@ -84,7 +84,7 @@
           <td width="80px">45631</td>
           <td width="50px"><input type="text" class="input-text text-c" value="1" style="width:60px"></td>
           <td><img src="products/logo/156.jpg"  width="130"/></td>
-          <td><a href="javascript:ovid()" name="Brand_detailed.html" style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('561');" title="玉兰油OLAY">玉兰油OLAY</a></td>
+          <td><a href="javascript:ovid()" name="Attribute_detailed.php" style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('561');" title="玉兰油OLAY">玉兰油OLAY</a></td>
           <td>法国</td>
           <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
           <td>2014-6-11 11:11:42</td>

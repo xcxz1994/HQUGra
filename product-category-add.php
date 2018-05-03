@@ -19,11 +19,11 @@
 		<![endif]-->
 	    <script src="js/jquery-1.9.1.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
-<title>添加产品分类</title>
+<title>添加物料分类</title>
 </head>
 <body>
 <div class="type_style">
- <div class="type_title">产品类型信息</div>
+ <div class="type_title">物料类型信息</div>
   <div class="type_content">
   <div class="Operate_btn">
   <a href="javascript:ovid()" class="btn  btn-warning"><i class="icon-edit align-top bigger-125"></i>新增子类型</a>

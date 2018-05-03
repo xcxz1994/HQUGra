@@ -1,3 +1,10 @@
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+require_once './include.php';
+
+
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -59,7 +66,7 @@
   </div>  
   </div>
 <!---->
- <iframe ID="testIframe" Name="testIframe" FRAMEBORDER=0 SCROLLING=AUTO  SRC="product-category-add.html" class="page_right_style"></iframe>
+ <iframe ID="testIframe" Name="testIframe" FRAMEBORDER=0 SCROLLING=AUTO  SRC="product-category-add.php" class="page_right_style"></iframe>
  </div>
 </div>
 </body>
@@ -114,7 +121,7 @@ var setting = {
 };
 
 var zNodes =[
-	{ id:1, pId:0, name:"商城分类列表", open:true},
+	{ id:1, pId:0, name:"物料分类列表", open:true},
 	{ id:11, pId:1, name:"蔬菜水果"},
 	{ id:111, pId:11, name:"蔬菜"},
 	{ id:112, pId:11, name:"苹果"},
