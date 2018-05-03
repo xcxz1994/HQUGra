@@ -2,7 +2,21 @@
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
 require_once './include.php';
 
+$rows=getAllCate();
 
+function getGCate(){
+    $rows=getAllCate();
+    $Garr=array();
+    for($i=0;$i<count($rows);$i++){
+        $sql="select * from bas_material_goodstype group by gt_id having gt_parentId={$rows[$i]['gt_id']}";
+        $Grows=fetchAll($sql);
+        $Garr.array_push($Garr,$Grows);
+    }
+    return $Garr;
+}
+$results=getGCate();
+//print_r($results[1]);
+//print_r($rows);
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -121,23 +135,33 @@ var setting = {
 };
 
 var zNodes =[
-	{ id:1, pId:0, name:"物料分类列表", open:true},
-	{ id:11, pId:1, name:"蔬菜水果"},
-	{ id:111, pId:11, name:"蔬菜"},
-	{ id:112, pId:11, name:"苹果"},
-	{ id:113, pId:11, name:"大蒜"},
-	{ id:114, pId:11, name:"白菜"},
-	{ id:115, pId:11, name:"青菜"},
-	{ id:12, pId:1, name:"手机数码"},
-	{ id:121, pId:12, name:"手机 "},
-	{ id:122, pId:12, name:"照相机 "},
-	{ id:13, pId:1, name:"电脑配件"},
-	{ id:131, pId:13, name:"手机 "},
-	{ id:122, pId:13, name:"照相机 "},
-	{ id:14, pId:1, name:"服装鞋帽"},
-	{ id:141, pId:14, name:"手机 "},
-	{ id:42, pId:14, name:"照相机 "},
+
+    <?php  foreach($rows as $row):?>
+	{ id:<?php echo $row['gt_id']?>, pId:<?php echo $rows[0]['gt_id'];?>, name:"<?php echo $row['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[1] as $result):?>
+	{ id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[1]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[2] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[2]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[3] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[3]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[4] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[4]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[5] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[5]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[6] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[6]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[7] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[7]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
 ];
+
 		
 var code;
 		
