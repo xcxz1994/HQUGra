@@ -12,6 +12,7 @@ if($act=="logout"){
 }elseif($act=="delAdmin"){
 	$mes=delAdmin($id);
 }elseif($act=="addCate"){
+    //var_dump("aaaaaaaaaaa");
 	$mes=addCate();
 }elseif($act=="editCate"){
 	$where="id={$id}";
@@ -49,6 +50,8 @@ if($act=="logout"){
     $mes=AuditUser($id);
 }elseif ($act=='RefusalUser'){
     $mes=RefusalUser($id);
+}elseif ($act=='addSonCate'){
+    $mes=addSonCate();
 }
 
 

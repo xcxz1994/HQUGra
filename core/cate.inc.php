@@ -4,11 +4,14 @@
  * @return string
  */
 function addCate(){
-	$arr=$_POST;
+	$arr['gt_name']=$_POST['cate-name'];
+    $arr['gt_id']=$_POST['cate-id'];
+    $arr['gt_beizhu']=$_POST['cate-beizhu'];
+
 	if(insert("bas_material_goodstype",$arr)){
-		$mes="分类添加成功!<br/><a href='addCate.php'>继续添加</a>|<a href='listCate.php'>查看分类</a>";
+		$mes="分类添加成功!<br/><a href='product-category-add.php'>继续添加</a>|<a href='product-category-add.php'>查看分类</a>";
 	}else{
-		$mes="分类添加失败！<br/><a href='addCate.php'>重新添加</a>|<a href='listCate.php'>查看分类</a>";
+		$mes="分类添加！<br/><a href='product-category-add.php'>重新添加</a>|<a href='product-category-add.php'>查看分类</a>";
 	}
 	return $mes;
 }
@@ -69,4 +72,20 @@ function getAllCate(){
 }
 
 
+/**
+新增子分类
+ **/
+function addSonCate(){
+    $arrSon['gt_parentId']=$_POST['parentId'];
+    $arrSon['gt_name']=$_POST['SonName'];
+    $arrSon['gt_id']=$_POST['SonId'];
+    $arrSon['gt_beizhu']=$_POST['Sonbeizhu'];
+
+    if(insert("bas_material_goodstype",$arrSon)){
+        $mes="子类添加成功!";
+    }else{
+        $mes="子类添加！";
+    }
+    return $mes;
+}
 

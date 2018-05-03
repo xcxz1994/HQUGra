@@ -396,7 +396,7 @@ function link_operating(name,title){
                      <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 商品管理 </span><b class="arrow icon-angle-down"></b></a>
 					   <ul class="submenu">
                          <li class="home"><a  href="javascript:void(0)" name="Products_List.html"  title="商品类表" class="iframeurl"><i class="icon-double-angle-right"></i>商品类表</a></li>
-						 <li class="home"><a  href="javascript:void(0)" name="Attribute_Manage.php" title="属性管理"  class="iframeurl"><i class="icon-double-angle-right"></i>品牌管理</a></li>
+						 <li class="home"><a  href="javascript:void(0)" name="Attribute_Manage.php" title="属性管理"  class="iframeurl"><i class="icon-double-angle-right"></i>物料属性管理</a></li>
 						 <li class="home"><a href="javascript:void(0)" name="Category_Manage.php" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
 
 						</ul>

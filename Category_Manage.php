@@ -140,7 +140,7 @@ var zNodes =[
 	{ id:<?php echo $row['gt_id']?>, pId:<?php echo $rows[0]['gt_id'];?>, name:"<?php echo $row['gt_name']?>"},
     <?php endforeach;?>
     <?php  foreach($results[1] as $result):?>
-	{ id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[1]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[1]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
     <?php endforeach;?>
     <?php  foreach($results[2] as $result):?>
     { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[2]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
