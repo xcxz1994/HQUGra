@@ -160,6 +160,7 @@ var zNodes =[
     <?php  foreach($results[7] as $result):?>
     { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[7]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
     <?php endforeach;?>
+
 ];
 
 		
