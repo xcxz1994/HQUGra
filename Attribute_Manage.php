@@ -30,7 +30,7 @@
         <script src="assets/laydate/laydate.js" type="text/javascript"></script>
          <script src="assets/dist/echarts.js"></script>
          <script src="js/lrtk.js" type="text/javascript"></script>
-<title>品牌管理</title>
+<title>物料属性管理</title>
 </head>
 
 <body>
@@ -39,20 +39,22 @@
     <div class="search_style">
      
       <ul class="search_content clearfix">
-       <li><label class="l_f">品牌名称</label><input name="" type="text"  class="text_add" placeholder="输入品牌名称"  style=" width:250px"/></li>
+       <li><label class="l_f">属性名称</label><input name="" type="text"  class="text_add" placeholder="输入属性名称"  style=" width:250px"/></li>
        <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
-       <li><select name="" class="text_add"><option  value="1">国内品牌</option><option value="2">国外品牌</option></select></li>
+       <li><select name="" class="text_add"><option  value="1">面料属性</option><option value="2">纺纱属性</option><option value="2">原料属性</option></select></li>
        <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
       </ul>
     </div>
      <div class="border clearfix">
        <span class="l_f">
-        <a href="Add_Brand.html"  title="添加品牌" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加品牌</a>
+        <a href="Add_Brand.html"  title="添加属性" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加属性</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
-        <a href="javascript:ovid()" class="btn btn-info">国内品牌</a>
-        <a href="javascript:ovid()" class="btn btn-success">国外品牌</a>
+        <a href="javascript:ovid()" class="btn btn-info">面料属性</a>
+        <a href="javascript:ovid()" class="btn btn-success">纺纱属性</a>
+        <a href="javascript:ovid()" class="btn btn-success">原料属性</a>
+           <a href="javascript:ovid()" class="btn btn-success">辅料属性</a>
        </span>
-       <span class="r_f">共：<b>234</b>个品牌</span>
+       <span class="r_f">共：<b>234</b>个属性</span>
      </div>
     <!--品牌展示-->
      <div class="brand_list clearfix" id="category">
@@ -69,9 +71,9 @@
 				<th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 				<th width="80px">ID</th>
 				<th width="50px">排序</th>
-				<th width="120px">品牌LOGO</th>
-				<th width="120px">品牌名称</th>
-				<th width="130px">所属地区/国家</th>
+				<th width="120px">属性名称</th>
+				<th width="130px">所属分类</th>
+                <th width="130px">描述单位</th>
 				<th width="350px">描述</th>
 				<th width="180px">加入时间</th>
 				<th width="70px">状态</th>                
@@ -83,10 +85,10 @@
           <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
           <td width="80px">45631</td>
           <td width="50px"><input type="text" class="input-text text-c" value="1" style="width:60px"></td>
-          <td><img src="products/logo/156.jpg"  width="130"/></td>
-          <td><a href="javascript:ovid()" name="Attribute_detailed.php" style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('561');" title="玉兰油OLAY">玉兰油OLAY</a></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
+          <td>品种</td>
+          <td><a href="javascript:ovid()" name="Attribute_detailed.php" style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('561');" title="坯布">坯布</a></td>
+          <td>文字</td>
+          <td class="text-l">缎格、缎条、直贡、斜纹</td>
           <td>2014-6-11 11:11:42</td>
           <td class="td-status"><span class="label label-success radius">已启用</span></td>
           <td class="td-manage">
@@ -95,102 +97,7 @@
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
 		</tr>
-        <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src="products/logo/34.jpg"  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('5621');" title="玉兰油OLAY">玉兰油OLAY</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src="products/logo/245.jpg"  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('461');" title="御泥坊">御泥坊</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src="products/logo/199.jpg"  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="member_show('张三','member-show.html','10001','360','400')">薇姿</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src="products/logo/152.jpg"  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="member_show('张三','member-show.html','10001','360','400')">丝塔芙</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src="products/logo/42.jpg"  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="member_show('张三','member-show.html','10001','360','400')">比克度</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src="products/logo/42.jpg"  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="member_show('张三','member-show.html','10001','360','400')">比克度</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
+
         </tbody>
         </table>
         </div>
@@ -337,7 +244,7 @@ laydate({
 			
 			option = {
     title : {
-        text: '国内国外品牌比例',
+        text: '物料属性比例',
         subtext: '',
         x:'center'
     },
@@ -348,7 +255,7 @@ laydate({
     legend: {
         orient : 'vertical',
         x : 'left',
-        data:['国内品牌','国外品牌']
+        data:['原料属性','面料属性','辅料属性','纺纱属性']
     },
     toolbox: {
         show : false,
@@ -374,13 +281,15 @@ laydate({
     calculable : true,
     series : [
         {
-            name:'品牌数量',
+            name:'属性数量',
             type:'pie',
             radius : '55%',
             center: ['50%', '60%'],
             data:[
-                {value:335, name:'国内品牌'},
-                {value:210, name:'国外品牌'},
+                {value:335, name:'面料属性'},
+                {value:210, name:'纺纱属性'},
+                {value:100, name:'原料属性'},
+                {value:150, name:'辅料属性'},
 
             ]
         }
