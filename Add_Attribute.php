@@ -34,22 +34,22 @@ $rows=fetchAll($sql);
  <div class="left_add">
    <div class="title_name">添加属性</div>
    <ul class="add_conent">
-    <li class=" clearfix"><label class="label_name" >属性名称：</label> <input name="" type="text" class="add_text"/></li>
-    <li class=" clearfix"><label class="label_name">属性编码：</label> <input name="" type="text" class="add_text" style="width:80px"/></li>
+    <li class=" clearfix"><label class="label_name" >属性名称：</label> <input name="name" type="text" class="add_text"/></li>
+    <li class=" clearfix"><label class="label_name">属性编码：</label> <input name="id" type="text" class="add_text" style="width:80px"/></li>
     <li class=" clearfix"><label class="label_name">属性单位：</label>
-        <input name="" type="text" class="add_text" style="width:80px"/>
+        <input name="unit" type="text" class="add_text" style="width:80px"/>
     </li>
        <li><label class="label_name">分类属性：</label>
-           <select class="select" name="parentId" size="1" style="margin-left: 10px;" id="parentId">
+           <select class="select" name="class" size="1" style="margin-left: 10px;" id="parentId">
                <?php  foreach($rows as $row):?>
                    <option value="<?php echo $row['gt_name'];?>"><?php echo $row['gt_id'];?><?php echo $row['gt_name'];?></option>
                <?php endforeach;?>
            </select>
        </li>
-         <li class=" clearfix"><label class="label_name">属性描述：</label> <textarea name="" cols="" rows="" class="textarea" onkeyup="checkLength(this);"></textarea><span class="wordage">剩余字数：<span id="sy" style="color:Red;">500</span>字</span></li>
+         <li class=" clearfix"><label class="label_name">属性描述：</label> <textarea name="beizhu" cols="" rows="" class="textarea" onkeyup="checkLength(this);"></textarea><span class="wordage">剩余字数：<span id="sy" style="color:Red;">500</span>字</span></li>
          <li class=" clearfix"><label class="label_name">显示状态：</label>
-         <label><input name="checkbox" type="radio" class="ace" checked="checked"><span class="lbl">显示</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <label><input type="radio" class="ace" name="checkbox"><span class="lbl">不显示</span></label>
+         <label><input name="checkbox" type="radio" class="ace" checked="checked" value="1"><span class="lbl">显示</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <label><input type="radio" class="ace" name="checkbox" value="0"><span class="lbl">不显示</span></label>
          </li>
    </ul>
  </div>

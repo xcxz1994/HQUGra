@@ -52,6 +52,8 @@ if($act=="logout"){
     $mes=RefusalUser($id);
 }elseif ($act=='addSonCate'){
     $mes=addSonCate();
+}elseif ($act=='add_Attribute'){
+    $mes=add_Attribute();
 }
 
 

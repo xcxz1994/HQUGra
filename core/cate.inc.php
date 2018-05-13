@@ -89,3 +89,30 @@ function addSonCate(){
     return $mes;
 }
 
+/**
+增加新的物料属性
+ **/
+function add_Attribute(){
+    $arrAttribute['pro_name']=$_POST['name'];
+    $arrAttribute['pro_id']=$_POST['id'];
+    $arrAttribute['pro_unit']=$_POST['unit'];
+    $arrAttribute['pro_class']=$_POST['class'];
+    $arrAttribute['pro_beizhu']=$_POST['beizhu'];
+    $arrAttribute['pro_status']=$_POST['checkbox'];
+
+    if(insert("sys_material_properties",$arrAttribute)){
+        $mes="属性添加成功!<br/><a href='Attribute_Manage.php'>查看属性</a>|";
+    }else{
+        $mes="属性添加失败!<br/><a href='Add_Attribute.php'>重新添加</a>";
+    }
+    return $mes;
+}
+
+/**
+获取所有物料属性
+ **/
+function getAllAttribute(){
+    $sql="select * from sys_material_properties";
+    $rows=fetchAll($sql);
+    return $rows;
+}
