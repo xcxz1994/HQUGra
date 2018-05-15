@@ -3,6 +3,29 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 require_once './include.php';
 
 $rows=getAllAttribute();
+$number=count($rows);
+
+function getGAttribute(){
+    $sql='select DISTINCT pro_class from sys_material_properties ';
+    $Grows=fetchAll($sql);
+    $Garr=array();
+    $Garr2=array();
+    foreach($Grows as $Grow):
+
+        $sql="select count(*)  from sys_material_properties where pro_class='{$Grow['pro_class']}'";
+        $Grows2=fetchAll($sql);
+        //var_dump($Grows2);
+        $Garr.array_push($Garr,$Grows2);
+    endforeach;
+    for($i=0;$i<count($Garr);$i++){
+        $Num=$Garr[$i][0]['count(*)'];
+        $Garr2.array_push($Garr2,$Num);
+    }
+    return array($Grows,$Garr2);
+}
+$results=getGAttribute()[0];
+$Nums=getGAttribute()[1];
+//print_r($Nums);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -55,12 +78,12 @@ $rows=getAllAttribute();
        <span class="l_f">
         <a href="Add_Attribute.php"  title="添加属性" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加属性</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
-        <a href="javascript:ovid()" class="btn btn-info">面料属性</a>
+        <a href="javascript:ovid()" class="btn btn-success">面料属性</a>
         <a href="javascript:ovid()" class="btn btn-success">纺纱属性</a>
         <a href="javascript:ovid()" class="btn btn-success">原料属性</a>
            <a href="javascript:ovid()" class="btn btn-success">辅料属性</a>
        </span>
-       <span class="r_f">共：<b>234</b>个属性</span>
+       <span class="r_f">共：<b><?php echo $number;?></b>个属性</span>
      </div>
     <!--品牌展示-->
      <div class="brand_list clearfix" id="category">
@@ -87,29 +110,31 @@ $rows=getAllAttribute();
 			</tr>
 		</thead>
 	<tbody>
+    <?php  foreach($rows as $row):?>
 		<tr>
           <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td width="80px">45631</td>
-          <td width="50px"><input type="text" class="input-text text-c" value="1" style="width:60px"></td>
-          <td>品种</td>
-          <td><a href="javascript:ovid()" name="Attribute_detailed.php" style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('561');" title="坯布">坯布</a></td>
-          <td>文字</td>
-          <td class="text-l">缎格、缎条、直贡、斜纹</td>
-          <td>2014-6-11 11:11:42</td>
+          <td width="80px"><?php echo $row['pro_id'];?></td>
+          <td width="50px"><input type="text" class="input-text text-c" value="<?php echo $row['id'];?>" style="width:60px"></td>
+          <td><?php echo $row['pro_name'];?></td>
+          <td><a href="javascript:ovid()" name="Attribute_detailed.php" style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('561');" title="<?php echo $row['pro_class'];?>"><?php echo $row['pro_class'];?></a></td>
+          <td><?php echo $row['pro_unit'];?></td>
+          <td class="text-l"><?php echo $row['pro_beizhu'];?></td>
+          <td><?php echo $row['join_time'];?></td>
           <td class="td-status"><span class="label label-success radius">已启用</span></td>
           <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          <a onClick="member_stop(this,'<?php echo $row['id'];?>')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a>
+          <a title="编辑" onclick="member_edit('<?php echo $row['id'];?>')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a>
+          <a title="删除" href="javascript:;"  onclick="member_del(this,'<?php echo $row['id'];?>')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
 		</tr>
-
+    <?php endforeach;?>
         </tbody>
         </table>
         </div>
      </div>
     
   </div>
+
 </div>
 </body>
 </html>
@@ -189,13 +214,13 @@ $('.Order_form ,.brond_name').on('click', function(){
 	
 });
 function generateOrders(id){
-	window.location.href = "Brand_detailed.html?="+id;
+	window.location.href = "Attribute_detailed.php?="+id;
 };
-/*品牌-查看*/
+/*属性-查看*/
 function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
-/*品牌-停用*/
+/*属性-停用*/
 function member_stop(obj,id){
 	layer.confirm('确认要停用吗？',function(index){
 		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs " onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="icon-ok bigger-120"></i></a>');
@@ -214,16 +239,33 @@ function member_start(obj,id){
 		layer.msg('已启用!',{icon: 6,time:1000});
 	});
 }
-/*品牌-编辑*/
-function member_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
+/*属性-编辑*/
+function member_edit(id){
+    alert(id);
+    layer.open({
+        type: 2,
+        title:'编辑属性',
+        area: ['700px','650px'],
+        shadeClose: false,
+        content: './Attribute-edit.php?id='+id,
+    });
+
 }
 
-/*品牌-删除*/
+/*属性-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$(obj).parents("tr").remove();
+        $.ajax({
+            url: './doAdminAction.php?act=delAttribute&id='+id,
+            type: 'post',
+
+            success:function(data){
+                console.log(data)
+            }
+        })
 		layer.msg('已删除!',{icon:1,time:1000});
+        window.location.reload();
 	});
 }
 laydate({
@@ -261,7 +303,11 @@ laydate({
     legend: {
         orient : 'vertical',
         x : 'left',
-        data:['原料属性','面料属性','辅料属性','纺纱属性']
+        data:[
+            <?php  foreach($results as $result):?>
+              '<?php $result['pro_class'];?>',
+            <?php endforeach;?>
+        ]
     },
     toolbox: {
         show : false,
@@ -292,11 +338,9 @@ laydate({
             radius : '55%',
             center: ['50%', '60%'],
             data:[
-                {value:335, name:'面料属性'},
-                {value:210, name:'纺纱属性'},
-                {value:100, name:'原料属性'},
-                {value:150, name:'辅料属性'},
-
+                  <?php for($i=0;$i<count($results);$i++){
+                      echo "{value:{$Nums[$i]},name:'{$results[$i]['pro_class']}'},";
+            }?>
             ]
         }
     ]

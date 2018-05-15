@@ -1,5 +1,5 @@
 <?php
-header("content-type:text/html;charset=urtf-8");
+header("content-type:text/html;charset=utf-8");
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
 //print_r($_FILES);
 

@@ -100,7 +100,7 @@ layui.use('layer', function () {
                     },
                     success:function(data){
 
-                        alert("11111111111");
+                        alert(data);
                         if(data=='栏目编辑' || data=='栏目主辑'){
                             var msgalert = '登录成功！<br/> 3秒后跳转' ;
                             var index = layer.alert(msgalert, { icon: 6, time: 3000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });

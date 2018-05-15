@@ -93,13 +93,14 @@ function addSonCate(){
 增加新的物料属性
  **/
 function add_Attribute(){
+    $showtime=date("Y-m-d H:i:s");
     $arrAttribute['pro_name']=$_POST['name'];
     $arrAttribute['pro_id']=$_POST['id'];
     $arrAttribute['pro_unit']=$_POST['unit'];
     $arrAttribute['pro_class']=$_POST['class'];
     $arrAttribute['pro_beizhu']=$_POST['beizhu'];
     $arrAttribute['pro_status']=$_POST['checkbox'];
-
+    $arrAttribute['join_time']=$showtime;
     if(insert("sys_material_properties",$arrAttribute)){
         $mes="属性添加成功!<br/><a href='Attribute_Manage.php'>查看属性</a>|";
     }else{
@@ -115,4 +116,41 @@ function getAllAttribute(){
     $sql="select * from sys_material_properties";
     $rows=fetchAll($sql);
     return $rows;
+}
+
+/**
+编辑修改物料属性
+ **/
+function edit_Attribute($id){
+    //var_dump($id);
+    $showtime=date("Y-m-d H:i:s");
+    $arrAttribute['pro_name']=$_POST['name'];
+    $arrAttribute['pro_id']=$_POST['code'];
+    $arrAttribute['pro_unit']=$_POST['unit'];
+    $arrAttribute['pro_class']=$_POST['class'];
+    $arrAttribute['pro_beizhu']=$_POST['beizhu'];
+    $arrAttribute['pro_status']=$_POST['checkbox'];
+    $arrAttribute['join_time']=$showtime;
+
+    if(update("sys_material_properties", $arrAttribute,"id={$id}")){
+        $mes="编辑成功!<br/>";
+
+    }else{
+        $mes="编辑失败!<br/>";
+
+    }
+    return $mes;
+}
+/**
+删除物料属性
+ **/
+function delAttribute($id){
+    if(delete("sys_material_properties","id={$id}")){
+        $mes="删除成功!<br/>";
+        echo "0";
+    }else{
+        $mes="删除失败!<br/>";
+        echo "1";
+    }
+    return $mes;
 }

@@ -54,6 +54,11 @@ if($act=="logout"){
     $mes=addSonCate();
 }elseif ($act=='add_Attribute'){
     $mes=add_Attribute();
+}elseif ($act=='edit_Attribute'){
+    //var_dump($id);
+    $mes=edit_Attribute($id);
+}elseif ($act=='delAttribute'){
+    $mes=delAttribute($id);
 }
 
 

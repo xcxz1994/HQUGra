@@ -1,5 +1,6 @@
 <?php
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
+header("content-type:text/html;charset=utf-8");
 require_once './include.php';
 $username = $_POST['username'];
 $password=md5($_POST['password']);
