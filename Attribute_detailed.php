@@ -1,3 +1,23 @@
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+require_once './include.php';
+$className=$_REQUEST['className'];
+//var_dump($className);
+$sql="select *  from sys_material_properties where pro_class='{$className}'";
+$rows=fetchAll($sql);
+//print_r($rows);
+$sql2="select * from bas_material_goodstype where gt_name='{$className}'";
+$parentClass=fetchOne($sql2);
+$sql3="select gt_name from bas_material_goodstype where gt_id='{$parentClass['gt_parentId']}'";
+$parentName=fetchOne($sql3);
+//var_dump($parentName);
+$sql4="select *  from bas_material_goods where go_type='{$parentClass['gt_id']}'";
+$productNum=fetchAll($sql4);
+//print_r($productNum);
+$sql5="select * from bas_material_goodstype group by gt_id having gt_parentId='{$parentClass['gt_id']}'";
+$SonClass=fetchAll($sql5);
+print_r($SonClass);
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -27,28 +47,28 @@
   <script type="text/javascript" src="js/H-ui.js"></script> 
   <script type="text/javascript" src="js/H-ui.admin.js"></script> 
   <script src="js/lrtk.js" type="text/javascript"></script>
-<title>品牌详细</title>
+<title>物料详细</title>
 </head>
 
 <body>
 <div class="page-content clearfix">
  <div class="brand_detailed">
   <div class="brand_info clearfix">
-   <div class="title_brand">品牌信息</div>
+   <div class="title_brand">物料信息</div>
    <form>
     <ul class="Info_style clearfix">
-     <li><label class="label_name">品牌名称：</label> <span class="name">玉兰油OLAY</span></li>
-      <li><label class="label_name">品牌类型：</label><span class="name">国外品牌</span></li>
-      <li><label class="label_name">所属国家：</label><span class="name">法国</span></li>
-      <li><label class="label_name">品牌编号：</label><span class="name">HG3452</span></li>
-      <li><label class="label_name">品牌商品：</label><span class="name">共3456件</span></li>
+     <li><label class="label_name">物料名称：</label> <span class="name"><?php echo $className;?></span></li>
+      <li><label class="label_name">物料属性：</label><span class="name"><?php foreach($rows as $row):?><?php echo $row['pro_name'];?>;<?php endforeach;?></span></li>
+      <li><label class="label_name">所属分类：</label><span class="name"><?php echo $parentName['gt_name'];?></span></li>
+      <li><label class="label_name">物料编号：</label><span class="name"><?php echo $parentClass['gt_id'];?></span></li>
+      <li><label class="label_name">总供应商：</label><span class="name">共<?php echo count($productNum);?>家</span></li>
       <li><label class="label_name">添加时间：</label><span class="name">2016-6-21 34：23</span></li>
       <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="name">启用</span></li>
-      <li class="b_Introduce"><label class="label_name">品牌介绍：</label><span class="name">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，是中国区最大护肤品牌，在大陆已持续十年呈两位数增长。OLAY以全球高科技护肤研发技术为后盾，在深入了解中国女性对护肤和美的需要的基础上，不断扩大产品范围，目前已经涵盖了护肤和沐浴系列，真正帮助女性全面周到地呵护自己的肌肤。玉兰油全球销售额近十亿美金，成为世界上最大、最著名的护肤品牌之一。卓越的护肤功效获得世界爱美女性肯定，迅速畅销150多个国家。</span></li>
+      <li class="b_Introduce"><label class="label_name">物料介绍：</label><span class="name">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，是中国区最大护肤品牌，在大陆已持续十年呈两位数增长。OLAY以全球高科技护肤研发技术为后盾，在深入了解中国女性对护肤和美的需要的基础上，不断扩大产品范围，目前已经涵盖了护肤和沐浴系列，真正帮助女性全面周到地呵护自己的肌肤。玉兰油全球销售额近十亿美金，成为世界上最大、最著名的护肤品牌之一。卓越的护肤功效获得世界爱美女性肯定，迅速畅销150多个国家。</span></li>
     </ul>
     <div class="brand_logo">
       <img src="products/logo/156.jpg"  width="120px" height="60px"/>
-      <p class="name">玉兰油OLAY</p>
+      <p class="name">物料图片</p>
     </div>
    </form>
    </div>
@@ -56,10 +76,10 @@
  <!--品牌商品-->
  <div class="border clearfix">
        <span class="l_f">
-        <a href="picture-add.html"  title="添加商品" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加商品</a>
+        <a href="picture-add.html"  title="添加物料" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加物料</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
-       <span class="r_f">该品牌下共：<b>234</b>件商品</span>
+       <span class="r_f">该物料下共：<b><?php echo count($productNum);?></b>个供应商</span>
   </div>
      <!--产品列表-->
       <div class="b_products_list clearfix" id="products_list">
@@ -68,22 +88,13 @@
         <div class="widget-box side_content" >
          <div class="side_title"><a title="隐藏" class="close_btn"><span></span></a></div>
          <div class="side_list">
-          <div class="widget-header header-color-green2"><h4 class="lighter smaller">产品所属分类</h4></div>
+          <div class="widget-header header-color-green2"><h4 class="lighter smaller">物料子类</h4></div>
           <div class="widget-body">
             <ul class="b_P_Sort_list">
-             <li><i class="orange icon-folder-close"></i></i><a href="#">全部(235)</a></li>
+             <li><i class="orange icon-folder-close"></i></i><a href="#">全部(<?php echo count($productNum);?>)</a></li>
+
              <li><i class="icon-file-text grey"></i> <a href="#">乳液面霜(5)</a></li>
-             <li> <i class="icon-file-text grey"></i><a href="#">套装(15)</a> </li>
-             <li> <i class="icon-file-text grey"></i><a href="#">洁面(6)</a></li>
-             <li><i class="icon-file-text grey"></i> <a href="#">精华(2)</a></li>
-             <li><i class="icon-file-text grey"></i> <a href="#">爽肤水(12)</a></li>
-             <li> <i class="icon-file-text grey"></i><a href="#">防晒(6)</a></li>
-             <li> <i class="icon-file-text grey"></i><a href="#">面膜(7)</a></li>
-             <li> <i class="icon-file-text grey"></i><a href="#">眼霜(23)</a></li>
-             <li> <i class="icon-file-text grey"></i><a href="#">精华露(53)</a></li>
-             <li> <i class="icon-file-text grey"></i><a href="#">爽肤水(25)</a></li>
-             <li> <i class="icon-file-text grey"></i><a href="#">隔离(52)</a></li>
-             <li><i class="icon-file-text grey"></i> <a href="#">眼部护理(45)</a></li>
+
             </ul>
           
           </div>
@@ -96,11 +107,11 @@
 		<thead>
 		 <tr>
 				<th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th width="80px">产品编号</th>
-				<th width="250px">产品名称</th>
+				<th width="80px">供应商编号</th>
+				<th width="250px">供应商名称</th>
 				<th width="100px">原价格</th>
 				<th width="100px">现价</th>
-                <th width="100px">所属地区/国家</th>				
+                <th width="100px">库存</th>
 				<th width="180px">加入时间</th>
                 <th width="80px">审核状态</th>
 				<th width="70px">状态</th>                
@@ -124,170 +135,6 @@
         <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
        </td>
 	  </tr>
-       <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">45631</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">玉兰油 Olay 新生塑颜金纯面霜轻盈无香精型50g (大红瓶抗皱紧致 补水保湿) </u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
-        <td class="text-l">通过</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
-        <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-       </td>
-	  </tr>
-       <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">45631</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">玉兰油 Olay 多效修护霜50g(乳液面霜 补水保湿 提拉紧致) </u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
-        <td class="text-l">通过</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
-        <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-       </td>
-	  </tr>
-       <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">543346</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">Olay玉兰油 多效修护粉嫩气色霜50g（保养级BB霜 裸妆） 4G手机Y</u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
-        <td class="text-l">通过</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
-        <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-       </td>
-	  </tr>
-       <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">987767</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">Olay玉兰油 多效修护润舒霜50g（补水保湿、细腻肌肤） </u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
-        <td class="text-l">通过</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
-        <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-       </td>
-	  </tr>
-       <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">54343</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">Olay玉兰油 水感透皙莹肌亮肤液 150ml 4G手机Y</u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
-        <td class="text-l">通过</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
-        <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-       </td>
-	  </tr>
-       <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">786554</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">Olay玉兰油 水感透白亮肤凝乳75ml（提亮肤色） </u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
-        <td class="text-l">通过</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
-        <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-       </td>
-	  </tr>
-             <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">32122</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">Olay玉兰油 活肤菁华霜50g（补水 保湿 ） </u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
-        <td class="text-l">通过</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
-        <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-       </td>
-	  </tr>
-
-       <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">767544</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">Olay玉兰油 白里透红嫩白乳液75ml（保湿 滋润) 4G手机Y</u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
-        <td class="text-l">通过</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
-        <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-       </td>
-	  </tr>
-
-       <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">23466</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">小米 Max 全网通 高配版 3GB内存 64GB ROM 金色 移动联通电信4G手机Y</u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
-        <td class="text-l">通过</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
-        <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-       </td>
-	  </tr>
-
-       <tr>
-        <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">54533</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">小米 Max 全网通 高配版 3GB内存 64GB ROM 金色 移动联通电信4G手机Y</u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
-        <td class="text-l">通过</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
-        <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-        <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-       </td>
-	  </tr>
-
     </tbody>
     </table>
     </div>     

@@ -116,7 +116,7 @@ $Nums=getGAttribute()[1];
           <td width="80px"><?php echo $row['pro_id'];?></td>
           <td width="50px"><input type="text" class="input-text text-c" value="<?php echo $row['id'];?>" style="width:60px"></td>
           <td><?php echo $row['pro_name'];?></td>
-          <td><a href="javascript:ovid()" name="Attribute_detailed.php" style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('561');" title="<?php echo $row['pro_class'];?>"><?php echo $row['pro_class'];?></a></td>
+          <td><a href="javascript:ovid()" name="Attribute_detailed.php" style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('<?php echo $row['pro_class'];?>');" title="<?php echo $row['pro_class'];?>"><?php echo $row['pro_class'];?></a></td>
           <td><?php echo $row['pro_unit'];?></td>
           <td class="text-l"><?php echo $row['pro_beizhu'];?></td>
           <td><?php echo $row['join_time'];?></td>
@@ -213,8 +213,8 @@ $('.Order_form ,.brond_name').on('click', function(){
     parent.layer.close(index);
 	
 });
-function generateOrders(id){
-	window.location.href = "Attribute_detailed.php?="+id;
+function generateOrders(className){
+	window.location.href = "Attribute_detailed.php?className="+className;
 };
 /*属性-查看*/
 function member_show(title,url,id,w,h){
