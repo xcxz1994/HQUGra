@@ -15,8 +15,37 @@ $sql4="select *  from bas_material_goods where go_type='{$parentClass['gt_id']}'
 $productNum=fetchAll($sql4);
 //print_r($productNum);
 $sql5="select * from bas_material_goodstype group by gt_id having gt_parentId='{$parentClass['gt_id']}'";
-$SonClass=fetchAll($sql5);
-print_r($SonClass);
+$SonClasses=fetchAll($sql5);
+//print_r($productNum);
+function getAllClient(){
+    $arrClient=array();
+    $arrClientList=array();
+    $arrClientLast=array();
+    $className=$_REQUEST['className'];
+    $sql2="select * from bas_material_goodstype where gt_name='{$className}'";
+    $parentClass=fetchOne($sql2);
+    $sql4="select *  from bas_material_goods where go_type='{$parentClass['gt_id']}'";
+    $productNum=fetchAll($sql4);
+    for($i=0;$i<count($productNum);$i++){
+        $sql6="select cl_id  from bas_material_goods where go_type={$productNum[$i]['go_type']}";
+        $AllClients=fetchAll($sql6);
+        $arrClient.array_push($arrClient,$AllClients);
+    }
+
+    for($i=0;$i<count($arrClient[0]);$i++){
+        $sql7="select  DISTINCT id from bas_contact_client where cl_id='{$arrClient[0][$i]['cl_id']}'";
+        $AllClientsList=fetchAll($sql7);
+        $arrClientList.array_push($arrClientList,$AllClientsList);
+    }
+    for($i=0;$i<count($arrClientList);$i++){
+        $sql8="select  * from bas_contact_client where id='{$arrClientList[$i][0]['id']}'";
+        $AllClientsLast=fetchAll($sql8);
+        $arrClientLast.array_push($arrClientLast,$AllClientsLast);
+    }
+    return $arrClientLast;
+}
+$AllClientsLasts=getAllClient();
+//print_r($AllClientsLasts[0]);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -67,8 +96,8 @@ print_r($SonClass);
       <li class="b_Introduce"><label class="label_name">物料介绍：</label><span class="name">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，是中国区最大护肤品牌，在大陆已持续十年呈两位数增长。OLAY以全球高科技护肤研发技术为后盾，在深入了解中国女性对护肤和美的需要的基础上，不断扩大产品范围，目前已经涵盖了护肤和沐浴系列，真正帮助女性全面周到地呵护自己的肌肤。玉兰油全球销售额近十亿美金，成为世界上最大、最著名的护肤品牌之一。卓越的护肤功效获得世界爱美女性肯定，迅速畅销150多个国家。</span></li>
     </ul>
     <div class="brand_logo">
-      <img src="products/logo/156.jpg"  width="120px" height="60px"/>
-      <p class="name">物料图片</p>
+      <img src="<?php echo $productNum[0]['go_image'];?>"  width="120px" height="60px"/>
+      <p class="name">物料图片(仅供参考)</p>
     </div>
    </form>
    </div>
@@ -92,8 +121,11 @@ print_r($SonClass);
           <div class="widget-body">
             <ul class="b_P_Sort_list">
              <li><i class="orange icon-folder-close"></i></i><a href="#">全部(<?php echo count($productNum);?>)</a></li>
+                <?php  foreach($SonClasses as $SonClass):?>
+                    <li><i class="icon-file-text grey"></i> <a href="#"><?php echo $SonClass['gt_name'];?></a></li>
+                <?php endforeach;?>
 
-             <li><i class="icon-file-text grey"></i> <a href="#">乳液面霜(5)</a></li>
+
 
             </ul>
           
@@ -109,8 +141,8 @@ print_r($SonClass);
 				<th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 				<th width="80px">供应商编号</th>
 				<th width="250px">供应商名称</th>
-				<th width="100px">原价格</th>
-				<th width="100px">现价</th>
+				<th width="100px">地址</th>
+				<th width="100px">电话</th>
                 <th width="100px">库存</th>
 				<th width="180px">加入时间</th>
                 <th width="80px">审核状态</th>
@@ -119,14 +151,15 @@ print_r($SonClass);
 			</tr>
 		</thead>
 	<tbody>
+    <?php  foreach($AllClientsLasts as $AllClientsLast):?>
      <tr>
         <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-        <td width="80px">45631</td>               
-        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick="">Olay玉兰油 新生塑颜金纯面霜50g（大红瓶） </u></td>
-        <td width="100px">5467</td>
-        <td width="100px">4525</td> 
-        <td width="100px">法国</td>         
-        <td width="180px">2014-6-11 11:11:42</td>
+        <td width="80px"><?php echo $AllClientsLast[0]['id'];?></td>
+        <td width="250px"><u style="cursor:pointer" class="text-primary" onclick=""><?php echo $AllClientsLast[0]['cl_name'];?></u></td>
+        <td width="100px"><?php echo $AllClientsLast[0]['cl_address'];?></td>
+        <td width="100px"><?php echo $AllClientsLast[0]['cl_phone'];?></td>
+        <td width="100px">1000</td>
+        <td width="180px"><?php echo $AllClientsLast[0]['cl_registDate'];?></td>
         <td class="text-l">通过</td>
         <td class="td-status"><span class="label label-success radius">已启用</span></td>
         <td class="td-manage">
@@ -135,6 +168,7 @@ print_r($SonClass);
         <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
        </td>
 	  </tr>
+    <?php endforeach;?>
     </tbody>
     </table>
     </div>     
