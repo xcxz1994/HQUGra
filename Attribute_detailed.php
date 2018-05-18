@@ -42,7 +42,7 @@ function getAllClient(){
         $AllClientsLast=fetchAll($sql8);
         $arrClientLast.array_push($arrClientLast,$AllClientsLast);
     }
-    return $arrClientLast;
+    return array_unique($arrClientLast, SORT_REGULAR);;
 }
 $AllClientsLasts=getAllClient();
 //print_r($AllClientsLasts[0]);
@@ -160,7 +160,15 @@ $AllClientsLasts=getAllClient();
         <td width="100px"><?php echo $AllClientsLast[0]['cl_phone'];?></td>
         <td width="100px">1000</td>
         <td width="180px"><?php echo $AllClientsLast[0]['cl_registDate'];?></td>
-        <td class="text-l">通过</td>
+         <?php
+         if($AllClientsLast[0]['cl_loginState']==1){
+             echo " <td>通过 </td>";
+         }elseif ($AllClientsLast[0]['cl_loginState']==2){
+             echo " <td><a href='Shops_Audit.php'>待审核</a> </td>";
+         }else{
+             echo " <td>封号 </td>";
+         }
+         ?>
         <td class="td-status"><span class="label label-success radius">已启用</span></td>
         <td class="td-manage">
         <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
