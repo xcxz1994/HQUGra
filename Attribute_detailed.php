@@ -3,14 +3,18 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 require_once './include.php';
 $className=$_REQUEST['className'];
 //var_dump($className);
+//查询该物料类所有属性
 $sql="select *  from sys_material_properties where pro_class='{$className}'";
 $rows=fetchAll($sql);
 //print_r($rows);
+//查询该物料所有子类
 $sql2="select * from bas_material_goodstype where gt_name='{$className}'";
 $parentClass=fetchOne($sql2);
+//查询该物料的的父类名称
 $sql3="select gt_name from bas_material_goodstype where gt_id='{$parentClass['gt_parentId']}'";
 $parentName=fetchOne($sql3);
 //var_dump($parentName);
+//查询属于该物料类型的所有商品信息
 $sql4="select *  from bas_material_goods where go_type='{$parentClass['gt_id']}'";
 $productNum=fetchAll($sql4);
 //print_r($productNum);
@@ -93,7 +97,32 @@ $AllClientsLasts=getAllClient();
       <li><label class="label_name">总供应商：</label><span class="name">共<?php echo count($productNum);?>家</span></li>
       <li><label class="label_name">添加时间：</label><span class="name">2016-6-21 34：23</span></li>
       <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="name">启用</span></li>
-      <li class="b_Introduce"><label class="label_name">物料介绍：</label><span class="name">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，是中国区最大护肤品牌，在大陆已持续十年呈两位数增长。OLAY以全球高科技护肤研发技术为后盾，在深入了解中国女性对护肤和美的需要的基础上，不断扩大产品范围，目前已经涵盖了护肤和沐浴系列，真正帮助女性全面周到地呵护自己的肌肤。玉兰油全球销售额近十亿美金，成为世界上最大、最著名的护肤品牌之一。卓越的护肤功效获得世界爱美女性肯定，迅速畅销150多个国家。</span></li>
+      <li class="b_Introduce"><label class="label_name">物料清单：</label><span class="name">
+           <table class="table table-striped table-bordered table-hover" id="sample-table" style="margin-top: 50px;">
+		<thead>
+		 <tr>
+				<th width="100px">商品名称</th>
+				<th width="100px">商品编码</th>
+				<th width="100px">别名</th>
+                <th width="100px">属性规格</th>
+				<th width="250px">商品属性</th>
+			</tr>
+		</thead>
+	<tbody>
+    <?php  foreach($productNum as $product):?>
+        <tr>
+        <td width="25px"><?php echo $product['go_name'];?></td>
+        <td width="80px"><?php echo $product['go_code'];?></td>
+        <td width="100px"><u style="cursor:pointer" class="text-primary" onclick=""><?php echo $product['go_alias'];?></u></td>
+        <td width="100px"><?php echo $product['go_specType'];?></td>
+        <td width="250px"><?php echo $product['attribute'];?></td>
+	  </tr>
+    <?php endforeach;?>
+    </tbody>
+    </table>
+
+
+          </span></li>
     </ul>
     <div class="brand_logo">
       <img src="<?php echo $productNum[0]['go_image'];?>"  width="120px" height="60px"/>
@@ -102,7 +131,7 @@ $AllClientsLasts=getAllClient();
    </form>
    </div>
  </div>
- <!--品牌商品-->
+ <!--物料属性详细-->
  <div class="border clearfix">
        <span class="l_f">
         <a href="picture-add.html"  title="添加物料" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加物料</a>
@@ -158,7 +187,19 @@ $AllClientsLasts=getAllClient();
         <td width="250px"><u style="cursor:pointer" class="text-primary" onclick=""><?php echo $AllClientsLast[0]['cl_name'];?></u></td>
         <td width="100px"><?php echo $AllClientsLast[0]['cl_address'];?></td>
         <td width="100px"><?php echo $AllClientsLast[0]['cl_phone'];?></td>
-        <td width="100px">1000</td>
+        <td width="100px"><?php
+
+             $sql9="select ck_id  from cangku where cl_id='{$AllClientsLast[0]['cl_id']}'";
+             $cangku=fetchAll($sql9);
+             //print_r($cangku[0]['ck_id']);
+            $arrstock=array();
+            for($i=0;$i<count($productNum);$i++){
+                $sql10="select * from cangkujilu where go_id={$productNum[$i]['go_id']} and ck_id={$cangku[0]['ck_id']}";
+                $stock=fetchAll($sql10);
+                $arrstock.array_push($arrstock,$stock[0]['tota']);
+            }
+            print_r(array_sum($arrstock));
+            ?></td>
         <td width="180px"><?php echo $AllClientsLast[0]['cl_registDate'];?></td>
          <?php
          if($AllClientsLast[0]['cl_loginState']==1){
