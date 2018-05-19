@@ -113,7 +113,7 @@ $AllClientsLasts=getAllClient();
         <tr>
         <td width="25px"><?php echo $product['go_name'];?></td>
         <td width="80px"><?php echo $product['go_code'];?></td>
-        <td width="100px"><u style="cursor:pointer" class="text-primary" onclick=""><?php echo $product['go_alias'];?></u></td>
+        <td width="100px"><u style="cursor:pointer" class="text-primary"><?php echo $product['go_alias'];?></u></td>
         <td width="100px"><?php echo $product['go_specType'];?></td>
         <td width="250px"><?php echo $product['attribute'];?></td>
 	  </tr>
