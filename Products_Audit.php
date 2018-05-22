@@ -75,8 +75,8 @@ if(isset($_SESSION['adminId'])){
         </div>
     </div>
     <div class="At_button">
-        <button onclick="through_save('this','<?php echo $row['id'];?>');" class="btn btn-primary radius" type="submit">通  过</button>
-        <button onclick="cancel_save('this','<?php echo $row['id'];?>');" class="btn btn-danger  btn-warning" type="button">拒  绝</button>
+        <button onclick="through_save('this','<?php echo $row['go_id'];?>');" class="btn btn-primary radius" type="submit">通  过</button>
+        <button onclick="cancel_save('this','<?php echo $row['cl_id'];?>');" class="btn btn-danger  btn-warning" type="button">拒  绝</button>
         <button onclick="return_close();" class="btn btn-default radius" type="button">返回上一步</button>
     </div>
 </div>
@@ -88,12 +88,12 @@ if(isset($_SESSION['adminId'])){
     parent.layer.iframeAuto(index);
     function through_save(obj,id){
         //alert(id);
-        layer.confirm('确认要开通该店铺吗？',function(index){
+        layer.confirm('确认要审核通过该商品吗？',function(index){
             $.ajax({
-                url: './doAdminAction.php?act=AuditUser&id='+id,
+                url: './doAdminAction.php?act=AuditPro&id='+id,
                 type: 'post',
                 data: {
-                    'loginState':1
+                    'go_State':1
                 },
                 success:function(data){
                     console.log(data)
@@ -104,7 +104,7 @@ if(isset($_SESSION['adminId'])){
                 }
             })
             layer.msg('已开通!',{icon:1,time:1000});
-            location.href="Shops_Audit.php";
+            location.href="Products_List.php";
             parent.$('#parentIframe').css("display","none");
             parent.$('.Current_page').css({"color":"#333333"});
         });
@@ -127,7 +127,7 @@ if(isset($_SESSION['adminId'])){
             maxmin: true,
             shadeClose:false,
             area : ['600px' , ''],
-            content:('<div class="shop_reason"><span class="content">请说明拒绝该申请人申请店铺的理由，以便下次在申请时做好准备。</span><textarea name="请填写拒绝理由" class="form-control" id="form_textarea" placeholder="请填写拒绝理由" onkeyup="checkLength(this);"></textarea><span class="wordage">剩余字数：<span id="sy" style="color:Red;">500</span>字</span></div>'),
+            content:('<div class="shop_reason"><span class="content">请说明拒绝该申请人申请商品的理由，以便下次在申请时做好准备。</span><textarea name="请填写拒绝理由" class="form-control" id="form_textarea" placeholder="请填写拒绝理由" onkeyup="checkLength(this);"></textarea><span class="wordage">剩余字数：<span id="sy" style="color:Red;">500</span>字</span></div>'),
             btn:['确定','取消'],
             yes: function(index, layero){
                 if($('.form-control').val()==""){
@@ -155,13 +155,12 @@ if(isset($_SESSION['adminId'])){
                                 icon:1,
                             });
 
-                            //window.location.href='./Shops_Audit.php';
+
                         }
 
                     })
                     layer.msg('提交成功!',{icon:1,time:1000});
                     layer.close(index);
-
                 }
             }
         })

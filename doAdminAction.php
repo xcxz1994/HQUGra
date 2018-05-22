@@ -59,6 +59,10 @@ if($act=="logout"){
     $mes=edit_Attribute($id);
 }elseif ($act=='delAttribute'){
     $mes=delAttribute($id);
+}elseif ($act=='AuditPro'){
+    $mes=AuditPro($id);
+}elseif ($act=='delProduct'){
+    $mes=delProduct($id);
 }
 
 

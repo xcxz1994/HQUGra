@@ -215,3 +215,28 @@ function getProInfo(){
 	$rows=fetchAll($sql);
 	return $rows;
 }
+/**
+审核商品
+ **/
+function AuditPro($id){
+    $arrAuditPro['go_Status']=$_POST['go_State'];
+    if(update("bas_material_goods", $arrAuditPro,"go_id={$id}")){
+        $mes="审核成功!<br/>";
+    }else{
+        $mes="审核失败!<br/>";
+    }
+    return $mes;
+}
+/**
+删除下架商品
+ **/
+function delProduct($id){
+    if(delete("bas_material_goods","go_id={$id}")){
+        $mes="删除成功!<br/>";
+        echo "0";
+    }else{
+        $mes="删除失败!<br/>";
+        echo "1";
+    }
+    return $mes;
+}

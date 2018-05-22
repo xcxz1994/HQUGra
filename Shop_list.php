@@ -169,7 +169,7 @@ function getYarn(){
               ?>
 
           <td class="td-manage">        
-           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
+           <a title="删除" href="javascript:;"  onclick="member_del(this,<?php echo $row['id'];?>)" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
           </td>
          </tr>
         <?php endforeach;?>

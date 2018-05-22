@@ -124,7 +124,7 @@ $pros=getAllPro();
         <td class="td-manage">
         <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
         <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+        <a title="删除" href="javascript:;"  onclick="Product_del(this,<?php echo $pro['go_id']?>)" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
        </td>
 	  </tr>
     <?php endforeach;?>
@@ -296,11 +296,21 @@ function member_edit(title,url,id,w,h){
 }
 
 /*产品-删除*/
-function member_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$(obj).parents("tr").remove();
-		layer.msg('已删除!',{icon:1,time:1000});
-	});
+function Product_del(obj,id){
+    alert(id);
+    layer.confirm('确认要删除吗？',function(index){
+        $(obj).parents("tr").remove();
+        $.ajax({
+            url: './doAdminAction.php?act=delProduct&id='+id,
+            type: 'post',
+
+            success:function(data){
+                console.log(data)
+            }
+        })
+        layer.msg('已删除!',{icon:1,time:1000});
+        window.location.reload();
+    });
 }
 //面包屑返回值
 var index = parent.layer.getFrameIndex(window.name);
