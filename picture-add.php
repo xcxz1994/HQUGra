@@ -1,3 +1,21 @@
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+require_once './include.php';
+
+$rows=getAllCate();
+
+function getGCate(){
+    $rows=getAllCate();
+    $Garr=array();
+    for($i=0;$i<count($rows);$i++){
+        $sql="select * from bas_material_goodstype group by gt_id having gt_parentId={$rows[$i]['gt_id']}";
+        $Grows=fetchAll($sql);
+        $Garr.array_push($Garr,$Grows);
+    }
+    return $Garr;
+}
+$results=getGCate();
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -47,11 +65,11 @@
    <div class="type_title">添加商品</div>
 	<form action="" method="post" class="form form-horizontal" id="form-article-add">
 		<div class="clearfix cl">
-         <label class="form-label col-2"><span class="c-red">*</span>图片标题：</label>
+         <label class="form-label col-2"><span class="c-red">*</span>产品名称：</label>
 		 <div class="formControls col-10"><input type="text" class="input-text" value="" placeholder="" id="" name=""></div>
 		</div>
 		<div class=" clearfix cl">
-         <label class="form-label col-2">简略标题：</label>
+         <label class="form-label col-2">产品别名：</label>
 	     <div class="formControls col-10"><input type="text" class="input-text" value="" placeholder="" id="" name=""></div>
 		</div>
 		<div class=" clearfix cl">
@@ -61,19 +79,19 @@
 			<div class="formControls col-2"><input type="text" class="input-text" value="" placeholder="" id="" name=""></div>
             </div>
 			<div class="Add_p_s">
-             <label class="form-label col-2">产&nbsp;&nbsp;&nbsp;&nbsp;地：</label>	
+             <label class="form-label col-2">店&nbsp;&nbsp;&nbsp;&nbsp;铺：</label>
 			 <div class="formControls col-2"><input type="text" class="input-text" value="" placeholder="" id="" name=""></div>
 			</div>
             <div class="Add_p_s">
-             <label class="form-label col-2">材&nbsp;&nbsp;&nbsp;&nbsp;质：</label>	
+             <label class="form-label col-2">类&nbsp;&nbsp;&nbsp;&nbsp;型：</label>
 			 <div class="formControls col-2"><input type="text" class="input-text" value="" placeholder="" id="" name=""></div>
 			</div>
             <div class="Add_p_s">
-             <label class="form-label col-2">品&nbsp;&nbsp;&nbsp;&nbsp;牌：</label>	
+             <label class="form-label col-2">编&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
 			 <div class="formControls col-2"><input type="text" class="input-text" value="" placeholder="" id="" name=""></div>
 			</div>
              <div class="Add_p_s">
-             <label class="form-label col-2">产品重量：</label>	
+             <label class="form-label col-2">规格型号：</label>
 			 <div class="formControls col-2"><input type="text" class="input-text" value="" placeholder="" id="" name="" >kg</div>
 			</div>
              <div class="Add_p_s">
@@ -90,7 +108,7 @@
 				</span></div>
 			</div>
             <div class="Add_p_s">
-             <label class="form-label col-2">展示价格：</label>	
+             <label class="form-label col-2">产品属性：</label>
 			 <div class="formControls col-2"><input type="text" class="input-text" value="" placeholder="" id="" name="" >元</div>
 			</div>
             <div class="Add_p_s">
@@ -233,22 +251,30 @@ var setting = {
 };
 
 var zNodes =[
-	{ id:1, pId:0, name:"商城分类列表", open:true},
-	{ id:11, pId:1, name:"蔬菜水果"},
-	{ id:111, pId:11, name:"蔬菜"},
-	{ id:112, pId:11, name:"苹果"},
-	{ id:113, pId:11, name:"大蒜"},
-	{ id:114, pId:11, name:"白菜"},
-	{ id:115, pId:11, name:"青菜"},
-	{ id:12, pId:1, name:"手机数码"},
-	{ id:121, pId:12, name:"手机 "},
-	{ id:122, pId:12, name:"照相机 "},
-	{ id:13, pId:1, name:"电脑配件"},
-	{ id:131, pId:13, name:"手机 "},
-	{ id:122, pId:13, name:"照相机 "},
-	{ id:14, pId:1, name:"服装鞋帽"},
-	{ id:141, pId:14, name:"手机 "},
-	{ id:42, pId:14, name:"照相机 "},
+    <?php  foreach($rows as $row):?>
+    { id:<?php echo $row['gt_id']?>, pId:<?php echo $rows[0]['gt_id'];?>, name:"<?php echo $row['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[1] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[1]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[2] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[2]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[3] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[3]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[4] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[4]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[5] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[5]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[6] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[6]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
+    <?php  foreach($results[7] as $result):?>
+    { id:<?php echo $result['gt_id'];?>, pId:<?php echo $rows[7]['gt_id']?>, name:"<?php echo $result['gt_name']?>"},
+    <?php endforeach;?>
 ];
 		
 var code;
@@ -950,5 +976,6 @@ $(function(){
 
 })( jQuery );
 </script>
+</div>
 </body>
 </html>

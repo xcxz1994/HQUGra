@@ -134,7 +134,7 @@ $AllClientsLasts=getAllClient();
  <!--物料属性详细-->
  <div class="border clearfix">
        <span class="l_f">
-        <a href="picture-add.html"  title="添加物料" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加物料</a>
+        <a href="picture-add.php"  title="添加物料" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加物料</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
        <span class="r_f">该物料下共：<b><?php echo count($productNum);?></b>个供应商</span>
