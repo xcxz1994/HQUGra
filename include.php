@@ -14,4 +14,5 @@ require_once "configs.php";
 require_once 'admin.inc.php';
 require_once 'cate.inc.php';
 require_once 'pro.inc.php';
+require_once 'order.inc.php';
 connect();

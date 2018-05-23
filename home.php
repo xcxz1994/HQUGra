@@ -4,8 +4,24 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 require_once './include.php';
 $rowsUsers=getAllUser();
 $pros=getAllPro();
-//$rowOrder=getAllOrder();
-
+$prosStatus1=getStatus1Pro();
+$prosStatus0=getStatus0Pro();
+$prosStatus2=getStatus2Pro();
+$rowOrders=getAllOrder();
+$rowState1=getState1Order();
+$rowState2=getState2Order();
+$rowState3=getState3Order();
+$rowState6=getState6Order();
+$rowState45=getState45Order();
+if(isset($_SESSION['adminId'])){
+    $sql="select * from sys_message where message_to={$_SESSION['adminId']} and message_status=2";
+    $rows=fetchAll($sql);
+    //print_r($rows);
+}elseif(isset($_COOKIE['adminId'])){
+    $sql="select * from sys_message where message_to={$_COOKIE['adminId']}and message_status=2";
+    $rows=fetchAll($sql);
+    // print_r($row);
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -71,7 +87,7 @@ $pros=getAllPro();
                               <i class="icon-shopping-cart"></i>
                           </div>
                           <div class="value">
-                              <h1></h1>
+                              <h1><?php echo count($rowOrders);?></h1>
                               <p>商城订单</p>
                           </div>
                       </section>
@@ -82,7 +98,15 @@ $pros=getAllPro();
                               <i class="icon-bar-chart"></i>
                           </div>
                           <div class="value">
-                              <h1>￥34,500</h1>
+                              <h1><?php
+
+                                  for($i=0;$i<count($rowOrders);$i++){
+                                      $sumPrice=$rowOrders[$i]['tota']*$rowOrders[$i]['price'];
+                                      $result=$result+$sumPrice;
+                                  }
+                                  $result=$result;
+                                  echo $result;
+                                  ?></h1>
                               <p>交易记录</p>
                           </div>
                       </section>
@@ -94,11 +118,11 @@ $pros=getAllPro();
           <div class="title_name">订单统计信息</div>
            <table class="table table-bordered">
            <tbody>
-           <tr><td class="name">未处理订单：</td><td class="munber"><a href="#">0</a>&nbsp;个</td></tr>
-           <tr><td class="name">待发货订单：</td><td class="munber"><a href="#">10</a>&nbsp;个</td></tr>
-           <tr><td class="name">待结算订单：</td><td class="munber"><a href="#">13</a>&nbsp;个</td></tr>
-           <tr><td class="name">已成交订单数：</td><td class="munber"><a href="#">26</a>&nbsp;个</td></tr>
-           <tr><td class="name">交易失败：</td><td class="munber"><a href="#">26</a>&nbsp;个</td></tr>
+           <tr><td class="name">待发货订单：</td><td class="munber"><a href="#"><?php echo count($rowState1);?></a>&nbsp;个</td></tr>
+           <tr><td class="name">待收货订单：</td><td class="munber"><a href="#"><?php echo count($rowState2);?></a>&nbsp;个</td></tr>
+           <tr><td class="name">已成交订单数：</td><td class="munber"><a href="#"><?php echo count($rowState3);?></a>&nbsp;个</td></tr>
+           <tr><td class="name">待付款订单数：</td><td class="munber"><a href="#"><?php echo count($rowState6);?></a>&nbsp;个</td></tr>
+           <tr><td class="name">交易失败：</td><td class="munber"><a href="#"><?php echo count($rowState45);?></a>&nbsp;个</td></tr>
            </tbody>
           </table>
          </div> 
@@ -106,37 +130,24 @@ $pros=getAllPro();
           <div class="title_name">商品统计信息</div>
            <table class="table table-bordered">
            <tbody>
-           <tr><td class="name">商品总数：</td><td class="munber"><a href="#">340</a>&nbsp;个</td></tr>
-           <tr><td class="name">回收站商品：</td><td class="munber"><a href="#">10</a>&nbsp;个</td></tr>
-           <tr><td class="name">上架商品：</td><td class="munber"><a href="#">13</a>&nbsp;个</td></tr>
-           <tr><td class="name">下架商品：</td><td class="munber"><a href="#">26</a>&nbsp;个</td></tr>
-           <tr><td class="name">商品评论：</td><td class="munber"><a href="#">21s6</a>&nbsp;条</td></tr>
+           <tr><td class="name">商品总数：</td><td class="munber"><a href="#"><?php echo count($pros);?></a>&nbsp;个</td></tr>
+           <tr><td class="name">上架商品：</td><td class="munber"><a href="#"><?php echo count($prosStatus1);?></a>&nbsp;个</td></tr>
+           <tr><td class="name">下架商品：</td><td class="munber"><a href="#"><?php echo count($prosStatus2);?></a>&nbsp;个</td></tr>
+           <tr><td class="name">待审核商品：</td><td class="munber"><a href="#"><?php echo count($prosStatus0);?></a>&nbsp;条</td></tr>
 
            </tbody>
           </table>
-         </div> 
-         <div class="Order_Statistics">
-          <div class="title_name">会员登陆统计信息</div>
-           <table class="table table-bordered">
-           <tbody>
-           <tr><td class="name">注册会员登陆：</td><td class="munber"><a href="#">3240</a>&nbsp;次</td></tr>
-           <tr><td class="name">新浪会员登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr>
-           <tr><td class="name">支付宝登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr>
-           <tr><td class="name">QQ会员登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr>
-           </tbody>
-          </table>
-         </div> 
+         </div>
              <!--<div class="t_Record">
                <div id="main" style="height:300px; overflow:hidden; width:100%; overflow:auto" ></div>     
               </div> -->
          <div class="news_style">
           <div class="title_name">最新消息</div>
           <ul class="list">
-           <li><i class="icon-bell red"></i><a href="#">后台系统找那个是开通了。</a></li>
-           <li><i class="icon-bell red"></i><a href="#">6月共处理订单3451比，作废为...</a></li>
-           <li><i class="icon-bell red"></i><a href="#">后台系统找那个是开通了。</a></li>
-           <li><i class="icon-bell red"></i><a href="#">后台系统找那个是开通了。</a></li>
-           <li><i class="icon-bell red"></i><a href="#">后台系统找那个是开通了。</a></li>
+              <?php  foreach($rows as $row):?>
+                  <li><i class="icon-bell red"></i><a href="#"><?php echo $row['message_content'];?></a></li>
+              <?php endforeach;?>
+
           </ul>
          </div> 
          </div>

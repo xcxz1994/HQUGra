@@ -141,7 +141,21 @@ function getAllPro(){
 	$rows=fetchAll($sql);
 	return $rows;
 }
-
+function getStatus1Pro(){
+    $sql="select * from bas_material_goods where go_Status=1";
+    $rows=fetchAll($sql);
+    return $rows;
+}
+function getStatus2Pro(){
+    $sql="select * from bas_material_goods where go_Status=2";
+    $rows=fetchAll($sql);
+    return $rows;
+}
+function getStatus0Pro(){
+    $sql="select * from bas_material_goods where go_Status=0";
+    $rows=fetchAll($sql);
+    return $rows;
+}
 /**
  *根据商品id得到商品图片
  * @param int $id
@@ -174,15 +188,8 @@ function checkProExist($cid){
 	return $rows;
 }
 
-/**
- * 得到所有商品
- * @return array
- */
-function getAllPros(){
-	$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName,p.cId from imooc_pro as p join imooc_cate c on p.cId=c.id ";
-	$rows=fetchAll($sql);
-	return $rows;
-}
+
+
 
 /**
  *根据cid得到4条产品
