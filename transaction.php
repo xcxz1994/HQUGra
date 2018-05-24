@@ -14,8 +14,37 @@ function getMonthOrders(){
     }
     return array_count_values($Month);
 }
+function getMonthState6(){
+    $rowMonthState6=getState6Order();
+    $MonthState6=array();
+    for($i=0;$i<count($rowMonthState6);$i++){
+        $MonthState6.array_push($MonthState6,explode("-",explode(" ",$rowMonthState6[$i]['xiaddate'])[0])[1]);
+    }
+    return array_count_values($MonthState6);
+}
+
+function getMonthState3(){
+    $rowMonthState3=getState3Order();
+    $MonthState3=array();
+    for($i=0;$i<count($rowMonthState3);$i++){
+        $MonthState3.array_push($MonthState3,explode("-",explode(" ",$rowMonthState3[$i]['xiaddate'])[0])[1]);
+    }
+    return array_count_values($MonthState3);
+}
+function getMonthState1(){
+    $rowMonthState1=getState1Order();
+    $MonthState1=array();
+    for($i=0;$i<count($rowMonthState1);$i++){
+        $MonthState1.array_push($MonthState1,explode("-",explode(" ",$rowMonthState1[$i]['xiaddate'])[0])[1]);
+    }
+    return array_count_values($MonthState1);
+}
 $MonthNum=getMonthOrders();
-//print_r($MonthNum['05']);
+$MonthState6=getMonthState6();
+$MonthState3=getMonthState3();
+$MonthState1=getMonthState1();
+
+//print_r(intval($key));
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -131,7 +160,7 @@ $MonthNum=getMonthOrders();
         trigger: 'axis'
     },
     legend: {
-        data:['所有订单','待付款','已付款','代发货']
+        data:['所有订单','待付款','已付款','待发货']
     },
     toolbox: {
         show : true,
@@ -152,7 +181,7 @@ $MonthNum=getMonthOrders();
     ],
     yAxis : [
         {
-            type : 'value'
+            type : 'value',
         }
     ],
     series : [
@@ -170,11 +199,11 @@ $MonthNum=getMonthOrders();
         {
             name:'待付款',
             type:'bar',
-            data:[26, 59, 30, 84, 27, 77, 176, 1182, 487, 188, 60, 23],
+            data:[<?php echo $MonthState6['01'];?>, <?php echo $MonthState6['02'];?>, <?php echo $MonthState6['03'];?>, <?php echo $MonthState6['04'];?>, <?php echo $MonthState6['05'];?>, <?php echo $MonthState6['06'];?>, <?php echo $MonthState6['07'];?>, <?php echo $MonthState6['08'];?>, <?php echo $MonthState6['09'];?>, <?php echo $MonthState6['10'];?>,<?php echo $MonthState6['11'];?>, <?php echo $MonthState6['12'];?>],
             markPoint : {
                 data : [
-                    {name : '年最高', value : 1182, xAxis: 7, yAxis: 1182, symbolSize:18},
-                    {name : '年最低', value : 23, xAxis: 11, yAxis: 3}
+                    {name : '年最高', value : <?php echo max($MonthState6);?>, xAxis: <?php echo $key=intval(array_search(max($MonthState6),$MonthState6));?>, yAxis: <?php echo max($MonthState6);?>, symbolSize:18},
+                    {name : '年最低', value :<?php echo min($MonthState6);?>, xAxis: <?php echo $key=intval(array_search(min($MonthState6),$MonthState6));?>, yAxis:<?php echo min($MonthState6);?>}
                 ]
             },
            
@@ -183,23 +212,23 @@ $MonthNum=getMonthOrders();
 		, {
             name:'已付款',
             type:'bar',
-            data:[26, 59, 60, 264, 287, 77, 176, 122, 247, 148, 60, 23],
+            data:[<?php echo $MonthState3['01'];?>, <?php echo $MonthState3['02'];?>, <?php echo $MonthState3['03'];?>, <?php echo $MonthState3['04'];?>, <?php echo $MonthState3['05'];?>, <?php echo $MonthState3['06'];?>, <?php echo $MonthState3['07'];?>, <?php echo $MonthState3['08'];?>, <?php echo $MonthState3['09'];?>, <?php echo $MonthState3['10'];?>,<?php echo $MonthState3['11'];?>, <?php echo $MonthState3['12'];?>],
             markPoint : {
                 data : [
-                    {name : '年最高', value : 172, xAxis: 7, yAxis: 172, symbolSize:18},
-                    {name : '年最低', value : 23, xAxis: 11, yAxis: 3}
+                    {name : '年最高', value : <?php echo max($MonthState3);?>, xAxis: <?php echo $key=intval(array_search(max($MonthState3),$MonthState3));?>, yAxis: <?php echo max($MonthState3);?>, symbolSize:18},
+                    {name : '年最低', value :<?php echo min($MonthState3);?>, xAxis: <?php echo $key=intval(array_search(min($MonthState3),$MonthState3));?>, yAxis:<?php echo min($MonthState3);?>}
                 ]
             },
            
 		}
 		, {
-            name:'代发货',
+            name:'待发货',
             type:'bar',
-            data:[26, 59, 80, 24, 87, 70, 175, 1072, 48, 18, 69, 63],
+            data:[<?php echo $MonthState1['01'];?>, <?php echo $MonthState1['02'];?>, <?php echo $MonthState1['03'];?>, <?php echo $MonthState1['04'];?>, <?php echo $MonthState1['05'];?>, <?php echo $MonthState1['06'];?>, <?php echo $MonthState1['07'];?>, <?php echo $MonthState1['08'];?>, <?php echo $MonthState1['09'];?>, <?php echo $MonthState1['10'];?>,<?php echo $MonthState1['11'];?>, <?php echo $MonthState1['12'];?>],
             markPoint : {
                 data : [
-                    {name : '年最高', value : 1072, xAxis: 7, yAxis: 1072, symbolSize:18},
-                    {name : '年最低', value : 22, xAxis: 11, yAxis: 3}
+                    {name : '年最高', value : <?php echo max($MonthState1);?>, xAxis: <?php echo $key=intval(array_search(max($MonthState1),$MonthState1));?>, yAxis: <?php echo max($MonthState1);?>, symbolSize:18},
+                    {name : '年最低', value :<?php echo min($MonthState1);?>, xAxis: <?php echo $key=intval(array_search(min($MonthState1),$MonthState1));?>, yAxis:<?php echo min($MonthState1);?>}
                 ]
             },
            
