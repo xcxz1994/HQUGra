@@ -1,3 +1,30 @@
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+require_once './include.php';
+$rowState1s=getState1Order();
+$rowOrders=getAllOrder();
+function getOrderType(){
+    $rowOrders=getAllOrder();
+    $type=array();
+    $parenttype=array();
+    for($i=0;$i<count($rowOrders);$i++){
+        $sql="select go_type from bas_material_goods where go_id={$rowOrders[$i]['go_id']}";
+        $go_type=fetchAll($sql);
+        $type.array_push($type,$go_type[0]['go_type']);
+    }
+    for($i=0;$i<count($type);$i++){
+        $sql="select gt_parentId from bas_material_goodstype where gt_id={$type[$i]}";
+        $go_parenttype=fetchAll($sql);
+        $sql2="select gt_parentId from bas_material_goodstype where gt_id={$go_parenttype[0]['gt_parentId']}";
+        $go_parenttype2=fetchAll($sql2);
+        $parenttype.array_push($parenttype,$go_parenttype2[0]['gt_parentId']);
+    }
+    return $parenttype;
+}
+$type=getOrderType();
+$key = array_count_values($type);
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -37,15 +64,14 @@
       </div>
       </div>
         <div class="hide_style clearfix">
-       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="20" data-color="#D15B47"><span class="percent">20</span>%</div><span class="name">食品类</span></div>									
-       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="55" data-color="#87CEEB"><span class="percent">55</span>%</div><span class="name">服装类</span></div>									
-       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="90" data-color="#87B87F"><span class="percent">90</span>%</div><span class="name">数码配件</span></div>
-       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="30" data-color="#d63116"><span class="percent">30</span>%</div><span class="name">手机</span></div>
-       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="60" data-color="#ff6600"><span class="percent">60</span>%</div><span class="name">电脑</span></div>
-       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="40" data-color="#2ab023"><span class="percent">40</span>%</div><span class="name">电子产品</span></div>
-       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="46" data-color="#1e3ae6"><span class="percent">46</span>%</div><span class="name">厨房用品</span></div>
-       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="65" data-color="#c316a9"><span class="percent">65</span>%</div><span class="name">家用电器</span></div>
-       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="56" data-color="#13a9e1"><span class="percent">56</span>%</div><span class="name">卫浴</span></div>  
+       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="<?php echo $key[1];?>" data-color="#D15B47"><span class="percent"><?php echo $key[1];?></span>%</div><span class="name">面料类</span></div>
+       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="<?php echo $key[2];?>" data-color="#87CEEB"><span class="percent"><?php echo $key[2];?></span>%</div><span class="name">纱线类</span></div>
+       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="<?php echo $key[3];?>" data-color="#87B87F"><span class="percent"><?php echo $key[3];?></span>%</div><span class="name">纺机类</span></div>
+       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="<?php echo $key[4];?>" data-color="#d63116"><span class="percent"><?php echo $key[4];?></span>%</div><span class="name">家纺类</span></div>
+       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="<?php echo $key[5];?>" data-color="#ff6600"><span class="percent"><?php echo $key[5];?></span>%</div><span class="name">服装类</span></div>
+       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="<?php echo $key[6];?>" data-color="#2ab023"><span class="percent"><?php echo $key[6];?></span>%</div><span class="name">辅料类</span></div>
+       <div class="proportion"> <div class="easy-pie-chart percentage" data-percent="<?php echo $key[7];?>" data-color="#1e3ae6"><span class="percent"><?php echo $key[7];?></span>%</div><span class="name">原料类</span></div>
+
     </div>
     </div>
     <!--内容-->
@@ -58,16 +84,14 @@
          <div class="side_list"><div class="widget-header header-color-green2"><h4 class="lighter smaller">订单类型分类</h4></div>
          <div class="widget-body">         
          <ul class="b_P_Sort_list">
-             <li><i class="orange  fa fa-reorder"></i><a href="#">全部订单(235)</a></li>
-             <li><i class="fa fa-sticky-note pink "></i> <a href="#">食品类(235)</a></li>
-             <li><i class="fa fa-sticky-note pink "></i> <a href="#">数码配件(2215)</a> </li>
-             <li><i class="fa fa-sticky-note pink "></i> <a href="#">手机(3456)</a></li>
-             <li><i class="fa fa-sticky-note pink "></i> <a href="#">电脑(4332)</a></li>
-             <li><i class="fa fa-sticky-note pink "></i> <a href="#">厨房用品(1332)</a></li>
-             <li><i class="fa fa-sticky-note grey "></i> <a href="#">电子产品(4543)</a></li>
-             <li><i class="fa fa-sticky-note red  "></i> <a href="#">红钻会员(343)</a></li>
-             <li><i class="fa fa-sticky-note blue "></i> <a href="#">家用电器(2343)</a></li>
-             <li><i class="fa fa-sticky-note grey "></i> <a href="#">卫浴</a></li>
+             <li><i class="orange  fa fa-reorder"></i><a href="#">全部订单(<?php echo count($rowOrders);?>)</a></li>
+             <li><i class="fa fa-sticky-note pink "></i> <a href="#">面料类(<?php echo $key[1];?>)</a></li>
+             <li><i class="fa fa-sticky-note pink "></i> <a href="#">纱线类(<?php echo $key[2];?>)</a> </li>
+             <li><i class="fa fa-sticky-note pink "></i> <a href="#">纺机类(<?php echo $key[3];?>)</a></li>
+             <li><i class="fa fa-sticky-note pink "></i> <a href="#">家纺类(<?php echo $key[4];?>)</a></li>
+             <li><i class="fa fa-sticky-note pink "></i> <a href="#">服装类(<?php echo $key[5];?>)</a></li>
+             <li><i class="fa fa-sticky-note grey "></i> <a href="#">辅料类(<?php echo $key[6];?>)</a></li>
+             <li><i class="fa fa-sticky-note red  "></i> <a href="#">原料类(<?php echo $key[7];?>)</a></li>
             </ul>
     
        </div>
@@ -89,31 +113,46 @@
 		<thead>
 		 <tr>
 				<th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th width="120px">订单编号</th>
-				<th width="250px">产品名称</th>
+				<th width="120px">询价单编号</th>
+				<th width="150px">产品名称</th>
 				<th width="100px">总价</th>
-				<th width="100px">优惠</th>
-                <th width="100px">订单时间</th>				
-				<th width="180px">所属类型</th>
+				<th width="100px">付款方式</th>
+                <th width="120px">下单时间</th>
+				<th width="100px">所属类型</th>
                 <th width="80px">数量</th>
 				<th width="70px">状态</th>                
 				<th width="200px">操作</th>
 			</tr>
 		</thead>
 	<tbody>
+    <?php  foreach($rowState1s as $rowState1):?>
      <tr>
      <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-     <td>20160705445622</td>
+     <td><?php echo $rowState1['ap_id'];?></td>
      <td class="order_product_name">
-      <a href="#"><img src="products/p_1.jpg"  title="产品名称"/></a>
+      <a href="#"><img src="<?php echo substr(explode(",",$rowState1['image'])[1],1);?>"  title="产品名称"/></a>
       <i class="fa fa-plus"></i>
-       <a href="#"><img src="products/p_2.jpg"  title="产品名称"/></a>
+       <a href="#"><img src="<?php echo substr(explode(",",$rowState1['image'])[0],1);?>"  title="产品名称"/></a>
      </td>
-     <td>456.5</td>
-     <td>14</td>
-     <td>2016-7-5</td>
-     <td>食品</td>
-     <td>2</td>
+     <td><?php $sumPrice=$rowState1['tota']*$rowState1['price'];echo $sumPrice; ?></td>
+     <?php
+         if($rowState1['pay_type']==1){
+             echo " <td>全款 </td>";
+         }else{
+             echo " <td>分期 </td>";
+         }
+      ?>
+     <td><?php echo $rowState1['xiaddate'];?></td>
+     <td><?php
+         $go_id=$rowState1['go_id'];
+         $sql="select go_type from bas_material_goods where go_id={$go_id}";
+         $result=fetchOne($sql);
+         $sql2="select * from bas_material_goodstype where gt_id={$result['go_type']}";
+         $result2=fetchOne($sql2);
+         echo $result2['gt_name'];
+
+         ?></td>
+     <td><?php echo $rowState1['tota'];?></td>
       <td class="td-status"><span class="label label-success radius">代发货</span></td>
      <td>
      <a onClick="Delivery_stop(this,'10001')"  href="javascript:;" title="发货"  class="btn btn-xs btn-success"><i class="fa fa-cubes bigger-120"></i></a> 
@@ -121,106 +160,7 @@
      <a title="删除" href="javascript:;"  onclick="Order_form_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>    
      </td>
      </tr>
-     <tr>
-     <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-     <td>20160705445622</td>
-     <td class="order_product_name">
-      <a href="#"><img src="products/p_1.jpg"  title="产品名称"/></a>
-      <i class="fa fa-plus"></i>
-       <a href="#"><img src="products/p_2.jpg"  title="产品名称"/></a>
-     </td>
-     <td>456.5</td>
-     <td>14</td>
-     <td>2016-7-5</td>
-     <td>食品</td>
-     <td>2</td>
-      <td class="td-status"><span class="label label-success radius">代发货</span></td>
-     <td>
-     <a onClick="Delivery_stop(this,'10003')"  href="javascript:;" title="发货"  class="btn btn-xs btn-success"><i class="fa fa-cubes bigger-120"></i></a> 
-     <a title="订单详细"  href="order_detailed.html"  class="btn btn-xs btn-info order_detailed" ><i class="fa fa-list bigger-120"></i></a> 
-     <a title="删除" href="javascript:;"  onclick="Order_form_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>    
-     </td>
-     </tr>
-     <tr>
-     <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-     <td>20160705445622</td>
-     <td class="order_product_name">
-      <a href="#"><img src="products/p_1.jpg"  title="产品名称"/></a>
-      <i class="fa fa-plus"></i>
-       <a href="#"><img src="products/p_2.jpg"  title="产品名称"/></a>
-     </td>
-     <td>456.5</td>
-     <td>14</td>
-     <td>2016-7-5</td>
-     <td>食品</td>
-     <td>2</td>
-      <td class="td-status"><span class="label label-success radius">代发货</span></td>
-     <td>
-     <a onClick="Delivery_stop(this,'10005')"  href="javascript:;" title="发货"  class="btn btn-xs btn-success"><i class="fa fa-cubes bigger-120"></i></a> 
-     <a title="订单详细"  href="order_detailed.html"  class="btn btn-xs btn-info order_detailed" ><i class="fa fa-list bigger-120"></i></a> 
-     <a title="删除" href="javascript:;"  onclick="Order_form_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>    
-     </td>
-     </tr>
-     <tr>
-     <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-     <td>20160705445622</td>
-     <td class="order_product_name">
-      <a href="#"><img src="products/p_1.jpg"  title="产品名称"/></a>
-      <i class="fa fa-plus"></i>
-       <a href="#"><img src="products/p_2.jpg"  title="产品名称"/></a>
-     </td>
-     <td>456.5</td>
-     <td>14</td>
-     <td>2016-7-5</td>
-     <td>食品</td>
-     <td>2</td>
-      <td class="td-status"><span class="label label-success radius">代发货</span></td>
-     <td>
-     <a onClick="Delivery_stop(this,'10034')"  href="javascript:;" title="发货"  class="btn btn-xs btn-success"><i class="fa fa-cubes bigger-120"></i></a> 
-     <a title="订单详细"  href="order_detailed.html"  class="btn btn-xs btn-info order_detailed" ><i class="fa fa-list bigger-120"></i></a> 
-     <a title="删除" href="javascript:;"  onclick="Order_form_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>    
-     </td>
-     </tr>
-     <tr>
-     <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-     <td>20160705445622</td>
-     <td class="order_product_name">
-      <a href="#"><img src="products/p_5.jpg"  title="产品名称"/></a>
-      <i class="fa fa-plus"></i>
-       <a href="#"><img src="products/p_4.jpg"  title="产品名称"/></a>
-     </td>
-     <td>456.5</td>
-     <td>14</td>
-     <td>2016-7-5</td>
-     <td>食品</td>
-     <td>2</td>
-      <td class="td-status"><span class="label label-success radius">代发货</span></td>
-     <td>
-     <a onClick="Delivery_stop(this,'10012')"  href="javascript:;" title="发货"  class="btn btn-xs btn-success"><i class="fa fa-cubes bigger-120"></i></a> 
-     <a title="订单详细"  href="order_detailed.html"  class="btn btn-xs btn-info order_detailed" ><i class="fa fa-list bigger-120"></i></a> 
-     <a title="删除" href="javascript:;"  onclick="Order_form_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>    
-     </td>
-     </tr>
-     <tr>
-     <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-     <td>20160705445622</td>
-     <td class="order_product_name">
-      <a href="#"><img src="products/p_3.jpg"  title="产品名称"/></a>
-      <i class="fa fa-plus"></i>
-       <a href="#"><img src="products/p_7.jpg"  title="产品名称"/></a>
-     </td>
-     <td>456.5</td>
-     <td>14</td>
-     <td>2016-7-5</td>
-     <td>食品</td>
-     <td>2</td>
-      <td class="td-status"><span class="label label-success radius">代发货</span></td>
-     <td>
-     <a onClick="Delivery_stop(this,'10061')"  href="javascript:;" title="发货"  class="btn btn-xs btn-success"><i class="fa fa-cubes bigger-120"></i></a> 
-     <a title="订单详细"  href="order_detailed.html"  class="btn btn-xs btn-info order_detailed" ><i class="fa fa-list bigger-120"></i></a> 
-     <a title="删除" href="javascript:;"  onclick="Order_form_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>    
-     </td>
-     </tr>
+    <?php endforeach;?>
      </tbody>
      </table>
      </div>
