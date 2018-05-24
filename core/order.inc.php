@@ -42,4 +42,9 @@ function getState45Order(){
     $rows=fetchAll($sql);
     return $rows;
 }
+function getState5Order(){
+    $sql="select * from scm_all_order where state!=3 and state!=1 and state!=2 and state!=6 and state!=4";
+    $rows=fetchAll($sql);
+    return $rows;
+}
 ?>

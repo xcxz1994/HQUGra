@@ -1,3 +1,22 @@
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+
+require_once './include.php';
+$rowState3=getState3Order();
+$rowOrders=getAllOrder();
+$rowState45=getState45Order();
+$rowState5=getState5Order();
+function getMonthOrders(){
+    $rowOrders=getAllOrder();
+    $Month=array();
+    for($i=0;$i<count($rowOrders);$i++){
+       $Month.array_push($Month,explode("-",explode(" ",$rowOrders[$i]['xiaddate'])[0])[1]);
+    }
+    return array_count_values($Month);
+}
+$MonthNum=getMonthOrders();
+//print_r($MonthNum['05']);
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -35,23 +54,39 @@
    <ul class="state-overview clearfix">
     <li class="Info">
      <span class="symbol red"><i class="fa fa-jpy"></i></span>
-     <span class="value"><h4>交易金额</h4><p class="Quantity color_red">34565.68</p></span>
+     <span class="value"><h4>交易金额</h4><p class="Quantity color_red"><?php
+
+             for($i=0;$i<count($rowState3);$i++){
+                 $sumPrice=$rowState3[$i]['tota']*$rowState3[$i]['price'];
+                 $result=$result+$sumPrice;
+             }
+             $result=$result;
+             echo $result;
+             ?></p></span>
     </li>
      <li class="Info">
      <span class="symbol  blue"><i class="fa fa-shopping-cart"></i></span>
-     <span class="value"><h4>订单数量</h4><p class="Quantity color_red">5656</p></span>
+     <span class="value"><h4>订单数量</h4><p class="Quantity color_red"><?php echo count($rowOrders);?></p></span>
     </li>
      <li class="Info">
      <span class="symbol terques"><i class="fa fa-shopping-cart"></i></span>
-     <span class="value"><h4>交易成功</h4><p class="Quantity color_red">34565</p></span>
+     <span class="value"><h4>交易成功</h4><p class="Quantity color_red"><?php echo count($rowState3);?></p></span>
     </li>
      <li class="Info">
      <span class="symbol yellow"><i class="fa fa-shopping-cart"></i></span>
-     <span class="value"><h4>交易失败</h4><p class="Quantity color_red">34</p></span>
+     <span class="value"><h4>交易失败</h4><p class="Quantity color_red"><?php echo count($rowState45);?></p></span>
     </li>
      <li class="Info">
      <span class="symbol darkblue"><i class="fa fa-jpy"></i></span>
-     <span class="value"><h4>退款金额</h4><p class="Quantity color_red">3441.68</p></span>
+     <span class="value"><h4>退款金额</h4><p class="Quantity color_red"><?php
+
+             for($i=0;$i<count($rowState5);$i++){
+                 $sumPrice=$rowState5[$i]['tota']*$rowState5[$i]['price'];
+                 $result=$result+$sumPrice;
+             }
+             $result=$result;
+             echo $result;
+             ?></p></span>
     </li>
    </ul>
  
@@ -124,7 +159,7 @@
         {
             name:'所有订单',
             type:'bar',
-            data:[120, 49, 70, 232, 256, 767, 1356, 1622, 326, 200,164, 133],
+            data:[<?php echo $MonthNum['01'];?>, <?php echo $MonthNum['02'];?>, <?php echo $MonthNum['03'];?>, <?php echo $MonthNum['04'];?>, <?php echo $MonthNum['05'];?>, <?php echo $MonthNum['06'];?>, <?php echo $MonthNum['07'];?>, <?php echo $MonthNum['08'];?>, <?php echo $MonthNum['09'];?>, <?php echo $MonthNum['10'];?>,<?php echo $MonthNum['11'];?>, <?php echo $MonthNum['12'];?>],
             markPoint : {
                 data : [
                     {type : 'max', name: '最大值'},

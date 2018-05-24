@@ -100,8 +100,8 @@ if(isset($_SESSION['adminId'])){
                           <div class="value">
                               <h1><?php
 
-                                  for($i=0;$i<count($rowOrders);$i++){
-                                      $sumPrice=$rowOrders[$i]['tota']*$rowOrders[$i]['price'];
+                                  for($i=0;$i<count($rowState3);$i++){
+                                      $sumPrice=$rowState3[$i]['tota']*$rowState3[$i]['price'];
                                       $result=$result+$sumPrice;
                                   }
                                   $result=$result;
