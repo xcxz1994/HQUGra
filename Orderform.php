@@ -1,7 +1,7 @@
 <?php
 ini_set("error_reporting","E_ALL & ~E_NOTICE");
 require_once './include.php';
-$rowState1s=getState1Order();
+$rowState1s=getState1or2Order();
 $rowOrders=getAllOrder();
 function getOrderType(){
     $rowOrders=getAllOrder();
@@ -150,13 +150,23 @@ $key = array_count_values($type);
          $sql2="select * from bas_material_goodstype where gt_id={$result['go_type']}";
          $result2=fetchOne($sql2);
          echo $result2['gt_name'];
-
          ?></td>
      <td><?php echo $rowState1['tota'];?></td>
-      <td class="td-status"><span class="label label-success radius">代发货</span></td>
+         <?php
+         if($rowState1['state']==1){
+             echo " <td class=\"td-status\"><span class=\"label label-success radius\">待发货</span></td>";
+         }elseif ($rowState1['state']==2){
+             echo " <td class=\"td-status\"><span class=\"label label-success radius\">待收货</span></td>";
+         }
+         ?>
+
      <td>
-     <a onClick="Delivery_stop(this,'10001')"  href="javascript:;" title="发货"  class="btn btn-xs btn-success"><i class="fa fa-cubes bigger-120"></i></a> 
-     <a title="订单详细"  href="order_detailed.html"  class="btn btn-xs btn-info order_detailed" ><i class="fa fa-list bigger-120"></i></a> 
+         <?php
+         if($rowState1['state']==1){
+             echo " <a onclick='Delivery_stop(this,$rowState1[or_id])' href='javascript:;' title='发货' class='btn btn-xs btn-success'><i class='fa fa-cubes bigger-120'></i></a>";
+         }
+         ?>
+     <a title="订单详细"  href="order_detailed.php?id=<?php echo $rowState1['or_id'];?>"  class="btn btn-xs btn-info order_detailed" ><i class="fa fa-list bigger-120"></i></a>
      <a title="删除" href="javascript:;"  onclick="Order_form_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>    
      </td>
      </tr>
@@ -172,24 +182,22 @@ $key = array_count_values($type);
  <div id="Delivery_stop" style=" display:none">
   <div class="">
     <div class="content_style">
+
   <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">快递公司 </label>
        <div class="col-sm-9"><select class="form-control" id="form-field-select-1">
 																<option value="">--选择快递--</option>
-																<option value="1">天天快递</option>
-																<option value="2">圆通快递</option>
-																<option value="3">中通快递</option>
-																<option value="4">顺丰快递</option>
-																<option value="5">申通快递</option>
-																<option value="6">邮政EMS</option>
-																<option value="7">邮政小包</option>
-																<option value="8">韵达快递</option>
+																<option value="天天快递">天天快递</option>
+																<option value="圆通快递">圆通快递</option>
+																<option value="中通快递">中通快递</option>
+																<option value="顺丰快递">顺丰快递</option>
+																<option value="申通快递">申通快递</option>
+																<option value="邮政EMS">邮政EMS</option>
+																<option value="邮政小包">邮政小包</option>
+																<option value="韵达快递">韵达快递</option>
 															</select></div>
 	</div>
    <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 快递号 </label>
     <div class="col-sm-9"><input type="text" id="form-field-1" placeholder="快递号" class="col-xs-10 col-sm-5" style="margin-left:0px;"></div>
-	</div>
-    <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">货到付款 </label>
-     <div class="col-sm-9"><label><input name="checkbox" type="checkbox" class="ace" id="checkbox"><span class="lbl"></span></label></div>
 	</div>
  </div>
   </div>
@@ -252,6 +260,7 @@ function Order_form_del(obj,id){
 }
 /**发货**/
 function Delivery_stop(obj,id){
+
 	layer.open({
         type: 1,
         title: '发货',
@@ -267,8 +276,22 @@ function Delivery_stop(obj,id){
 			  icon:0,		
 			  }) 
 			
-			}else{			
+			}else{
+             var express = $('#form-field-select-1').val();
+            var expressNum= $('#form-field-1').val();
 			 layer.confirm('提交成功！',function(index){
+                 $.ajax({
+                     url: './doAdminAction.php?act=express&id='+id,
+                     type: 'post',
+                     data: {
+                         'express':express,
+                         'expressNum':expressNum,
+                         'state':2
+                     },
+                     success:function(data){
+                         console.log(data)
+                     }
+                 })
 		$(obj).parents("tr").find(".td-manage").prepend('<a style=" display:none" class="btn btn-xs btn-success" onClick="member_stop(this,id)" href="javascript:;" title="已发货"><i class="fa fa-cubes bigger-120"></i></a>');
 		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发货</span>');
 		$(obj).remove();

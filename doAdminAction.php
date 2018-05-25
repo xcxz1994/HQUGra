@@ -63,6 +63,9 @@ if($act=="logout"){
     $mes=AuditPro($id);
 }elseif ($act=='delProduct'){
     $mes=delProduct($id);
+}elseif ($act=='express'){
+    var_dump("aaaaaaaaa");
+    $mes=Express($id);
 }
 
 
