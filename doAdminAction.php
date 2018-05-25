@@ -64,8 +64,10 @@ if($act=="logout"){
 }elseif ($act=='delProduct'){
     $mes=delProduct($id);
 }elseif ($act=='express'){
-    var_dump("aaaaaaaaa");
+    //var_dump("aaaaaaaaa");
     $mes=Express($id);
+}elseif ($act=='Refund'){
+    $mes=Refund($id);
 }
 
 

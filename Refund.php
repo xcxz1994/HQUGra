@@ -1,3 +1,9 @@
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+require_once './include.php';
+$rowRefunds=getState45Order();
+//print_r($rowRefunds);
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -43,7 +49,7 @@
         <a href="javascript:ovid()" class="btn btn-warning Order_form"><i class="fa fa-close"></i>&nbsp;未退款订单</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;批量删除</a>
        </span>
-       <span class="r_f">共：<b>2334</b>笔</span>
+       <span class="r_f">共：<b><?php echo count($rowRefunds);?></b>笔</span>
      </div>
      <!--退款列表-->
      <div class="refund_list">
@@ -51,54 +57,53 @@
 		<thead>
 		 <tr>
 				<th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th width="120px">订单编号</th>
-				<th width="250px">产品名称</th>
+				<th width="120px">询价单编号</th>
+				<th width="150px">产品名称</th>
 				<th width="100px">交易金额</th>				
-                <th width="100px">交易时间</th>				
+                <th width="120px">交易时间</th>
 				<th width="100px">退款金额</th>
                 <th width="80px">退款数量</th>
 				<th width="70px">状态</th>
-                <th width="200px">说明</th>                
+
 				<th width="200px">操作</th>
 			</tr>
 		</thead>
         <tbody>
+        <?php  foreach($rowRefunds as $rowRefund):?>
          <tr>
            <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-     <td>20160705445622</td>
+     <td><?php echo $rowRefund['ap_id'];?></td>
      <td class="order_product_name">
-      <a href="#">华圣 高原红富士苹果 6枚 1.2KG 自营水果</a>
+      <a href="#"><?php
+          $sql="select go_name from bas_material_goods where go_id={$rowRefund['go_id']}";
+          $goName=fetchOne($sql);
+          echo $goName['go_name'];
+          ?></a>
      </td>
-     <td>456.5</td>    
-     <td>2016-7-5</td>
-     <td>145</td>
-     <td>1</td>
-      <td class="td-status"><span class="label label-success radius">待退款</span></td>
-      <td>重复购买商品需退款一件</td>
+     <td><?php $sumPrice=$rowRefund['tota']*$rowRefund['price'];echo $sumPrice; ?></td>
+     <td><?php echo $rowRefund['xiaddate'];?></td>
+     <td><?php $sumPrice=$rowRefund['tota']*$rowRefund['price'];echo $sumPrice; ?></td>
+     <td><?php echo $rowRefund['tota'];?></td>
+             <?php
+             if($rowRefund['state']==4){
+                 echo " <td class=\"td-status\"><span class=\"label label-success radius\">待退款</span></td>";
+             }elseif ($rowRefund['state']==5){
+                 echo " <td class=\"td-status\"><span class=\"label label-success radius\">已退款</span></td>";
+             }
+             ?>
+
      <td>
-     <a onClick="Delivery_Refund(this,'10001')"  href="javascript:;" title="退款"  class="btn btn-xs btn-success">退款</a> 
-     <a title="退款订单详细"  href="Refund_detailed.html"  class="btn btn-xs btn-info Refund_detailed" >详细</a> 
+         <?php
+         if($rowRefund['state']==4){
+             echo "  <a onClick=\"Delivery_Refund(this,$rowRefund[or_id])\"  href=\"javascript:;\" title=\"退款\"  class=\"btn btn-xs btn-success\">退款</a> ";
+         }
+         ?>
+
+     <a title="退款订单详细"  href="Refund_detailed.php?id=<?php echo $rowRefund['or_id'];?>"  class="btn btn-xs btn-info Refund_detailed" >详细</a>
      <a title="删除" href="javascript:;"  onclick="Order_form_del(this,'1')" class="btn btn-xs btn-warning" >删除</a>    
      </td>
          </tr>
-           <tr>
-           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-     <td>20160705445622</td>
-     <td class="order_product_name">
-      <a href="#">华圣 高原红富士苹果 6枚 1.2KG 自营水果</a>
-     </td>
-     <td>456.5</td>    
-     <td>2016-7-5</td>
-     <td>145</td>
-     <td>1</td>
-      <td class="td-status"><span class="label label-defaunt radius">已退款</span></td>
-      <td>重复购买商品需退款一件</td>
-     <td>
-     
-     <a title="退款订单详细"  href="Refund_detailed.html"  class="btn btn-xs btn-info Refund_detailed" >详细</a> 
-     <a title="删除" href="javascript:;"  onclick="Order_form_del(this,'1')" class="btn btn-xs btn-warning" >删除</a>    
-     </td>
-         </tr>
+        <?php endforeach;?>
         </tbody>
     </table> 
      
@@ -129,8 +134,18 @@ jQuery(function($) {
 				});
 			});
 function Delivery_Refund(obj,id){
-			
+
 			 layer.confirm('是否退款当前商品价格！',function(index){
+                 $.ajax({
+                     url: './doAdminAction.php?act=Refund&id='+id,
+                     type: 'post',
+                     data: {
+                         'state':5,
+                     },
+                     success:function(data){
+                         console.log(data)
+                     }
+                 })
 		$(obj).parents("tr").find(".td-manage").prepend('<a style=" display:none" class="btn btn-xs btn-success" onClick="member_stop(this,id)" href="javascript:;" title="已退款">退款</a>');
 		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt  radius">已退款</span>');
 		$(obj).remove();

@@ -72,4 +72,21 @@ function Express($id){
     }
     return $mes;
 }
+
+/**
+退款处理
+ **/
+function Refund($id){
+    $showtime=date("Y-m-d H:i:s");
+    $arr['state']=intval($_POST['state']);
+    $arr['approvedate']=$showtime;
+    if(update("scm_all_order", $arr,"or_id={$id}")){
+        $mes="退款成功!<br/>";
+
+    }else{
+        $mes="退款失败!<br/>";
+
+    }
+    return $mes;
+}
 ?>

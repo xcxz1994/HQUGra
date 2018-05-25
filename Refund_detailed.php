@@ -1,3 +1,18 @@
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+require_once './include.php';
+
+$id=$_REQUEST['id'];
+print_r($id);
+
+$sql="select * from scm_all_order where or_id={$id}";
+$row=fetchOne($sql);
+$sql2="select * from bas_contact_client where cl_id='{$row['cl_idone']}'";
+$client=fetchOne($sql2);
+//print_r($client);
+$sql3="select * from bas_material_goods where go_id={$row['go_id']}";
+$pro=fetchOne($sql3);
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
