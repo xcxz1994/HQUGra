@@ -376,29 +376,18 @@ checkLogined()
                     <li class="home"><a href="javascript:void(0)" name="Writerhome.php" class="iframeurl" title=""><i class="icon-home"></i><span class="menu-text"> 系统首页 </span></a></li>
                     <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 商品管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
-                            <li class="home"><a  href="javascript:void(0)" name="Products_List.html"  title="商品类表" class="iframeurl"><i class="icon-double-angle-right"></i>商品类表</a></li>
-                            <li class="home"><a  href="javascript:void(0)" name="Brand_Manage.html" title="品牌管理"  class="iframeurl"><i class="icon-double-angle-right"></i>品牌管理</a></li>
-                            <li class="home"><a href="javascript:void(0)" name="Category_Manage.html" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="dropdown-toggle"><i class="icon-picture "></i><span class="menu-text"> 图片管理 </span><b class="arrow icon-angle-down"></b></a>
-                        <ul class="submenu">
-                            <li class="home"><a href="javascript:void(0)" name="advertising.html" title="广告管理" class="iframeurl"><i class="icon-double-angle-right"></i>广告管理</a></li>
-                            <li class="home"><a href="javascript:void(0)" name="Sort_ads.html" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
+                            <li class="home"><a  href="javascript:void(0)" name="Products_List.php"  title="商品类表" class="iframeurl"><i class="icon-double-angle-right"></i>商品类表</a></li>
+                            <li class="home"><a  href="javascript:void(0)" name="Attribute_Manage.php" title="属性管理"  class="iframeurl"><i class="icon-double-angle-right"></i>物料属性管理</a></li>
+                            <li class="home"><a href="javascript:void(0)" name="Category_Manage.php" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
+
                         </ul>
                     </li>
 
+
                     <li><a href="#" class="dropdown-toggle"><i class="icon-comments-alt"></i><span class="menu-text"> 消息管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
-                            <li class="home"><a href="javascript:void(0)" name="Guestbook.html" title="留言列表" class="iframeurl"><i class="icon-double-angle-right"></i>留言列表</a></li>
-                            <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="意见反馈" class="iframeurl"><i class="icon-double-angle-right"></i>意见反馈</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#" class="dropdown-toggle"><i class="icon-bookmark"></i><span class="menu-text"> 文章管理 </span><b class="arrow icon-angle-down"></b></a>
-                        <ul class="submenu">
-                            <li class="home"><a href="javascript:void(0)" name="article_list.html" title="文章列表" class="iframeurl"><i class="icon-double-angle-right"></i>文章列表</a></li>
-                            <li class="home"><a href="javascript:void(0)" name="article_Sort.html" title="分类管理" class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
+                            <li class="home"><a href="javascript:void(0)" name="Guestbook.php" title="留言列表" class="iframeurl"><i class="icon-double-angle-right"></i>留言列表</a></li>
+                            <li class="home"><a href="javascript:void(0)" name="Feedback.php" title="意见反馈" class="iframeurl"><i class="icon-double-angle-right"></i>意见反馈</a></li>
                         </ul>
                     </li>
 
