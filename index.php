@@ -428,8 +428,8 @@ function link_operating(name,title){
 						</li>
 						<li><a href="#" class="dropdown-toggle"><i class="icon-comments-alt"></i><span class="menu-text"> 消息管理 </span><b class="arrow icon-angle-down"></b></a>
 							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="Guestbook.html" title="留言列表" class="iframeurl"><i class="icon-double-angle-right"></i>留言列表</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="意见反馈" class="iframeurl"><i class="icon-double-angle-right"></i>意见反馈</a></li>
+								<li class="home"><a href="javascript:void(0)" name="Guestbook.php" title="留言列表" class="iframeurl"><i class="icon-double-angle-right"></i>留言列表</a></li>
+                                <li class="home"><a href="javascript:void(0)" name="Feedback.php" title="意见反馈" class="iframeurl"><i class="icon-double-angle-right"></i>意见反馈</a></li>
 							</ul>
 						</li>
                         	<li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 系统管理 </span><b class="arrow icon-angle-down"></b></a>

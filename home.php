@@ -145,7 +145,7 @@ if(isset($_SESSION['adminId'])){
           <div class="title_name">最新消息</div>
           <ul class="list">
               <?php  foreach($rows as $row):?>
-                  <li><i class="icon-bell red"></i><a href="#"><?php echo $row['message_content'];?></a></li>
+                  <li><i class="icon-bell red"></i><a href="Guestbook.php"><?php echo $row['message_content'];?></a></li>
               <?php endforeach;?>
 
           </ul>
