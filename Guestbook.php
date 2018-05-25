@@ -1,3 +1,20 @@
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+
+require_once './include.php';
+
+if(isset($_SESSION['adminId'])){
+    $sql="select * from sys_message where message_to={$_SESSION['adminId']} and message_status=2 and message_type=1";
+    $rows=fetchAll($sql);
+    //print_r($rows);
+}elseif(isset($_COOKIE['adminId'])){
+    $sql="select * from sys_message where message_to={$_COOKIE['adminId']}and message_status=2 and message_type=1";
+    $rows=fetchAll($sql);
+    //print_r($rows);
+}
+
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -40,7 +57,7 @@
         <a href="javascript:ovid()" class="btn btn-sm btn-primary"><i class="fa fa-check"></i>&nbsp;已浏览</a>
         <a href="javascript:ovid()" class="btn btn-yellow"><i class="fa fa-times"></i>&nbsp;未浏览</a>
        </span>
-       <span class="r_f">共：<b>2334</b>条</span>
+       <span class="r_f">共：<b><?php echo count($rows);?></b>条</span>
      </div>
     <!--留言列表-->
     <div class="Guestbook_list">
@@ -57,43 +74,36 @@
           </tr>
       </thead>
 	<tbody>
+    <?php  foreach($rows as $row):?>
 		<tr>
      <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>1</td>
-          <td><u style="cursor:pointer"  class="text-primary" onclick="member_show('张小泉','member-show.html','1031','500','400')">张小泉</u></td>
+          <td><?php echo $row['id'];?></td>
+          <td><u style="cursor:pointer"  class="text-primary" onclick="member_show('张小泉','member-show.html','1031','500','400')"><?php
+                  $sql="select cl_name from bas_contact_client where cl_id='{$row['message_from']}'";
+                  $client=fetchOne($sql);
+                  echo $client['cl_name'];
+                  ?></u></td>
           <td class="text-l">
-          <a href="javascript:;" onclick="Guestbook_iew('12')">“第二届中国无锡水蜜桃开摘节”同时开幕，为期三个月的蜜桃季全面启动。值此京东“618品质狂欢节”之际，中国特产无锡馆限量上线618份8只装精品水蜜桃，61.8元全国包邮限时抢购。为了保证水蜜桃从枝头到达您的手中依旧鲜甜如初，京东采用递送升级服务，从下单到包装全程冷链运输。</a>
-          <td>2016-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已浏览</span></td>
+          <a href="javascript:;" onclick="Guestbook_iew(<?php echo $row['id'];?>)"><?php echo $row['message_content'];?></a>
+          </td>
+          <td><?php echo $row['message_jointime'];?></td>
+            <?php
+            if($row['message_status']==1){
+                echo " <td class=\"td-status\"><span class=\"label label-success radius\">已回复</span></td>";
+            }elseif ($row['message_status']==2){
+                echo " <td class=\"td-status\"><span class=\"label label-success radius\">未回复</span></td>";
+            }
+            ?>
           <td class="td-manage">
            <a onClick="member_stop(this,'10001')"  href="javascript:;" title="已浏览"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>   
-        <a  onclick="member_edit('回复','member-add.html','4','','510')" title="回复"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
+        <a  onclick="Guestbook_iew(<?php echo $row['id'];?>)" title="回复"  href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>
         <a  href="javascript:;"  onclick="member_del(this,'1')" title="删除" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
           </td>
         </tr>
-        </tbody>
+    <?php endforeach;?>
+    </tbody>
       </table>
     </div>
- </div>
-</div>
-<!--留言详细-->
-<div id="Guestbook" style="display:none">
- <div class="content_style">
-  <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">留言用户 </label>
-       <div class="col-sm-9">胡海天堂</div>
-	</div>
-   <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 留言内容 </label>
-       <div class="col-sm-9">三年同窗，一起沐浴了一片金色的阳光，一起度过了一千个日夜，我们共同谱写了多少友谊的篇章?愿逝去的那些闪亮的日子，都化作美好的记忆，永远留在心房。认识您，不论是生命中的一段插曲，还是永久的知已，我都会珍惜，当我疲倦或老去，不再拥有青春的时候，这段旋律会滋润我生命的每一刻。在此我只想说：有您真好!无论你身在何方，我的祝福永远在您身边!</div>
-	</div>
-    <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1">是否回复 </label>
-       <div class="col-sm-9">
-       <label><input name="checkbox" type="checkbox" class="ace" id="checkbox"><span class="lbl"> 回复</span></label>
-       <div class="Reply_style">
-          <textarea name="权限描述" class="form-control" id="form_textarea" placeholder="" onkeyup="checkLength(this);"></textarea>
-          <span class="wordage">剩余字数：<span id="sy" style="color:Red;">200</span>字</span>
-       </div>
-       </div>
-	</div>
  </div>
 </div>
 </body>
@@ -123,40 +133,15 @@ $('#checkbox').on('click',function(){
 	})
 /*留言查看*/
 function Guestbook_iew(id){
+    //alert(id);
 	var index = layer.open({
-        type: 1,
+        type: 2,
         title: '留言信息',
-		maxmin: true, 
+		maxmin: true,
 		shadeClose:false,
-        area : ['600px' , ''],
-        content:$('#Guestbook'),
-		btn:['确定','取消'],
-		yes: function(index, layero){		 
-		  if($('input[name="checkbox"]').prop("checked")){			 
-			 if($('.form-control').val()==""){
-				layer.alert('回复内容不能为空！',{
-               title: '提示框',				
-			  icon:0,		
-			  }) 
-			 }else{			
-			      layer.alert('确定回复该内容？',{
-				   title: '提示框',				
-				   icon:0,	
-				   btn:['确定','取消'],	
-				   yes: function(index){					   
-					     layer.closeAll();
-					   }
-				  }); 		  
-		   }			
-	      }else{			
-			 layer.alert('是否要取消回复！',{
-               title: '提示框',				
-			icon:0,		
-			  }); 
-			  layer.close(index);      		  
-		  }
-	   }
-	})	
+        area : ['600px' , '500px'],
+        content:'./Replay.php?id='+id,
+	})
 };
 	/*字数限制*/
 function checkLength(which) {

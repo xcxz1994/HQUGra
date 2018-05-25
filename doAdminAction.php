@@ -3,6 +3,7 @@ require_once './include.php';
 checkLogined();
 $act=$_REQUEST['act'];
 $id=$_REQUEST['id'];
+$client=$_REQUEST['client'];
 if($act=="logout"){
 	logout();
 }elseif($act=="addAdmin"){
@@ -68,6 +69,9 @@ if($act=="logout"){
     $mes=Express($id);
 }elseif ($act=='Refund'){
     $mes=Refund($id);
+}elseif ($act=='Replay'){
+    var_dump($client,$id);
+    $mes=Replay($id,$client);
 }
 
 

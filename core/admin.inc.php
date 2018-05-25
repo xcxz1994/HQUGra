@@ -458,3 +458,29 @@ function uploadFile($path="uploads",$allowExt=array("gif","jpeg","png","jpg","wb
     }
     return $destination;
 }
+/**
+回复消息
+ **/
+function Replay($id,$client){
+    $showtime=date("Y-m-d H:i:s");
+    if(isset($_SESSION['adminId'])){$arrReplay['message_from']=$_SESSION['adminId'];}elseif(isset($_COOKIE['adminId'])){$arrReplay['message_from']=$_COOKIE['adminId'];};
+    $arrReplay['message_content']=$_POST['ReplayContent'];
+    $arrReplay['message_to']=$client;
+    $arrReplay['message_jointime']=$showtime;
+    $arrReplay['message_status']='2';
+    $arrReplay['message_type']=1;
+    //var_dump($arrReplay);
+    $ReplayState['message_status']='1';
+    if(insert("sys_message",$arrReplay)){
+        //var_dump("aaaaaaaaaaaaaaa");
+        $mes="消息回复成功!";
+    }else{
+        $mes="消息回复失败!";
+    }
+    if(update("sys_message", $ReplayState,"id={$id}")){
+        $mes="已回复!<br/>";
+    }else{
+        $mes="未回复!<br/>";
+    }
+    return $mes;
+}

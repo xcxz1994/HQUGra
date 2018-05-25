@@ -369,11 +369,7 @@ function member_start(obj,id){
 		layer.msg('已启用!',{icon: 6,time:1000});
 	});
 }
-/*管理员-编辑*/
-function member_edit(){
-    alert("编辑管理员")
 
-}
 
 /*管理员-删除*/
 function member_del(obj,id){
