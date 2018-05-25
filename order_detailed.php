@@ -73,7 +73,7 @@ $pro=fetchOne($sql3);
       <span>
       <a href="#" class="name_link"><?php echo $pro['attribute'];?></a>
       <p>规格：<?php echo $pro['go_specType'];?></p>
-      <p>数量：<?php echo $row['tota'];?></p>
+      <p>数量：<?php echo $row['tota'];?>件</p>
       <p>价格：<b class="price"><i>￥</i><?php echo $row['price'];?></b></p>
       <p>状态：<i class="label label-success radius">有货</i></p>   
       </span>

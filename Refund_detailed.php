@@ -3,7 +3,7 @@ ini_set("error_reporting","E_ALL & ~E_NOTICE");
 require_once './include.php';
 
 $id=$_REQUEST['id'];
-print_r($id);
+//print_r($id);
 
 $sql="select * from scm_all_order where or_id={$id}";
 $row=fetchOne($sql);
@@ -39,7 +39,7 @@ $pro=fetchOne($sql3);
 <body>
 <div class="margin clearfix">
  <div class="Refund_detailed">
-    <div class="Numbering">退款单编号:<b>NJHDXJ201509-001</b></div>
+    <div class="Numbering">询价单编号:<b><?php echo $row['ap_id']?></b></div>
     <div class="detailed_style">
      <!--退款信息-->
      <div class="Receiver_style">
@@ -47,11 +47,11 @@ $pro=fetchOne($sql3);
      <div class="Info_style clearfix">
         <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 退款人姓名： </label>
-         <div class="o_content">张孝全</div>
+         <div class="o_content"><?php echo $client['cl_name'];?></div>
         </div>
         <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 退款人电话： </label>
-         <div class="o_content">16543432343</div>
+         <div class="o_content"><?php echo $client['cl_phone'];?></div>
         </div>
          <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 退款方式：</label>
@@ -59,35 +59,41 @@ $pro=fetchOne($sql3);
         </div>
          <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 退款数量：</label>
-         <div class="o_content">1件</div>
+         <div class="o_content"><?php echo $row['tota'];?>件</div>
         </div>
          <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 快递名称：</label>
-         <div class="o_content">圆通</div>
+         <div class="o_content"><?php echo $row['express'];?></div>
         </div>
          <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 快递单号：</label>
-         <div class="o_content">3456789090</div>
+         <div class="o_content"><?php echo $row['express_Num']?></div>
         </div>
          <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 退款账户：</label>
-         <div class="o_content">招商储蓄卡</div>
+         <div class="o_content"><?php echo $client['cl_bank'];?>卡</div>
         </div>
         <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 退款账号：</label>
-         <div class="o_content">345678*****5678</div>
+         <div class="o_content"><?php echo $client['cl_bankNum'];?></div>
         </div>
         <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 退款金额：</label>
-         <div class="o_content">345元</div>
+         <div class="o_content"><?php $sumPrice=$row['tota']*$row['price'];echo $sumPrice; ?>元</div>
         </div>
         <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 退款日期：</label>
-         <div class="o_content">2016-7-29</div>
+         <div class="o_content"><?php echo $row['approvedate']?></div>
         </div>
         <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 状态：</label>
-         <div class="o_content">退款完成</div>
+         <div class="o_content"><?php
+             if($row['state']==4){
+                 echo " <td>待退款 </td>";
+             }elseif ($row['state']==5){
+                 echo " <td>已退款</td>";
+             }
+             ?></div>
         </div>
      </div>
     </div>
@@ -103,15 +109,13 @@ $pro=fetchOne($sql3);
     <div class="title_name">产品信息</div>
     <div class="Info_style clearfix">
       <div class="product_info clearfix">
-      <a href="#" class="img_link"><img src="products/p_3.jpg"></a>
+      <a href="#" class="img_link"><img src="<?php echo substr(explode(",",$row['image'])[1],1);?>"></a>
       <span>
-      <a href="#" class="name_link">美果汇 美国进口嘎啦果苹果6粒装 加力果 姬娜果 伽利果 新鲜应季水果</a>
-      <b>也称为姬娜果，饱满色艳，个头小</b>
-      <p>编号：HY54567</p>
-      <p>规格：500g/斤</p>
-      <p>数量：1件</p>
-      <p>价格：<b class="price"><i>￥</i>56</b></p>  
-      <p class="status">已退款</p>   
+      <a href="#" class="name_link"><?php echo $pro['attribute'];?></a>
+      <p>编号：<?php echo $pro['go_id'];?></p>
+      <p>规格：<?php echo $pro['go_specType'];?></p>
+      <p>数量：<?php echo $row['tota'];?>件</p>
+      <p>价格：<b class="price"><i>￥</i><?php echo $row['price'];?></b></p>
       </span>
       </div>
     </div>
