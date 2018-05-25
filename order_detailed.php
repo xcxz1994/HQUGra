@@ -95,7 +95,13 @@ $pro=fetchOne($sql3);
         </div>
         <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 订单状态： </label>
-         <div class="o_content">待发货</div>
+         <div class="o_content"><?php
+             if($row['state']==1){
+                 echo " <td>待发货 </td>";
+             }elseif ($row['state']==2){
+                 echo " <td>待收货</td>";
+             }
+             ?></div>
         </div>
         <div class="col-xs-3">  
          <label class="label_name" for="form-field-2">下单日期： </label>

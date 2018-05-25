@@ -1,3 +1,35 @@
+<?php
+ini_set("error_reporting","E_ALL & ~E_NOTICE");
+
+require_once './include.php';
+$showtime=date("Y-m-d H:i:s");
+$NowMonth=explode("-",explode(" ",$showtime)[0])[1];
+$NowDay=explode("-",explode(" ",$showtime)[0])[2];
+//var_dump($NowDay);
+function getMonthOrders(){
+    $rowOrders=getAllOrder();
+    $Month=array();
+    $Day=array();
+    $showtime=date("Y-m-d H:i:s");
+    $NowMonth=explode("-",explode(" ",$showtime)[0])[1];
+    $NowDay=explode("-",explode(" ",$showtime)[0])[2];
+    for($i=0;$i<count($rowOrders);$i++){
+        if(explode("-",explode(" ",$rowOrders[$i]['xiaddate'])[0])[1]==$NowMonth){
+            $Month.array_push($Month,$rowOrders[$i]);
+        }
+    }
+    for($i=0;$i<count($rowOrders);$i++){
+        if(explode("-",explode(" ",$rowOrders[$i]['xiaddate'])[0])[2]==$NowDay){
+            $Day.array_push($Day,$rowOrders[$i]);
+        }
+    }
+    return array($Month,$Day);
+}
+$NowMonthOrders=getMonthOrders()[0];
+$NowDayOrders=getMonthOrders()[1];
+//print_r(count($NowDayOrders));
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -29,8 +61,20 @@
 <div class="margin clearfix">
  <div class="amounts_style">
    <div class="transaction_Money clearfix">
-      <div class="Money"><span >成交总额：1.2234.3456.00元</span><p>最新统计时间:2016-8-2</p></div>
-       <div class="Money"><span ><em>￥</em>3456.00元</span><p>当天成交额</p></div>
+      <div class="Money"><span >成交总额：<?php
+              for($i=0;$i<count($NowMonthOrders);$i++){
+                  $sumPrice=$NowMonthOrders[$i]['tota']*$NowMonthOrders[$i]['price'];
+                  $result=$result+$sumPrice;
+              }
+              $result=$result;
+              echo $result;?>元</span><p>最新统计时间:<?php echo explode(" ",$showtime)[0];?></p></div>
+       <div class="Money"><span ><em>￥</em><?php
+               for($i=0;$i<count($NowDayOrders);$i++){
+                   $sumPrice=$NowDayOrders[$i]['tota']*$NowDayOrders[$i]['price'];
+                   $result2=$result2+$sumPrice;
+               }
+               $result2=$result2;
+               echo $result2;?>元</span><p>当天成交额</p></div>
        <div class="l_f Statistics_btn"> 
        <a href="javascript:ovid()" title="当月统计" onclick="Statistics_btn()" class="btn  btn-info btn-sm no-radius"><i class="bigger fa fa-bar-chart "></i><h5 class="margin-top">当月统计</h5></a>
      </div>
@@ -41,60 +85,44 @@
       <a href="javascript:ovid()" class="btn btn-danger">当天订单</a>
         <a href="javascript:ovid()" class="btn btn-danger">当月订单</a>
        </span>
-       <span class="r_f">共：<b>2334</b>笔</span>
+       <span class="r_f">共：<b><?php echo count($NowMonthOrders);?></b>笔</span>
      </div>
    <div class="Record_list">
     <table class="table table-striped table-bordered table-hover" id="sample-table">
        <thead>
 		 <tr>
             <th width="100px">序号</th> 
-            <th width="200px">订单编号</th>
+            <th width="200px">询价单编号</th>
             <th width="180px">成交时间</th>
             <th width="120px">成交金额(元)</th>
             <th width="180px">状态</th>
                            
 			</tr>
 		</thead>
-        <tbody> 
+        <tbody>
+        <?php  foreach($NowMonthOrders as $NowMonthOrder):?>
         <tr>
-         <td>34</td>
-         <td>HD2016061200456787</td>
-         <td>2016-6-12</td>
-         <td>234</td>
-         <td>成功</td>         
+         <td><?php echo $NowMonthOrder['or_id'];?></td>
+         <td><?php echo $NowMonthOrder['ap_id'];?></td>
+         <td><?php echo $NowMonthOrder['xiaddate'];?></td>
+         <td><?php $sumPrice=$NowMonthOrder['tota']*$NowMonthOrder['price'];echo $sumPrice; ?></td>
+        <?php
+             if($NowMonthOrder['state']==1){
+                 echo " <td>待发货 </td>";
+             }elseif ($NowMonthOrder['state']==2){
+                 echo " <td>待收货</td>";
+             }elseif ($NowMonthOrder['state']==3){
+                 echo " <td>交易成功</td>";
+             }elseif ($NowMonthOrder['state']==4){
+                 echo " <td>退款中</td>";
+             }elseif ($NowMonthOrder['state']==5){
+                 echo " <td>交易失败</td>";
+             }elseif ($NowMonthOrder['state']==6){
+                 echo " <td>待付款</td>";
+             }
+             ?>
         </tr>
-        <tr>
-         <td>24</td>
-         <td>HD2016061200456787</td>
-         <td>2016-6-12</td>
-         <td>234</td>
-         <td>成功</td>
-         
-        </tr>
-        <tr>
-         <td>34</td>
-         <td>HD2016061200456787</td>
-         <td>2016-6-12</td>
-         <td>234</td>
-         <td>成功</td>
-         
-        </tr>
-        <tr>
-         <td>14</td>
-         <td>HD2016061200456787</td>
-         <td>2016-6-12</td>
-         <td>234</td>
-         <td>成功</td>
-         
-        </tr>
-        <tr>
-         <td>44</td>
-         <td>HD2016061200456787</td>
-         <td>2016-6-12</td>
-         <td>234</td>
-         <td>成功</td>
-         
-        </tr>
+        <?php endforeach;?>
         </tbody>
         </table> 
     
